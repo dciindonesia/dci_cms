@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
     <!--here all the url value should contains the valid path for the jrxml file-->
-
+<!--  
     <bean id="pdfReport"
           class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
           p:url="WEB-INF/reports/BookingOrder.jrxml"
@@ -33,6 +33,6 @@
           class="org.springframework.web.servlet.view.jasperreports.JasperReportsCsvView"
           p:url="WEB-INF/reports/BookingOrder.jrxml"
           p:reportDataKey="datasource"/>
-
+-->
 
 </beans>
