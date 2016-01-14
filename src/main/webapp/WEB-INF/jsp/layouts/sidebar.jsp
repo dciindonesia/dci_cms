@@ -22,16 +22,16 @@ padding-top:20px;
  	<div class="accordion-group dropdown">
    		<div class="accordion-heading">
      		<a href="#collapse-1" data-toggle="collapse" 
-        		data-parent="#my-accordion" class="accordion-toggle">collapsible Item 1 <i class="icon icon-chevron-down pull-right"></i></a>
+        		data-parent="#my-accordion" class="accordion-toggle">DCI INDONESIA<i class="icon icon-chevron-down pull-right"></i></a>
    		</div>
  		<div class="accordion-body collapse in" id="collapse-1">
  			<div class="accordion-inner">
             <ul>
                 <li>
-                    <a href="../main/purc.do">Purchase Order</a>
+                    <a href="#">History</a>
                 </li>
                 <li>
-                    <a href="../main/admin.do">Admins page</a>
+                    <a href="#">Service</a>
                 </li>
             </ul>
             </div>
@@ -41,13 +41,13 @@ padding-top:20px;
     <div class="accordion-group dropdown">
    		<div class="accordion-heading">
      		<a href="#collapse-2" data-toggle="collapse" 
-        		data-parent="#my-accordion" class="accordion-toggle">collapsible Item 2 <i class="icon icon-chevron-down pull-right"></i></a>
+        		data-parent="#my-accordion" class="accordion-toggle">Contact Person<i class="icon icon-chevron-down pull-right"></i></a>
    		</div>
  		<div class="accordion-body collapse" id="collapse-2">
     		<div class="accordion-inner">
         				<ul>
                             <li>
-                                <a href="../main/superd.do">Supervisor Area</a>
+                                <a href="#">Me</a>
                             </li>
                         </ul>
         	</div>
@@ -57,13 +57,13 @@ padding-top:20px;
     <div class="accordion-group">
    		<div class="accordion-heading">
      		<a href="#collapse-3" data-toggle="collapse" 
-        		data-parent="#my-accordion" class="accordion-toggle">collapsible Item 3 <i class="icon icon-chevron-down pull-right"></i></a>
+        		data-parent="#my-accordion" class="accordion-toggle">Career<i class="icon icon-chevron-down pull-right"></i></a>
    		</div>
  		<div class="accordion-body collapse" id="collapse-3">
     		<div class="accordion-inner">
         				<ul>
                             <li>
-                                <a href="../main/common.do">Main Menu</a>
+                                <a href="#">Job Information</a>
                             </li>
                             <li>Lorem ipsum dolor sit amet</li>
                         </ul>
