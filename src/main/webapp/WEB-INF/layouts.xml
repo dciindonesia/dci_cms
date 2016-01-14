@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+<definition name="base.definition" template="/WEB-INF/jsp/layout.jsp">
+	<put-attribute name="title" value="" />
+    <put-attribute name="header" value="/WEB-INF/jsp/layouts/header.jsp" />
+    <put-attribute name="carousel" value="/WEB-INF/jsp/layouts/carousel.jsp" />
+    <put-attribute name="sidebar" value="/WEB-INF/jsp/layouts/sidebar.jsp" />
+    <put-attribute name="sidebar2" value="/WEB-INF/jsp/layouts/sidebar2.jsp" />
+    <put-attribute name="sidebar3" value="/WEB-INF/jsp/layouts/sidebar3.jsp" />
+    <put-attribute name="footer" value="/WEB-INF/jsp/layouts/footer.jsp" />
+  </definition>
+  
+  	<definition name="adminpage" extends="base.definition">
+		<put-attribute name="title" value="Admin Area" />
+		<put-attribute name="body" value="/WEB-INF/jsp/admin/adminpage.jsp" />
+	</definition>
+
+	<definition name="POtiles" extends="base.definition">
+		<put-attribute name="title" value="Order It" />
+		<put-attribute name="body" value="/WEB-INF/jsp/purchasePage.jsp" />
+	</definition>
+	
+	<definition name="resultTiles" extends="base.definition">
+		<put-attribute name="title" value="Thank You for your Kindness" />
+		<put-attribute name="body" value="/WEB-INF/jsp/result.jsp" />
+	</definition>
+	
+	<definition name="spvtiles" extends="base.definition">
+		<put-attribute name="title" value="Supervisor Area" />
+		<put-attribute name="body" value="/WEB-INF/jsp/spvpage.jsp" />
+	</definition>
+	
+	<definition name="commoncrot" extends="base.definition">
+		<put-attribute name="title" value="Standard Page" />
+		<put-attribute name="body" value="/WEB-INF/jsp/commonpage.jsp" />
+	</definition>
+	
+	<definition name="loginpage" extends="base.definition">
+		<put-attribute name="title" value="Please Login" />
+		<put-attribute name="body" value="/WEB-INF/jsp/loginpage.jsp" />
+	</definition>
+	
+	<definition name="deniedxml" extends="base.definition">
+		<put-attribute name="title" value="NON AUTHORIZED USER!" />
+		<put-attribute name="body" value="/WEB-INF/jsp/deniedpage.jsp" />
+	</definition>
+	
+	<definition name="signin" extends="base.definition">
+		<put-attribute name="title" value="Please Login" />
+		<put-attribute name="body" value="/WEB-INF/jsp/SignIn.jsp" />
+	</definition>
+
+  <definition name="public" template="/WEB-INF/layouts/public.jsp">
+    <put-attribute name="header" value="/WEB-INF/views/header.jsp" />
+    <put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
+  </definition>
+
+</tiles-definitions>
