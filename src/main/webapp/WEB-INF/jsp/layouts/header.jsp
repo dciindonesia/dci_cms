@@ -50,9 +50,9 @@
               <span class="icon-bar"></span>
             </button>
             <a class="brand" href="/www.sriboga-flourmill.com">
-            <c:url var="imageUrl1" value="/resources/bootstrap/img/SFMlogosmall.jpg" />
-          <img class="img-circle" src="${imageUrl1}" alt="PT. SFM" />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PT.Sriboga Flour Mill
+            
+          <img class="img-circle" src="<c:url value="/resources/img/dci_logo.jpeg" />" alt="PT.DCI Indonesia" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PT.DCI Indonesia
             </a>
             <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
             <div class="nav-collapse collapse">
@@ -70,12 +70,12 @@
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer<b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                    <li><a href="#">PT. A</a></li>
-                    <li><a href="#">PT. B</a></li>
-                    <li><a href="#">PT. C</a></li>
+                    <li><a href="/DCI/main/superd">PT. A</a></li>
+                    <li><a href="/DCI/main/superd">PT. B</a></li>
+                    <li><a href="/DCI/main/superd">PT. C</a></li>
                     <li class="divider"></li>
-                    <li class="nav-header">Seetings</li>
-                    <li><a href="#">Edit Site</a></li>
+                    <li class="nav-header">Settings</li>
+                    <li><a href="/DCI/main/superd">Edit Site</a></li>
                   </ul>
                 </li>
                 <c:if test="${!empty username}">

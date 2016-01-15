@@ -65,10 +65,10 @@
     </bean>
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="${app.jdbc.driverClassName}" />
-		<property name="url" value="${app.jdbc.url}" />
-		<property name="username" value="${app.jdbc.username}" />
-        <property name="password" value="${app.jdbc.password}" />
+		<property name="driverClassName" value="${mysql.jdbc.driverClassName}" />
+		<property name="url" value="${mysql.jdbc.url}" />
+		<property name="username" value="${mysql.jdbc.username}" />
+        <property name="password" value="${mysql.jdbc.password}" />
 	</bean>
 	
 	<bean id="sessionFactory"
@@ -82,13 +82,13 @@
 		<property name="hibernateProperties">
 			<props>
 				<!-- Enable Hibernate's automatic session context management -->
-        		<prop key="current_session_context_class">${hibernate.session}</prop>
-				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
-				<!-- <prop key="hibernate.hbm2ddl.auto">create</prop>  -->
+        		<prop key="current_session_context_class">${mysql.hibernate.session}</prop>
+				<prop key="hibernate.dialect">${mysql.hibernate.dialect}</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
 				<!-- uncomment this for first time run-->
-				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
-				<prop key="hibernate.show_sql">${hibernate.show.sql}</prop>
-				<prop key="hibernate.cache.provider_class">${hibernate.provider_class}</prop>
+				<!--  <prop key="hibernate.hbm2ddl.auto">${mysql.hibernate.hbm2ddl.auto}</prop> -->
+				<prop key="hibernate.show_sql">${mysql.hibernate.show.sql}</prop>
+				<!--  <prop key="hibernate.cache.provider_class">${hsqldb.hibernate.provider_class}</prop> -->
 			</props>
 		</property>
 	</bean>

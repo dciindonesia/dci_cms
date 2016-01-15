@@ -8,3 +8,4 @@ insert into Role (ROLE_ID, USERNAME, ROLE) values (3, 'admin', 'ROLE_USER')
 insert into Role (ROLE_ID, USERNAME, ROLE) values (4, 'spv', 'ROLE_SUPERVISOR')
 insert into Role (ROLE_ID, USERNAME, ROLE) values (5, 'spv', 'ROLE_USER')
 insert into Role (ROLE_ID, USERNAME, ROLE) values (6, 'guest', 'ROLE_USER')
+

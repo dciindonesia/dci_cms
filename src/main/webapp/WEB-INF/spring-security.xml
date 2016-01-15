@@ -12,23 +12,25 @@
 	
 		<intercept-url pattern="/auth/login" access="permitAll"/>
 		<intercept-url pattern="/report/**" access="permitAll"/>
-		<intercept-url pattern="/main/admin" access="hasRole('ROLE_ADMIN')"/>
+		<!--<intercept-url pattern="/main/admin" access="hasRole('ROLE_ADMIN')"/>-->
 		<intercept-url pattern="/main/superd" access="hasRole('ROLE_SUPERVISOR')"/>
 		<intercept-url pattern="/main/common" access="permitAll"/>
 		<intercept-url pattern="/main/purc" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/main/resultPage" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/main/default" access="permitAll"/>
-		
+		<intercept-url pattern="/auth/403*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        
+        <access-denied-handler error-page="/auth/403"/>
 		
 		<form-login 
-				login-page="/auth/login" 
+				login-page="/auth/login"
 				authentication-failure-url="/auth/login?error=true" 
-				default-target-url="/main/common"/>
+				default-target-url="/auth/loginfailed"/>
 		
 		<!--  <logout logout-success-url="/" logout-url="/j_spring_security_logout" /> -->
 		<logout 
 				invalidate-session="true" 
-				logout-success-url="/auth/login" 				
+				logout-success-url="/auth/logout" 				
 				logout-url="/j_spring_security_logout"
 				/> <!-- logout-url="/auth/logout" -->
 				

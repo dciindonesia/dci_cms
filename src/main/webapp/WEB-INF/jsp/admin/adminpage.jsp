@@ -5,29 +5,36 @@ scid=(String)session.getAttribute("scid");
 %>
 <div id="welcome">
 <h2><span>Welcome:::<strong><font color='Red'><%= scid %></font></strong></span></h2> 
+<h3>Welcome ${username}</h3>
 </div>
 <section>
 <p>Only Administrator have access to this page.</p>
 <p>Curabitur quis libero elit, dapibus iaculis nisl. Nullam quis velit eget odio 
 adipiscing tristique non sed ligula. In auctor diam eget nisl condimentum laoreet..
 </p>
-<p class="muted small">
-Curabitur quis libero elit, dapibus iaculis nisl. Nullam quis velit eget odio 
-adipiscing tristique non sed ligula. In auctor diam eget nisl condimentum laoreet..
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
-euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad 
-minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut 
-aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in 
-vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis 
-at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum 
-zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum 
-soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat 
-facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis 
-qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius 
-quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur 
-mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc 
-putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta 
-decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, 
-fiant sollemnes in futurum.
-</p>
+<table id="table">
+	<thead>
+		<th>ID</th>
+		<th>NAME</th>
+		<th>USERNAME</th>
+		<th>PASSWORD</th>
+		<th>EMAIL</th>
+		<th>LOCKED</th>
+	</thead>
+	<tbody>
+		<c:forEach items="${userItems}" var="users">			
+			<tr>
+				<td><c:out value="${users.userId}" /></td>
+				<td><c:out value="${users.name}" /></td>
+				<td><c:out value="${users.userName}" /></td>
+				<td><c:out value="${users.password}" /></td>
+				<td><c:out value="${users.email}" /></td>
+				<td><c:out value="${users.locked}" /></td>
+			</tr>
+		</c:forEach>
+	</tbody>
+	<tfoot>
+		<th>Please used it carefully</th>
+	</tfoot>
+</table>
 </section>

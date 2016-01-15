@@ -1,65 +1,29 @@
 <%@ include  file="/WEB-INF/includes/taglibs.jsp" %>
-<%@taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Sample mvc test</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link href="css/bootstrap.css" rel="stylesheet">
-
-  <style type="text/css">
-  body {
-    padding-top: 60px;
-    padding-bottom: 40px;
-  }
-  .sidebar-nav {
-    padding: 9px 0;
-  }
-  </style>
-</head>
-<body>
-  <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container-fluid">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </a>
-        <a class="brand" href="#"><spring:message code="app.name"/></a>
-        <div class="nav-collapse">
-          <ul class="nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-          <p class="navbar-text pull-right">Logged in as <c:out value="${principalname}"/></p>
-        </div>
-      </div>
-    </div>
-  </div>
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span2">
-      <div class="well sidebar-nav">
-        <ul class="nav nav-list">
-          <li class="nav-header"></li>
-          <li class="active"><a href="${tasksHomeUrl}">Members</a></li>
-        </ul>
-      </div><!--/.well -->
-    </div><!--/span-->
-    <tiles:insertAttribute name="body"/>        
-  </div><!--/row-->
-  <hr>
-<tiles:insertAttribute name="footer" />
-  <footer>
-    <div class="container-fluid"><p>&copy; <spring:message code="app.copyright"/></p></div>
-  </footer>
-
+<a class="brand" href="#"><spring:message code="app.name"/></a>
+<div class="containers">
+  <p class="muted small">
+Curabitur quis libero elit, dapibus iaculis nisl. Nullam quis velit eget odio 
+adipiscing tristique non sed ligula. In auctor diam eget nisl condimentum laoreet..
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
+euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad 
+minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut 
+aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in 
+vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis 
+at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum 
+zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum 
+soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat 
+facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis 
+qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius 
+quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur 
+mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc 
+putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta 
+decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, 
+fiant sollemnes in futurum.
+</p>
+  <p>
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores dolorum voluptate unde voluptatem vel inventore quia saepe autem eius, sed tempore possimus soluta, provident pariatur impedit perspiciatis dolor deserunt sequi!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore delectus magnam vel soluta, beatae omnis ullam atque. Ab, minima. Unde porro autem assumenda accusantium perferendis quibusdam alias id esse inventore.
+  </p>
 </div>
-</body>
-</html>

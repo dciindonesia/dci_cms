@@ -33,7 +33,7 @@
         <td width="20%" class="well sidebar-nav">        
           <tiles:insertAttribute name="sidebar" />
         </td>     
-        <td>
+        <td class="contents">
           <tiles:insertAttribute name="body" />
         </td><!--/span-->
         </tr>

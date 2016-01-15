@@ -99,13 +99,13 @@ public class UsersDaoImpl implements UsersDao{
 		}
 	}
 	
-	public Users findById(java.lang.String id) {
-		log.debug("getting User instance with id: " + id);
+	public Users findById(String name) {
+		log.debug("getting User instance with id: " + name);
 		try {
 			//Userx instance = (Userx) sessionFactory.getCurrentSession().get(
 			//		"User", id);
 			Users instance = (Users) sessionFactory.getCurrentSession().createQuery(
-					"from " + Users.class.getName() + " u where u.firstName='" + id + "'").uniqueResult();
+					"from " + Users.class.getName() + " u where u.USERNAME='" + name + "'").uniqueResult();
 					//.addEntity("com.jsfsample.model.Userx").list();
 			if (instance == null) {
 				log.debug("get successful, no instance found");

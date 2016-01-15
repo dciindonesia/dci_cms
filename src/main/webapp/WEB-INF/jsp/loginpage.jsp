@@ -32,10 +32,8 @@
 <p>
   To Start order you must be logged in.<br>
   If your company doesn't have account to this site, please contact Us.<br>
-  And if you don't have Flour that you want to order please contact Us.<br>
-  We will be greatfull to help you.<br>
-  Thank You for your time to take order Sriboga FlourMill Product with this
-  site.
+  For more information, please contact our Customer Service<br>
+  Thank You for your time to visit our site - PT.DCI Indonesia
 </p>
 
 <hr>
@@ -82,23 +80,23 @@
   
 <p>
   <code>OFFICE :</code><br>
-  PT. Sriboga Flour Mill<br>
-   Plaza Daniprisma Lt.2 & 3,<br> 
-   Jl. Sultan Hasanudin No 47-48.<br>
-   Kebayoran Baru,<br>
-   Jakarta Selatan 12160 - Indonesia<br>
-   Telp. (62-21) 725 0240<br>
-   Fax. (62-21) 7206008, 72793039<br>
-   Email : info@sriboga-flourmill.com<br> 
+  Equity Tower Building,<br>
+  17th Floor,<br> 
+  Suite F Sudirman Central Business District Lot 9<br>
+  Jl. Jend. Sudirman Kav. 52-53<br>
+  Jakarta 12190 - Indonesia<br>
+  Telp. (62-21) 290 37500<br>
+  Fax. (62-21) 290 37600<br>
+  Email : sales@dci-indonesia.com<br> 
 </p>
 <p>   
-  <code>FACTORY :</code><br>
-   Jl. Deli No. 10 & 23 Tanjung Emas<br>
-   Semarang 50174 - Indonesia<br>
-   Telp. (62-24) 3558373<br>
-   Fax. (62-24) 3553800<br>
+  <code>DATA CENTER :</code><br>
+   Kawasan Industri MM2100 Cibitung<br>
+   Jl. Irian Blok.GG,<br>  Cikarang, Jawa Barat,<br>Indonesia<br>
+   Telp. (62-21) 2949 3030<br>
+   Fax. (62-21) 290 37600<br>
    <br> 
-  Customer Care 0-800-140-1109<br>
+  Customer Care 0-800-<br>
   <br>
 </p>
 

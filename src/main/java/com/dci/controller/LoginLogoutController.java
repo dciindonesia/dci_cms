@@ -62,7 +62,7 @@ public class LoginLogoutController {
 		logger.debug("Received request to show denied page");
 		
 		// This will resolve to /WEB-INF/jsp/deniedpage.jsp
-		return "deniedxml";
+		return "deniedpage";
 	
 	}
 	
@@ -77,6 +77,26 @@ public class LoginLogoutController {
 		logger.debug("Received request to logout page");
 		
 		// This will resolve to /WEB-INF/jsp/deniedpage.jsp
-		return "loginpage";
+		return "logoutpage";
+	}
+	
+	@RequestMapping(value="/loginfailed", method = RequestMethod.GET)
+	public String loginerror(ModelMap model) {
+		model.addAttribute("error", "true");
+		return "failedPage";
+ 	}
+	
+	/**
+	 * Handles and retrieves the denied JSP page. This is shown whenever a regular user
+	 * tries to access an admin only page.
+	 * 
+	 * @return the name of the JSP page
+	 */
+	@RequestMapping(value = "/403", method = RequestMethod.GET)
+ 	public String getFailLoginPage() {
+		logger.debug("Received request to show denied page");
+		
+		// This will resolve to /WEB-INF/jsp/deniedpage.jsp
+		return "403";
 	}
 }

@@ -19,10 +19,10 @@ public interface UsersDao {
 	void attachClean(Users instance);
 	void delete(Users persistentInstance);
 	Users merge(Users detachedInstance);
-	Users findById(java.lang.String id);
+	Users findById(String id);
 	@SuppressWarnings("rawtypes")
 	List findByExample(Users instance);
 	List<Users> getAllUser();
-	Users findByName(java.lang.String name);
+	Users findByName(String name);
 	Users getUserById(String uid);
 }

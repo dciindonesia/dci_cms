@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.sql.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
@@ -67,6 +68,12 @@ public class MainController{
     	logger.debug("Received request to show common page GET");
     return "commoncrot";
 	}
+    
+    @RequestMapping(value = "/defaults")
+    public String getDefaultPage() {
+    	logger.debug("Received request to show Default page");
+    return "defaultPage";
+	}
 
     /**
 	 * Handles and retrieves the common JSP page that everyone can see
@@ -122,6 +129,8 @@ public class MainController{
     public String getAdminPage(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
     	logger.debug("Received request to show admin page");
     	model.addAttribute("username", getAuthName().getName());
+    	List<Users> userList = usersDao.getAllUser();
+		model.addAttribute("userItems", userList);
     return "adminpage";
 	}
     
@@ -131,6 +140,7 @@ public class MainController{
     	model.addAttribute("username", getAuthName().getName());
     return "spvtiles";
 	}
+	
     /*
 	@RequestMapping(value = "/purc", method = RequestMethod.GET)
     public String getPurcPage(@RequestParam(required= false, defaultValue="") String searches, 

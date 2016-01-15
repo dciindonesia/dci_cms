@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.dci.dao.UsersDao;
+import com.dci.dao.impl.UsersDaoImpl;
 import com.dci.model.Role;
 import com.dci.model.Users;
 
@@ -29,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	protected static Logger logger = Logger.getLogger("service");
 	
 	@Autowired
-	UsersDao usersDao;
+	UsersDao usersDao = new UsersDaoImpl();
 	
 	/**
 	 * Retrieves a user record containing the user's credentials and access. 
@@ -47,7 +48,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 			// Or use JDBC to access your database
 			// DbUser is our custom domain user. This is not the same as Spring's User
 			
-			Users users = usersDao.findByName(username);
+			Users users = usersDao.findById(username);
 			
 			logger.debug("retrieve User : " + users.getName());
 			
@@ -56,8 +57,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 			// getAuthorities() will translate the access level to the correct role type
 
 			Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-			logger.debug("mlebu nang GrantedAuthority");
+			logger.debug(authorities.isEmpty());
+			logger.debug(users.getRoles());
 		    for (Role role : users.getRoles()) { // 
+		    	
 		      authorities.add(new GrantedAuthorityImpl(role.getRole()));
 		    }
 		    logger.debug("entuk authorities");
@@ -71,7 +74,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 					authorities);
 			 logger.debug("retrive paket User loadUserByUserName");
 		} catch (Exception e) {
-			logger.error("Error in retrieving user");
+			logger.error("Error in retrieving user " + e.toString());
 			throw new UsernameNotFoundException("Error in retrieving user");
 		}
 		
