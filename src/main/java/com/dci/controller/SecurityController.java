@@ -25,7 +25,7 @@ protected static Logger logger = Logger.getLogger("controller");
 		
 	    String username = request.getParameter("username");
 	    //String password = request.getParameter("password");
-	    Users user = usersDao.findById(username);
+	    Users user = usersDao.findByName(username);
 	    if (user != null) {
 	        request.getSession().setAttribute("user", user); 
 	        response.sendRedirect("home");

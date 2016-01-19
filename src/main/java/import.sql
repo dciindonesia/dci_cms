@@ -9,3 +9,6 @@ insert into Role (ROLE_ID, USERNAME, ROLE) values (4, 'spv', 'ROLE_SUPERVISOR')
 insert into Role (ROLE_ID, USERNAME, ROLE) values (5, 'spv', 'ROLE_USER')
 insert into Role (ROLE_ID, USERNAME, ROLE) values (6, 'guest', 'ROLE_USER')
 
+insert into PERSON (PERSON_ID, USERNAME, PASSWORD, NAME, EMAIL, LOCKED) values (1,  'admin', 'admin', 'Administrator', 'admin@email.com', true)
+insert into PERSON (PERSON_ID, USERNAME, PASSWORD, NAME, EMAIL, LOCKED) values (2,  'spv', 'spv', 'Supervisor', 'spv@email.com', true)
+insert into PERSON (PERSON_ID, USERNAME, PASSWORD, NAME, EMAIL, LOCKED) values (3,  'guest', 'guest', 'User Guest', 'guest@email.com', false)

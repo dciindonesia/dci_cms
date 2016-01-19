@@ -1,78 +1,72 @@
 <%@ include  file="/WEB-INF/includes/taglibs.jsp" %>
 <style>
-.side-wrap {
-  position: fixed;
-  top: 50px;
-  width: 225px;
-  background-color: #f5f5f5;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    border-radius: 4px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
-  }
-.accordion-group {
-min-height:60px;
-}
-
-.accordion-heading {
-min-height:60px;
-}
-
-.accordion-heading .accordion-toggle {
-padding-top:20px;
-}
+	.active-menu {
+    background-color: #c90000 !important;
+	}
+	.navbar-default {
+		padding-top: 80px;
+	}
 </style>
-<div id="wrap" class="side-wrap">
-<div class="accordion" id="my-accordion">
- 	<div class="accordion-group dropdown">
-   		<div class="accordion-heading">
-     		<a href="#collapse-1" data-toggle="collapse" 
-        		data-parent="#my-accordion" class="accordion-toggle">DCI INDONESIA<i class="icon icon-chevron-down pull-right"></i></a>
-   		</div>
- 		<div class="accordion-body collapse in" id="collapse-1">
- 			<div class="accordion-inner">
-            <ul>
-                <li>
-                    <a href="/DCI/main/defaults">History</a>
-                </li>
-                <li>
-                    <a href="/DCI/main/common">Service</a>
-                </li>
-            </ul>
+ <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+				<li class="text-center">
+                    <img src="<c:url value="/resources/img/find_user.png" />" class="user-image img-responsive"/>
+					</li>
+				
+					
+                    <li>
+                        <a class="active-menu"  href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                    </li>
+                     <li>
+                        <a  href="ui.html"><i class="fa fa-desktop fa-3x"></i> UI Elements</a>
+                    </li>
+                    <li>
+                        <a  href="tab-panel.html"><i class="fa fa-qrcode fa-3x"></i> Tabs & Panels</a>
+                    </li>
+						   <li  >
+                        <a   href="chart.html"><i class="fa fa-bar-chart-o fa-3x"></i> Morris Charts</a>
+                    </li>	
+                      <li  >
+                        <a  href="table.html"><i class="fa fa-table fa-3x"></i> Table Examples</a>
+                    </li>
+                    <li  >
+                        <a  href="form.html"><i class="fa fa-edit fa-3x"></i> Forms </a>
+                    </li>				
+					
+					                   
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap fa-3x"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">Second Level Link</a>
+                            </li>
+                            <li>
+                                <a href="#">Second Level Link</a>
+                            </li>
+                            <li>
+                                <a href="#">Second Level Link<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="#">Third Level Link</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level Link</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level Link</a>
+                                    </li>
+
+                                </ul>
+                               
+                            </li>
+                        </ul>
+                      </li>  
+                  <li  >
+                        <a  href="blank.html"><i class="fa fa-square-o fa-3x"></i> Blank Page</a>
+                    </li>	
+                </ul>
+               
             </div>
-    	</div>
-    </div>
-    
-    <div class="accordion-group dropdown">
-   		<div class="accordion-heading">
-     		<a href="#collapse-2" data-toggle="collapse" 
-        		data-parent="#my-accordion" class="accordion-toggle">Contact Person<i class="icon icon-chevron-down pull-right"></i></a>
-   		</div>
- 		<div class="accordion-body collapse" id="collapse-2">
-    		<div class="accordion-inner">
-        				<ul>
-                            <li>
-                                <a href="/DCI/main/defaults">Me</a>
-                            </li>
-                        </ul>
-        	</div>
-    	</div>
-    </div>
-    
-    <div class="accordion-group">
-   		<div class="accordion-heading">
-     		<a href="#collapse-3" data-toggle="collapse" 
-        		data-parent="#my-accordion" class="accordion-toggle">Career<i class="icon icon-chevron-down pull-right"></i></a>
-   		</div>
- 		<div class="accordion-body collapse" id="collapse-3">
-    		<div class="accordion-inner">
-        				<ul>
-                            <li>
-                                <a href="/DCI/main/common">Job Information</a>
-                            </li>
-                            <li><a href="/DCI/main/defaults">Contact Us</a></li>
-                        </ul>
-        	</div>
-    	</div>
-    </div>
-</div>
-</div>
+            
+        </nav> 

@@ -63,7 +63,24 @@
         <property name="location" value="/WEB-INF/jasper-views.xml"/>
         <property name="order" value="0"/>
     </bean>
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
+				 p:dataSource-ref="dataSource"
+				 p:configLocation="${mysql.hibernate.config}"
+				 p:packagesToScan="com.dci"/>
 	
+	<!-- Declare a datasource that has pooling capabilities-->	 
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+				destroy-method="close"
+				p:driverClass="${mysql.jdbc.driverClassName}"
+				p:jdbcUrl="${mysql.jdbc.url}"
+				p:user="${mysql.jdbc.username}"
+				p:password="${mysql.jdbc.password}"
+				p:acquireIncrement="5"
+				p:idleConnectionTestPeriod="60"
+				p:maxPoolSize="100"
+				p:maxStatements="50"
+				p:minPoolSize="10" />
+	<!--
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${mysql.jdbc.driverClassName}" />
 		<property name="url" value="${mysql.jdbc.url}" />
@@ -81,18 +98,17 @@
 		<property name="packagesToScan" value="com.dci.model" />
 		<property name="hibernateProperties">
 			<props>
-				<!-- Enable Hibernate's automatic session context management -->
+				
         		<prop key="current_session_context_class">${mysql.hibernate.session}</prop>
 				<prop key="hibernate.dialect">${mysql.hibernate.dialect}</prop>
-				<prop key="hibernate.hbm2ddl.auto">create</prop>
-				<!-- uncomment this for first time run-->
-				<!--  <prop key="hibernate.hbm2ddl.auto">${mysql.hibernate.hbm2ddl.auto}</prop> -->
+
+				<prop key="hibernate.hbm2ddl.auto">${mysql.hibernate.hbm2ddl.auto}</prop>
 				<prop key="hibernate.show_sql">${mysql.hibernate.show.sql}</prop>
-				<!--  <prop key="hibernate.cache.provider_class">${hsqldb.hibernate.provider_class}</prop> -->
+				<prop key="hibernate.cache.provider_class">${hsqldb.hibernate.provider_class}</prop>
 			</props>
 		</property>
 	</bean>
-	
+	-->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory">

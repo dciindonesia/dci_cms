@@ -1,1 +1,1 @@
-<% response.sendRedirect("main/common"); %>
+<% response.sendRedirect("main/utama"); %>

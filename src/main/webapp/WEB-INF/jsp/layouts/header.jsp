@@ -1,94 +1,89 @@
 <%@ include  file="/WEB-INF/includes/taglibs.jsp" %>
-<style type="text/css">
-
-  .navbar .brand {
-    color: #FFFFFF;
-  }
-
-  .navbar .nav > li > a {
-    color: #ffffff;
-  }
-
-  .navbar .nav .active > a, .navbar .nav .active > a:hover {
-   /*background-color: #ffe9a4;*/
-   height: 22px;
-  }
-
-  .navbar-inner {
-
-    color: #ffffff;
-    min-height: 40px;
-    padding-right: 20px;
-    padding-left: 20px;
-    background-color: #0074cc;
-    background-image: -moz-linear-gradient(top, #0088cc, #0055cc);
-    background-image: -ms-linear-gradient(top, #0088cc, #0055cc);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0055cc));
-    background-image: -webkit-linear-gradient(top, #0088cc, #0055cc);
-    background-image: -o-linear-gradient(top, #0088cc, #0055cc);
-    background-image: linear-gradient(top, #0088cc, #0055cc);
-    background-repeat: repeat-x;
-    -webkit-border-radius: 4px;
-       -moz-border-radius: 4px;
-            border-radius: 4px;
-    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#333333', endColorstr='#222222', GradientType=0);
-    -webkit-box-shadow: 0 1px 3px rgba(0, 85, 204, 0.25), inset 0 -1px 0 rgba(0, 85, 204, 0.1);
-       -moz-box-shadow: 0 1px 3px rgba(0, 85, 204, 0.25), inset 0 -1px 0 rgba(0, 85, 204, 0.1);
-            box-shadow: 0 1px 3px rgba(0, 85, 204, 0.25), inset 0 -1px 0 rgba(0, 85, 204, 0.1);
-  }
-
+<style>
+	.navbar-inverse {
+		background-color: #fff;
+	}
+	
+	.li-cust {
+		padding-top: 14px;
+	}
+	
+	.navbar-inverse .navbar-nav > li
+	> a:focus, .navbar-inverse .navbar-nav > li 
+	> a:hover {
+		
+		color: blue;
+	}
+	
+	.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:focus, .navbar-inverse .navbar-nav > .open > a:hover {
+    background-color: #fff;
+    }
+	
+	.navbar-inverse .navbar-nav > li > a {
+		color: #fff;
+	}
+	
+	.navbar-nav > li > a {
+    	padding-bottom: 19px;
+    }
+    
+    .dropdown-menu {
+    	background-color: #5073DA;
+    }
+    
+    .dropdown-menu > li > a {
+    	color: #fff;
+    }
+		
+    .form-control::-moz-placeholder {
+		color : #fff;
+	}
+    .head-group {
+        padding-top: 21px;
+    }
+    .btn-cust {
+    	padding-right: 10px;
+    	height: 40px;
+    }
 </style>
-
-        <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-        <div class="container">
-          
-            <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="brand" href="/www.sriboga-flourmill.com">
+<div class="navbar navbar-inverse navbar-fixed-top headCustom">
+    <div id="timer-wrap" style="margin-top: 5px;">
+    <div id="timer" class="text-center">
+    <div class="row">
+            <div class="col-xs-3">
+                <a href="#"><img src="<c:url value="/resources/img/DCI_logo_small.png" />" alt="logo" /></a>
+            </div>
             
-          <img class="img-circle" src="<c:url value="/resources/img/dci_logo.jpeg" />" alt="PT.DCI Indonesia" />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PT.DCI Indonesia
-            </a>
-            <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
-            <div class="nav-collapse collapse">
-            <div class="navbar-text pull-right">
-              <c:if test="${!empty username}">
-              Logged in as : <a href="#" class="navbar-link">${username}</a> <!-- ${userDetails.username} -->
-              </c:if>
-            </div>  
-
-              <ul class="nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact Us</a></li>
-                <!-- Read about Bootstrap dropdowns at http://twitter.github.com/bootstrap/javascript.html#dropdowns -->
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer<b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="/DCI/main/superd">PT. A</a></li>
-                    <li><a href="/DCI/main/superd">PT. B</a></li>
-                    <li><a href="/DCI/main/superd">PT. C</a></li>
-                    <li class="divider"></li>
-                    <li class="nav-header">Settings</li>
-                    <li><a href="/DCI/main/superd">Edit Site</a></li>
-                  </ul>
-                </li>
-                <c:if test="${!empty username}">
-                <li>
-                  <c:url value="/j_spring_security_logout" var="logoutUrl" />
-                  <a href="${logoutUrl}">Log Out</a>
-                </li>
-                </c:if>
-              </ul>
-              
-            <!-- </div> --> <!-- /.navbar-text pull-right -->
-            </div><!--/.nav-collapse -->
-          
-          </div> <!-- /.container -->
-        </div><!-- /.navbar-inner -->
-        </div><!-- /.navbar-inverse -->
+                <form action="../main/customer" class="form-inline"> 
+                <div class="col-md-5 head-group">                  
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="findInput" placeholder="Find a company" style="width:300px;background-color:#CCC;color:#fff;">
+                    </div>
+                    </div>
+                    <div class="col-md-4"> 
+                    <ul class="nav navbar-nav navbar-right"> 
+                    <li class="dropdown">
+            			<a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<c:url value="/resources/img/user.png" />" alt="user" /> <b class="caret"></b></a>
+			            <ul class="dropdown-menu" aria-labelledby="drop1">
+			              <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;NEW GUY</a></li>
+			              <li class="divider" role="separator"></li>
+			              <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;&nbsp;SETTINGS</a></li>
+			              <li class="divider" role="separator"></li>
+			              <li><a href="#"><span class="glyphicon glyphicon-refresh" aria-hidden="true">&nbsp;CONNECTIONS</a></li>
+			              <li class="divider" role="separator"></li>
+			              <li><a href="#"><span class="glyphicon glyphicon-comment" aria-hidden="true">&nbsp;PING</a></li>
+			              <li class="divider" role="separator"></li>
+			              <li><a href="#"><span class="glyphicon glyphicon-log-out" aria-hidden="true">&nbsp;LOGOUT</a></li>
+			            </ul>
+		          	</li>
+                    <li class="li-cust">
+                    <a class="btn btn-info btn-sm btn-cust" role="button" href="#">Ping Someone</a>
+                    </li>
+                    </ul>
+                	</div>
+                </form>
+            </div><!--/.navbar-collapse -->
+        
+    </div>
+    </div>
+</div>

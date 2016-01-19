@@ -2,6 +2,9 @@ package com.dci.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
+import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +16,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dci.dao.UsersDao;
+import com.dci.dao.impl.GetUsersDao;
 import com.dci.dao.impl.UsersDaoImpl;
+import com.dci.model.Person;
 import com.dci.model.Role;
 import com.dci.model.Users;
 
@@ -24,13 +30,16 @@ import com.dci.model.Users;
  * <p>
  * This custom service must implement Spring's {@link UserDetailsService}
  */
-@Service("userDetailsService")
+//@Service("customUserDetailsService")
+@Transactional(readOnly = true)
 public class CustomUserDetailsService implements UserDetailsService {
 	
 	protected static Logger logger = Logger.getLogger("service");
 	
 	@Autowired
-	UsersDao usersDao = new UsersDaoImpl();
+	private UsersDao usersDao = new UsersDaoImpl();
+	@Autowired
+	private GetUsersDao getUsersDao;
 	
 	/**
 	 * Retrieves a user record containing the user's credentials and access. 
@@ -40,16 +49,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 		
 		// Declare a null Spring User
 		UserDetails user = null;
-		
 		try {
-			logger.debug("mlebu nang loadUserByUserName");
+			logger.debug("mlebu nang loadUserByUserName :" + username);
 			// Search database for a user that matches the specified username
 			// You can provide a custom DAO to access your persistence layer
 			// Or use JDBC to access your database
 			// DbUser is our custom domain user. This is not the same as Spring's User
-			
-			Users users = usersDao.findById(username);
-			
+			Users users = usersDao.getByName(username);				
 			logger.debug("retrieve User : " + users.getName());
 			
 			// Populate the Spring User object with details from the dbUser
@@ -58,11 +64,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 			Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 			logger.debug(authorities.isEmpty());
-			logger.debug(users.getRoles());
-		    for (Role role : users.getRoles()) { // 
+			//logger.debug(users.getRoles());
+		    //for (Role role : users.getRoles()) { // 
 		    	
-		      authorities.add(new GrantedAuthorityImpl(role.getRole()));
-		    }
+		      authorities.add(new GrantedAuthorityImpl(String.valueOf("ROLE_ADMIN")));//role.getRole()
+		    //}
 		    logger.debug("entuk authorities");
 			user =  new User(
 					users.getUsername(), 

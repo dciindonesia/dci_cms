@@ -6,26 +6,6 @@ body {
 padding-bottom: 0px;
 height: 100%;
 }
-            
-#timer-wrap {
-        position: relative;
-    }
-    #timer {
-        width: 95%;
-        margin: 0 auto;
-    }
-    #timer img {
-        /* padding: 10px; */
-        max-width: 100%;
-    }
-
-    .headernya {
-        padding-left: 50px;
-        padding-top: 35px;
-    }
-    .inputnya {
-        width: 300px;
-    }
 
 #menus {
 position: fixed;
@@ -54,20 +34,6 @@ margin: 0px auto;
 	 font-size: 15px;
 }
 
-.hand-css {
-	position: absolute;
-	top: 0px;
-	padding: 110px 0px 0px 500px;
-}
-
-.headCustom {
-	height: 80px;
-}
-
-.content-custom {
-	padding-top: 40px;
-}
-
 .pronounce {
 	padding-top: 40px;
 }
@@ -91,19 +57,18 @@ padding-top: 5px;
 .navbar .nav .active > a {
     background-color: #222222;
 }
-/*
+
 .navbar .nav > li > a:hover {
 	background-color: #999999;
 	height: 22px;
 }
-*/
-/*
+
 #footer {
-	background-image: -moz-linear-gradient(center top , #e3e3e3, #fff);
- 	background-color: #5A5A5A;
- 	color : #fff;
+	/* background-image: -moz-linear-gradient(center top , #e3e3e3, #fff);  */
+ background-color: #5A5A5A;
+ color : #fff;
 }
-*/
+
 #footer > .container {
 padding-top: 20px;
 }

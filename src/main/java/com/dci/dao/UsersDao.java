@@ -19,7 +19,8 @@ public interface UsersDao {
 	void attachClean(Users instance);
 	void delete(Users persistentInstance);
 	Users merge(Users detachedInstance);
-	Users findById(String id);
+	Users findById(long id);
+	Users getByName(String username);
 	@SuppressWarnings("rawtypes")
 	List findByExample(Users instance);
 	List<Users> getAllUser();

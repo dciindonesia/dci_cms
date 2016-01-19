@@ -1,7 +1,5 @@
 <%@ include  file="/WEB-INF/includes/taglibs.jsp" %>
 
-<%@taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -12,33 +10,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-	   <link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />" rel="stylesheet" media="screen" />
+	   <link href="<c:url value="/resources/bootstrap/dist/css/bootstrap.min.css" />" rel="stylesheet" media="screen" />
      <link href="<c:url value="/resources/bootstrap/css/customcss.css" />" rel="stylesheet" media="screen" />
-	   <script type="text/javascript" src="<c:url value="/resources/bootstrap/js/jquery-1.9.1.min.js" />"></script> 
-	   <script type="text/javascript" src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
+       <script type="text/javascript" src="<c:url value="/resources/bootstrap/dist/js/jquery-1.11.3.min.js" />"></script> 
+       <script type="text/javascript" src="<c:url value="/resources/bootstrap/dist/js/bootstrap.min.js" />"></script>
+       
+    <!--  <link href="<c:url value="/resources/bootstrap/css/bootstrap-responsive.min.css" />" rel="stylesheet" media="screen" /> -->
 	   <title><tiles:insertAttribute name="title" ignore="true" /></title>
-    <link href="<c:url value="/resources/bootstrap/css/bootstrap-responsive.min.css" />" rel="stylesheet" media="screen" />
     
 </head>
 <body>
-<tiles:insertAttribute name="header" ignore="true"/>
 
 <div id="wrap">
   <div id="containers">      
     <section>
       <div class="row">
-        <table id="table">
-        <tbody>
-        <tr>
-        <td width="20%" class="well sidebar-nav">        
-          <tiles:insertAttribute name="sidebar" />
-        </td>     
-        <td class="contents">
           <tiles:insertAttribute name="body" />
-        </td><!--/span-->
-        </tr>
-        </tbody>
-        </table>
       </div><!--/row-->
     </section>
   </div> <!-- containers -->   

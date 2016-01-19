@@ -6,15 +6,10 @@
 <tiles-definitions>
 	<definition name="base.definition" template="/WEB-INF/jsp/layout.jsp">
 		<put-attribute name="title" value="" />
-	    <put-attribute name="header" value="/WEB-INF/jsp/layouts/header.jsp" />
-	    <put-attribute name="carousel" value="/WEB-INF/jsp/layouts/carousel.jsp" />
-	    <put-attribute name="sidebar" value="/WEB-INF/jsp/layouts/sidebar.jsp" />
-	    <put-attribute name="sidebar2" value="/WEB-INF/jsp/layouts/sidebar2.jsp" />
-	    <put-attribute name="sidebar3" value="/WEB-INF/jsp/layouts/sidebar3.jsp" />
-	    <put-attribute name="footer" value="/WEB-INF/jsp/layouts/footer.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/layouts/footer.jsp" />
   	</definition>
   
-	<definition name="cust.definition" template="/WEB-INF/jsp/layout.jsp">
+	<definition name="cust.definition" template="/WEB-INF/jsp/customLayout.jsp">
 		<put-attribute name="title" value="" />
 	    <put-attribute name="header" value="/WEB-INF/jsp/layouts/header.jsp" />
 	    <put-attribute name="carousel" value="/WEB-INF/jsp/layouts/carousel.jsp" />
@@ -24,9 +19,18 @@
 	    <put-attribute name="footer" value="/WEB-INF/jsp/layouts/footer.jsp" />
   	</definition>
   
+  	<definition name="utamaPage" extends="base.definition">
+		<put-attribute name="title" value="Main Page" />
+		<put-attribute name="body" value="/WEB-INF/jsp/utama.jsp" />
+	</definition>
   	<definition name="adminpage" extends="base.definition">
 		<put-attribute name="title" value="Admin Area" />
 		<put-attribute name="body" value="/WEB-INF/jsp/admin/adminpage.jsp" />
+	</definition>
+	
+	<definition name="editUserPage" extends="base.definition">
+		<put-attribute name="title" value="Create User" />
+		<put-attribute name="body" value="/WEB-INF/jsp/admin/editUser.jsp" />
 	</definition>
 	
 	<definition name="defaultPage" extends="base.definition">
@@ -52,6 +56,11 @@
 	<definition name="commoncrot" extends="base.definition">
 		<put-attribute name="title" value="Standard Page" />
 		<put-attribute name="body" value="/WEB-INF/jsp/commonpage.jsp" />
+	</definition>
+
+	<definition name="custPage" extends="cust.definition">
+		<put-attribute name="title" value="Customer Page" />
+		<put-attribute name="body" value="/WEB-INF/jsp/admin/customer.jsp" />
 	</definition>
 	
 	<definition name="loginpage" extends="base.definition">

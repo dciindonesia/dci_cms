@@ -3,9 +3,14 @@ package com.dci.dao.impl;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +31,9 @@ public class UsersDaoImpl implements UsersDao{
 
 	protected static Logger log = Logger.getLogger(UsersDaoImpl.class);
 	
-	@Autowired
+	//@Autowired
+	//private SessionFactory sessionFactory;
+	@Resource(name="sessionFactory")
 	private SessionFactory sessionFactory;
 	
 	
@@ -99,13 +106,33 @@ public class UsersDaoImpl implements UsersDao{
 		}
 	}
 	
-	public Users findById(String name) {
-		log.debug("getting User instance with id: " + name);
+	public Users findById(long id) {
+		log.debug("getting User instance with id: " + String.valueOf(id));
 		try {
 			//Userx instance = (Userx) sessionFactory.getCurrentSession().get(
 			//		"User", id);
 			Users instance = (Users) sessionFactory.getCurrentSession().createQuery(
-					"from " + Users.class.getName() + " u where u.USERNAME='" + name + "'").uniqueResult();
+					"from " + Users.class.getName() + " u where u.id='" + id + "'").uniqueResult();
+					//.addEntity("com.jsfsample.model.Userx").list();
+			if (instance == null) {
+				log.debug("get successful, no instance found");
+			} else {
+				log.debug("get successful, instance found");
+			}
+			return instance;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+	
+	public Users getByName(String username) {
+		log.debug("getting User instance with id: " + String.valueOf(username));
+		try {
+			//Userx instance = (Userx) sessionFactory.getCurrentSession().get(
+			//		"User", id);
+			Users instance = (Users) sessionFactory.getCurrentSession().createQuery(
+					"from " + Users.class.getName() + " u where u.username='" + username + "'").uniqueResult();
 					//.addEntity("com.jsfsample.model.Userx").list();
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -146,8 +173,48 @@ public class UsersDaoImpl implements UsersDao{
 		return userx;
 	}
 	
-	public Users findByName(java.lang.String name) {
-		log.debug("getting User instance with id: " + name);
+	@SuppressWarnings("null")
+	public Users findByName(String username) {
+		log.debug("getting User instance with name: " + username);
+		Session session = sessionFactory.getCurrentSession();
+		
+		try {
+			/*
+			Users instance = (Users) sessionFactory.getCurrentSession().createQuery(
+					"from " + Users.class.getName() + " u where u.username='" + username + "'").uniqueResult();
+			
+			Users instance = (Users) session.createQuery(
+					"from " + Users.class.getName() + " u where u.username='" + username + "'").uniqueResult();
+			if (instance == null) {
+				log.debug("get successful, no instance found");
+			} else {
+				log.debug("get successful, instance found");
+			}
+			transaction.commit();
+			return instance;
+			*/
+			Query query = session.createQuery(
+					"FROM Users where username = :username");
+			query.setString("username", username);
+			return (Users) query.uniqueResult();
+			
+		} catch (RuntimeException re) {
+			//log.error("get failed", re);
+			//throw re;		
+			log.error(" ERROR Exception in findByName(String userName ", re);
+			return null;		
+		}
+		
+			/*
+		} catch (HibernateException e) {
+			transaction.rollback();
+			e.printStackTrace();
+			return null;
+		} finally {
+			session.close();
+		}
+		*/
+		/*
 		Users useren = new Users();
 		try {
 			List<Users> users = this.getAllUser();
@@ -163,6 +230,7 @@ public class UsersDaoImpl implements UsersDao{
 			log.error("get failed", re);
 			throw re;
 		}
+		*/
 	}
 
 	@Override

@@ -3,9 +3,12 @@ package com.dci.controller;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.security.Principal;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -22,15 +25,19 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.dci.dao.UsersDao;
+import com.dci.dao.impl.UsersDaoImpl;
 import com.dci.model.Users;
 import com.dci.service.ReportService;
 
@@ -46,8 +53,10 @@ public class MainController{
 
 	protected static Logger logger = Logger.getLogger("controller");
 	@Autowired
-	private UsersDao usersDao;
+	private UsersDao usersDao = new UsersDaoImpl();
 	private String purchNum;
+	
+	private Users users;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) 
@@ -68,6 +77,12 @@ public class MainController{
     	logger.debug("Received request to show common page GET");
     return "commoncrot";
 	}
+
+    @RequestMapping(value = "/utama")
+    public String getMainPage() {
+        logger.debug("Received request to show common page GET");
+    return "utamaPage";
+    }
     
     @RequestMapping(value = "/defaults")
     public String getDefaultPage() {
@@ -128,8 +143,12 @@ public class MainController{
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String getAdminPage(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
     	logger.debug("Received request to show admin page");
-    	model.addAttribute("username", getAuthName().getName());
+    	//model.addAttribute("username", getAuthName().getName());
     	List<Users> userList = usersDao.getAllUser();
+    	for (Users usr: userList) {
+    		Users usr1 = usersDao.getByName(usr.getUsername());
+    		System.out.println(usr1.getEmail());
+    	}
 		model.addAttribute("userItems", userList);
     return "adminpage";
 	}
@@ -140,6 +159,57 @@ public class MainController{
     	model.addAttribute("username", getAuthName().getName());
     return "spvtiles";
 	}
+
+    @RequestMapping(value = "/customer", method = RequestMethod.GET)
+    public String getCustPage(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+        logger.debug("Received request to show Supervisor page");
+        
+    return "custPage";
+    }
+
+
+    @RequestMapping(value = "/editUser", method = RequestMethod.GET)
+    public String getCreateUserPage(@RequestParam("id")long id
+    		,HttpServletRequest request, HttpServletResponse response, ModelMap model
+    		, Principal principal) {
+    	logger.debug("Received request to show Supervisor page");
+    	Users users = usersDao.findById(id);
+    	model.addAttribute("usersDao", users);
+    return "editUserPage";
+	}
+    
+    @RequestMapping(value="/editUser", method=RequestMethod.POST)
+	public String setEdit(@ModelAttribute ("usersDao") UsersDaoImpl usersDao, BindingResult result
+			,HttpServletRequest request, SessionStatus status, Principal principal, Model model){
+		//System.out.println(users.getUsergroups());
+		logger.debug("POST edit");
+		/*
+		valid.validate(users, result);
+		if (result.hasErrors()) {
+			//if validator failed
+			return "editpage";
+		} else {
+		*/
+	        /*
+			String name = principal.getName();
+	        model.addAttribute("username", name);
+	        String[] userGrpArray = request.getParameterValues("usergroups");
+			List<Usergroup> grpList=new ArrayList<Usergroup>();
+			for (String str : userGrpArray) {
+				Usergroup usrGroup = usersGroupDao.findById(str);
+	    		grpList.add(usrGroup);
+			}
+			Users user = usersDTO.getUsers();
+	    	user.setUsergroups( new HashSet<Usergroup>(grpList) );
+	    	usersDao.update(user);
+	        status.setComplete();
+		//}
+		 * 
+		 */
+		return "redirect:/main/admin";
+	}
+    
+    
 	
     /*
 	@RequestMapping(value = "/purc", method = RequestMethod.GET)
@@ -288,7 +358,7 @@ public class MainController{
     		session.setAttribute("userDetails", principal);
     	*/
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	Users users = usersDao.findById(auth.getName());
+    	Users users = usersDao.findByName(auth.getName());
 //        String name = cust.getName();
     return users;
     }
@@ -299,6 +369,20 @@ public class MainController{
 
 	public void setPurchNum(String purchNum) {
 		this.purchNum = purchNum;
+	}
+
+	/**
+	 * @return the users
+	 */
+	public Users getUsers() {
+		return users;
+	}
+
+	/**
+	 * @param users the users to set
+	 */
+	public void setUsers(Users users) {
+		this.users = users;
 	}
     
     
