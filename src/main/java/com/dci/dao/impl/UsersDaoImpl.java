@@ -31,9 +31,9 @@ public class UsersDaoImpl implements UsersDao{
 
 	protected static Logger log = Logger.getLogger(UsersDaoImpl.class);
 	
-	//@Autowired
+	@Autowired
 	//private SessionFactory sessionFactory;
-	@Resource(name="sessionFactory")
+//	@Resource(name="sessionFactory")
 	private SessionFactory sessionFactory;
 	
 	

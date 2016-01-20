@@ -19,9 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dci.dao.UsersDao;
-import com.dci.dao.impl.GetUsersDao;
 import com.dci.dao.impl.UsersDaoImpl;
-import com.dci.model.Person;
 import com.dci.model.Role;
 import com.dci.model.Users;
 
@@ -30,7 +28,7 @@ import com.dci.model.Users;
  * <p>
  * This custom service must implement Spring's {@link UserDetailsService}
  */
-//@Service("customUserDetailsService")
+@Service("customUserDetailsService")
 @Transactional(readOnly = true)
 public class CustomUserDetailsService implements UserDetailsService {
 	
@@ -38,8 +36,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 	
 	@Autowired
 	private UsersDao usersDao = new UsersDaoImpl();
-	@Autowired
-	private GetUsersDao getUsersDao;
 	
 	/**
 	 * Retrieves a user record containing the user's credentials and access. 
