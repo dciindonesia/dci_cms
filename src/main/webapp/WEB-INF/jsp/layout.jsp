@@ -10,10 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-	   <link href="<c:url value="/resources/bootstrap/dist/css/bootstrap.min.css" />" rel="stylesheet" media="screen" />
+	   <link href="<c:url value="/resources/bootstrap/css/bootstrap.min.css" />" rel="stylesheet" media="screen" />
      <link href="<c:url value="/resources/bootstrap/css/customcss.css" />" rel="stylesheet" media="screen" />
-       <script type="text/javascript" src="<c:url value="/resources/bootstrap/dist/js/jquery-1.11.3.min.js" />"></script> 
-       <script type="text/javascript" src="<c:url value="/resources/bootstrap/dist/js/bootstrap.min.js" />"></script>
+       <script type="text/javascript" src="<c:url value="/resources/bootstrap/js/jquery-1.11.3.min.js" />"></script> 
+       <script type="text/javascript" src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
        
     <!--  <link href="<c:url value="/resources/bootstrap/css/bootstrap-responsive.min.css" />" rel="stylesheet" media="screen" /> -->
 	   <title><tiles:insertAttribute name="title" ignore="true" /></title>
@@ -23,11 +23,11 @@
 
 <div id="wrap">
   <div id="containers">      
-    <section>
+    
       <div class="row">
           <tiles:insertAttribute name="body" />
       </div><!--/row-->
-    </section>
+    
   </div> <!-- containers -->   
 </div> <!-- wrap -->
 

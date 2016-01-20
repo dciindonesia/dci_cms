@@ -84,6 +84,18 @@ public class MainController{
     return "utamaPage";
     }
     
+    @RequestMapping(value = "/form")
+    public String getFormPage() {
+        logger.debug("Received request to show common page GET");
+    return "formPage";
+    }
+    
+    @RequestMapping(value = "/recent")
+    public String getRecentPage() {
+        logger.debug("Received request to show common page GET");
+    return "recentPage";
+    }
+    
     @RequestMapping(value = "/defaults")
     public String getDefaultPage() {
     	logger.debug("Received request to show Default page");

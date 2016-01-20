@@ -89,8 +89,22 @@ padding-top: 5px;
 }
 
 .navbar .nav .active > a {
-    background-color: #222222;
+    background-color: #f5f5f5;
+    width: 281px;
+    text-align: center;
+    color: #315486;
+    font-size: 2em;
 }
+
+.navbar-default {
+    background-color: #f5f5f5;;
+    border-color: none;
+}
+
+.bg-color {
+	background-color: #F5F5F5;
+}
+
 /*
 .navbar .nav > li > a:hover {
 	background-color: #999999;
@@ -137,6 +151,10 @@ blockquote.co > img {
 }
 
 .sidebar-nav {
+	/*
 	padding-left: 30px;
 	padding-right: 1px;
+	width: 20%;
+	*/
+	height: 80px;
 }

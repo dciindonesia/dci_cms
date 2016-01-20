@@ -63,6 +63,16 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/admin/customer.jsp" />
 	</definition>
 	
+	<definition name="formPage" extends="base.definition">
+		<put-attribute name="title" value="Form Page" />
+		<put-attribute name="body" value="/WEB-INF/jsp/form.jsp" />
+	</definition>
+	
+	<definition name="recentPage" extends="cust.definition">
+		<put-attribute name="title" value="Recent Activity" />
+		<put-attribute name="body" value="/WEB-INF/jsp/admin/recent.jsp" />
+	</definition>
+	
 	<definition name="loginpage" extends="base.definition">
 		<put-attribute name="title" value="Please Login" />
 		<put-attribute name="body" value="/WEB-INF/jsp/loginpage.jsp" />
