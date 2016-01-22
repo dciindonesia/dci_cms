@@ -1,58 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
 	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	   					   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 						   http://www.springframework.org/schema/security 
 						   http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
-	<!-- This is where we configure Spring-Security  -->
-	<http auto-config="true" use-expressions="true" access-denied-page="/auth/403" >
-	
-		<intercept-url pattern="/auth/login" access="permitAll"/>
-		<intercept-url pattern="/report/**" access="permitAll"/>
-		<!--<intercept-url pattern="/main/admin" access="hasRole('ROLE_ADMIN')"/>-->
-		<!--<intercept-url pattern="/main/edit" access="hasRole('ROLE_ADMIN')"/>-->
-		<intercept-url pattern="/main/superd" access="hasRole('ROLE_SUPERVISOR')"/>
-		<intercept-url pattern="/main/common" access="permitAll"/>
-		<intercept-url pattern="/main/purc" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/main/resultPage" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/main/default" access="permitAll"/>
-		<intercept-url pattern="/auth/403*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+	<http auto-config="true">
+	<!-- this for Spring Security 3.0.8 -->
+		<!--  <intercept-url pattern="/welcome*" access="hasRole('ROLE_ADMIN')" /> -->
+		<intercept-url pattern="/admin*" access="ROLE_ADMIN" />
+		<intercept-url pattern="/listuser*" access="ROLE_ADMIN" />
+		<intercept-url pattern="/edit*" access="ROLE_ADMIN" />
+		<intercept-url pattern="/recent*" access="ROLE_USER, ROLE_ADMIN" />
+		<intercept-url pattern="/403*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/default*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<form-login login-page="/default" default-target-url="/recent"
+			authentication-failure-url="/loginfailed" />
+		<logout logout-success-url="/default" />
 		
-		<form-login 
-				login-page="/auth/login"
-				authentication-failure-url="/auth/login?error=true" 
-				default-target-url="/auth/loginfailed"/>
+		<access-denied-handler error-page="/403"/>
 		
-		<!--  <logout logout-success-url="/" logout-url="/j_spring_security_logout" /> -->
-		<logout 
-				invalidate-session="true" 
-				logout-success-url="/auth/logout" 				
-				logout-url="/j_spring_security_logout"
-				/> <!-- logout-url="/auth/logout" -->
-				
 	</http>
-	<!-- 
-	<global-method-security
-		secured-annotations="enabled" jsr250-annotations="enabled" >		
-	</global-method-security>
+ 	<!--  
+	<authentication-manager>
+	  <authentication-provider>
+	    <user-service>
+		<user name="admin" password="admin" authorities="ROLE_ADMIN" />
+		<user name="user" password="user" authorities="ROLE_USER" />
+	    </user-service>
+	  </authentication-provider>
+	</authentication-manager>
 	-->
+	  
 	
-	
-	<!-- Declare an authentication-manager to use a custom userDetailsService -->
 	<authentication-manager>
 	        <authentication-provider user-service-ref="customUserDetailsService">
-	        	<!--  	<password-encoder ref="passwordEncoder"/> -->
+	        		<!--  <password-encoder ref="passwordEncoder"/>-->
 	        </authentication-provider>
 	</authentication-manager>
 
-	<!-- Use a Md5 encoder since the user's passwords are stored as Md5 in the database -->
-	<!--  
-	<beans:bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>
-	-->
+	<!--  <beans:bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>-->
+
+	<beans:bean id="customUserDetailsService" class="org.spring.service.CustomUserDetailsService"/>
 	
-	<!-- A custom service where Spring will retrieve users and their corresponding access levels  -->
-	<beans:bean id="customUserDetailsService" class="com.dci.service.impl.CustomUserDetailsService"/>
+	
 </beans:beans>

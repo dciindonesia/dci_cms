@@ -71,58 +71,8 @@
     	<scope>compile</scope>
     </dependency>
     
-    <!--JasperReport depenedency starts -->
-    <dependency>
-    	<groupId>net.sf.jasperreports</groupId>
-        <artifactId>jasperreports</artifactId>
-        <version>3.7.6</version>
-        <type>jar</type>
-        <scope>compile</scope>
-        <exclusions>
-        	<exclusion>
-            	<artifactId>commons-collections</artifactId>
-            	<groupId>commons-collections</groupId>
-			</exclusion>
-            <exclusion>
-            	<artifactId>commons-logging</artifactId>
-            	<groupId>commons-logging</groupId>
-			</exclusion>
-		</exclusions>
-	</dependency>
-
-	<dependency>
-		<groupId>org.apache.poi</groupId>
-		<artifactId>poi</artifactId>
-		<version>3.5-FINAL</version>
-		<type>jar</type>
-        <scope>compile</scope>
-        <exclusions>
-        	<exclusion>
-            	<artifactId>commons-logging</artifactId>
-            	<groupId>commons-logging</groupId>
-			</exclusion>
-		</exclusions>
-	</dependency>
-
-    <dependency>
-    	<groupId>com.lowagie</groupId>
-       	<artifactId>itext</artifactId>
-        <version>2.1.7</version>
-	</dependency>
     
-  <!-- Mail -->
-  	<dependency>
-	<groupId>com.sun.mail</groupId>
-	<artifactId>javax.mail</artifactId>
-	<version>1.5.5</version>
-</dependency>
-  	
-  <!-- HSQLDB -->	
-    <dependency>
-		<groupId>hsqldb</groupId>
-		<artifactId>hsqldb</artifactId>
-		<version>1.8.0.10</version>
-	</dependency>
+    
   <!-- Spring framework -->
   	<dependency>
     	<groupId>org.springframework</groupId>
@@ -396,5 +346,4 @@
     	</plugin>
     </plugins>  
   </build>
-
-</project>
+  </project>

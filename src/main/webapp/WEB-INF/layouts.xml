@@ -4,88 +4,91 @@
        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 
 <tiles-definitions>
-	<definition name="base.definition" template="/WEB-INF/jsp/layout.jsp">
+	<definition name="base.definition" template="/WEB-INF/halaman/layout.jsp">
 		<put-attribute name="title" value="" />
-		<put-attribute name="footer" value="/WEB-INF/jsp/layouts/footer.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/halaman/layouts/footer.jsp" />
   	</definition>
   
-	<definition name="cust.definition" template="/WEB-INF/jsp/customLayout.jsp">
+	<definition name="cust.definition" template="/WEB-INF/halaman/layoutCustom.jsp">
 		<put-attribute name="title" value="" />
-	    <put-attribute name="header" value="/WEB-INF/jsp/layouts/header.jsp" />
-	    <put-attribute name="carousel" value="/WEB-INF/jsp/layouts/carousel.jsp" />
-	    <put-attribute name="sidebar" value="/WEB-INF/jsp/layouts/sidebar.jsp" />
-	    <put-attribute name="sidebar2" value="/WEB-INF/jsp/layouts/sidebar2.jsp" />
-	    <put-attribute name="sidebar3" value="/WEB-INF/jsp/layouts/sidebar3.jsp" />
-	    <put-attribute name="footer" value="/WEB-INF/jsp/layouts/footer.jsp" />
+	    <put-attribute name="header" value="/WEB-INF/halaman/layouts/header.jsp" />
+	    <put-attribute name="sidebar" value="/WEB-INF/halaman/layouts/sidebar.jsp" />
+	    <put-attribute name="footer" value="/WEB-INF/halaman/layouts/footer.jsp" />
   	</definition>
   
   	<definition name="utamaPage" extends="base.definition">
 		<put-attribute name="title" value="Main Page" />
-		<put-attribute name="body" value="/WEB-INF/jsp/utama.jsp" />
-	</definition>
-  	<definition name="adminpage" extends="base.definition">
-		<put-attribute name="title" value="Admin Area" />
-		<put-attribute name="body" value="/WEB-INF/jsp/admin/adminpage.jsp" />
+		<put-attribute name="body" value="/WEB-INF/halaman/utama.jsp" />
 	</definition>
 	
-	<definition name="editUserPage" extends="base.definition">
+	<definition name="listuserpage" extends="cust.definition">
+		<put-attribute name="title" value="List User" />
+		<put-attribute name="body" value="/WEB-INF/halaman/admin/listuser.jsp" />
+	</definition>
+	
+  	<definition name="adminpage" extends="base.definition">
+		<put-attribute name="title" value="Admin Area" />
+		<put-attribute name="body" value="/WEB-INF/halaman/admin/adminpage.jsp" />
+	</definition>
+	
+	<definition name="editpage" extends="base.definition">
 		<put-attribute name="title" value="Create User" />
-		<put-attribute name="body" value="/WEB-INF/jsp/admin/editUser.jsp" />
+		<put-attribute name="body" value="/WEB-INF/halaman/admin/edit.jsp" />
 	</definition>
 	
 	<definition name="defaultPage" extends="base.definition">
 		<put-attribute name="title" value="Default Site" />
-		<put-attribute name="body" value="/WEB-INF/jsp/default.jsp" />
+		<put-attribute name="body" value="/WEB-INF/halaman/default.jsp" />
 	</definition>
 
 	<definition name="POtiles" extends="base.definition">
 		<put-attribute name="title" value="Order It" />
-		<put-attribute name="body" value="/WEB-INF/jsp/purchasePage.jsp" />
+		<put-attribute name="body" value="/WEB-INF/halaman/purchasePage.jsp" />
 	</definition>
 	
 	<definition name="resultTiles" extends="base.definition">
 		<put-attribute name="title" value="Thank You for your Kindness" />
-		<put-attribute name="body" value="/WEB-INF/jsp/result.jsp" />
+		<put-attribute name="body" value="/WEB-INF/halaman/result.jsp" />
 	</definition>
 	
 	<definition name="spvtiles" extends="base.definition">
 		<put-attribute name="title" value="Supervisor Area" />
-		<put-attribute name="body" value="/WEB-INF/jsp/spvpage.jsp" />
+		<put-attribute name="body" value="/WEB-INF/halaman/spvpage.jsp" />
 	</definition>
 	
 	<definition name="commoncrot" extends="base.definition">
 		<put-attribute name="title" value="Standard Page" />
-		<put-attribute name="body" value="/WEB-INF/jsp/commonpage.jsp" />
+		<put-attribute name="body" value="/WEB-INF/halaman/commonpage.jsp" />
 	</definition>
 
 	<definition name="custPage" extends="cust.definition">
 		<put-attribute name="title" value="Customer Page" />
-		<put-attribute name="body" value="/WEB-INF/jsp/admin/customer.jsp" />
+		<put-attribute name="body" value="/WEB-INF/halaman/admin/customer.jsp" />
 	</definition>
 	
 	<definition name="formPage" extends="base.definition">
 		<put-attribute name="title" value="Form Page" />
-		<put-attribute name="body" value="/WEB-INF/jsp/form.jsp" />
+		<put-attribute name="body" value="/WEB-INF/halaman/form.jsp" />
 	</definition>
 	
 	<definition name="recentPage" extends="cust.definition">
 		<put-attribute name="title" value="Recent Activity" />
-		<put-attribute name="body" value="/WEB-INF/jsp/admin/recent.jsp" />
+		<put-attribute name="body" value="/WEB-INF/halaman/admin/recent.jsp" />
 	</definition>
 	
 	<definition name="loginpage" extends="base.definition">
 		<put-attribute name="title" value="Please Login" />
-		<put-attribute name="body" value="/WEB-INF/jsp/loginpage.jsp" />
+		<put-attribute name="body" value="/WEB-INF/halaman/login.jsp" />
 	</definition>
 	
 	<definition name="deniedpage" extends="base.definition">
 		<put-attribute name="title" value="NON AUTHORIZED USER!" />
-		<put-attribute name="body" value="/WEB-INF/jsp/denied.jsp" />
+		<put-attribute name="body" value="/WEB-INF/halaman/denied.jsp" />
 	</definition>
 	
 	<definition name="signin" extends="base.definition">
 		<put-attribute name="title" value="Please Login" />
-		<put-attribute name="body" value="/WEB-INF/jsp/SignIn.jsp" />
+		<put-attribute name="body" value="/WEB-INF/halaman/SignIn.jsp" />
 	</definition>
 
   	<definition name="public" template="/WEB-INF/layouts/public.jsp">
@@ -95,17 +98,12 @@
   
   	<definition name="logoutpage" extends="base.definition">
 		<put-attribute name="title" value="Logout Succesfully" />
-		<put-attribute name="body" value="/WEB-INF/jsp/logout.jsp" />
-	</definition>
-	
-	<definition name="failedPage" extends="base.definition">
-		<put-attribute name="title" value="Logout Succesfully" />
-		<put-attribute name="body" value="/WEB-INF/jsp/failed.jsp" />
+		<put-attribute name="body" value="/WEB-INF/halaman/logout.jsp" />
 	</definition>
 	
 	<definition name="403" extends="base.definition">
 		<put-attribute name="title" value="NON AUTHORIZED USER!" />
-		<put-attribute name="body" value="/WEB-INF/jsp/403.jsp" />
+		<put-attribute name="body" value="/WEB-INF/halaman/403.jsp" />
 	</definition>
 
 </tiles-definitions>
