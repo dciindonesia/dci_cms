@@ -15,6 +15,12 @@
 	    <put-attribute name="sidebar" value="/WEB-INF/halaman/layouts/sidebar.jsp" />
 	    <put-attribute name="footer" value="/WEB-INF/halaman/layouts/footer.jsp" />
   	</definition>
+  	
+  	<definition name="custFull.definition" template="/WEB-INF/halaman/LayoutCustomFull.jsp">
+		<put-attribute name="title" value="" />
+	    <put-attribute name="header" value="/WEB-INF/halaman/layouts/header.jsp" />
+	    <put-attribute name="footer" value="/WEB-INF/halaman/layouts/footer.jsp" />
+  	</definition>
   
   	<definition name="utamaPage" extends="base.definition">
 		<put-attribute name="title" value="Main Page" />
@@ -61,9 +67,14 @@
 		<put-attribute name="body" value="/WEB-INF/halaman/commonpage.jsp" />
 	</definition>
 
-	<definition name="custPage" extends="cust.definition">
+	<definition name="custPage" extends="custFull.definition">
 		<put-attribute name="title" value="Customer Page" />
 		<put-attribute name="body" value="/WEB-INF/halaman/admin/customer.jsp" />
+	</definition>
+	
+	<definition name="registration-successPage" extends="base.definition">
+		<put-attribute name="title" value="Congratulations" />
+		<put-attribute name="body" value="/WEB-INF/halaman/registration-success.jsp" />
 	</definition>
 	
 	<definition name="formPage" extends="base.definition">

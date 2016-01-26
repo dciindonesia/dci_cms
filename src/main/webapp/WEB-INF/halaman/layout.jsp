@@ -23,7 +23,7 @@
 <body>
 
 <div id="wrap">
-	<div class="container-fluid">
+	<div class="container">
     	<tiles:insertAttribute name="body" />
     </div>
 </div> <!-- wrap -->

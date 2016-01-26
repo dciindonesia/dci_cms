@@ -1,44 +1,168 @@
 <%@include file="/WEB-INF/includes/taglibs.jsp" %>
-<div >
-      <div>
-        <h1>Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
-      </div>
-    </div>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link href="./resources/bootstrap/css/freelancer.css" rel="stylesheet" >
+	<script src="dist/js/freelancer.js"></script>
+</head>
+<body>
+<section id="portfolio" style="padding:20px 0px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 portfolio-item">
+                    <a class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-custom">
+                                <p>Customer A</p>
+                                <p>Index Customer A</p>
+                            </div>
+                        </div>
+                        <div>
+                            <img src="<c:url value="/resources/img/image-1.png" />" class="img-responsive" alt="">
+                            <p style="position:relative;padding-left:10px; top:-70px;font-size:20px;color:#FFF;left:0px;">text4</p>
+                            <p style="position:relative;padding-left:10px; top:-70px;font-size:20px;color:#FFF;left:0px;">text5</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="about-custom col-lg-8">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem magnam saepe nemo harum quos, sapiente omnis commodi pariatur non natus tempore quisquam laboriosam quae perferendis obcaecati molestiae odit qui, nihil!
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur iusto, quos velit suscipit ipsam, nihil vitae a, cupiditate magni repudiandae blanditiis quaerat nulla mollitia dignissimos odit iure officiis perferendis earum!
+                    </p>
+                    <button class="btn btn-primary" type="submit">More about <i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></button>
+                </div>
+            </div>
 
-    <div >
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-md-3">
-          <h2>Customer A</h2>
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            <div class="row">
+                <div class="col-lg-4 portfolio-item">
+                    <a class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-custom">
+                                <p>Customer B</p>
+                                <p>Index Customer B</p>
+                            </div>
+                        </div>
+                        <div>
+                            <img src="<c:url value="/resources/img/image-2.png" />" class="img-responsive" alt="">
+                            <p style="position:relative;padding-left:10px; top:-70px;font-size:20px;color:#FFF;left:0px;">text4</p>
+                            <p style="position:relative;padding-left:10px; top:-70px;font-size:20px;color:#FFF;left:0px;">text5</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="about-custom col-lg-8">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem magnam saepe nemo harum quos, sapiente omnis commodi pariatur non natus tempore quisquam laboriosam quae perferendis obcaecati molestiae odit qui, nihil!
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur iusto, quos velit suscipit ipsam, nihil vitae a, cupiditate magni repudiandae blanditiis quaerat nulla mollitia dignissimos odit iure officiis perferendis earum!
+                    </p>
+                    <button class="btn btn-primary" type="submit">More about <i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 portfolio-item">
+                    <a class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-custom">
+                                <p>Customer C</p>
+                                <p>Index Customer C</p>
+                            </div>
+                        </div>
+                        <img src="<c:url value="/resources/img/image-3.png" />" class="img-responsive" alt="">
+                    </a>
+                </div>
+                
+                <div class="about-custom col-lg-8">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem magnam saepe nemo harum quos, sapiente omnis commodi pariatur non natus tempore quisquam laboriosam quae perferendis obcaecati molestiae odit qui, nihil!
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur iusto, quos velit suscipit ipsam, nihil vitae a, cupiditate magni repudiandae blanditiis quaerat nulla mollitia dignissimos odit iure officiis perferendis earum!
+                    </p>
+                    <button class="btn btn-primary" type="submit">More about <i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 portfolio-item">
+                    <a class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-custom">
+                                <p>Customer D</p>
+                                <p>Index Customer D</p>
+                            </div>
+                        </div>
+                        <img src="<c:url value="/resources/img/image-4.png" />" class="img-responsive" alt="">
+                    </a>
+                </div>
+                
+                <div class="about-custom col-lg-8">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem magnam saepe nemo harum quos, sapiente omnis commodi pariatur non natus tempore quisquam laboriosam quae perferendis obcaecati molestiae odit qui, nihil!
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur iusto, quos velit suscipit ipsam, nihil vitae a, cupiditate magni repudiandae blanditiis quaerat nulla mollitia dignissimos odit iure officiis perferendis earum!
+                    </p>
+                    <button class="btn btn-primary" type="submit">More about <i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 portfolio-item">
+                    <a class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-custom">
+                                <p>Customer E</p>
+                                <p>Index Customer E</p>
+                            </div>
+                        </div>
+                        <img src="<c:url value="/resources/img/image-5.png" />" class="img-responsive" alt="">
+                    </a>
+                </div>
+                
+                <div class="about-custom col-lg-8">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem magnam saepe nemo harum quos, sapiente omnis commodi pariatur non natus tempore quisquam laboriosam quae perferendis obcaecati molestiae odit qui, nihil!
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur iusto, quos velit suscipit ipsam, nihil vitae a, cupiditate magni repudiandae blanditiis quaerat nulla mollitia dignissimos odit iure officiis perferendis earum!
+                    </p>
+                    <button class="btn btn-primary" type="submit">More about <i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 portfolio-item">
+                    <a class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-custom">
+                                <p>Customer F</p>
+                                <p>Index Customer F</p>
+                            </div>
+                        </div>
+                        <img src="<c:url value="/resources/img/image-6.png" />"class="img-responsive" alt="">
+                    </a>
+                </div>
+                
+                <div class="about-custom col-lg-8">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem magnam saepe nemo harum quos, sapiente omnis commodi pariatur non natus tempore quisquam laboriosam quae perferendis obcaecati molestiae odit qui, nihil!
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur iusto, quos velit suscipit ipsam, nihil vitae a, cupiditate magni repudiandae blanditiis quaerat nulla mollitia dignissimos odit iure officiis perferendis earum!
+                    </p>
+                    <button class="btn btn-primary" type="submit">More about <i class="glyphicon glyphicon-chevron-right"></i><i class="glyphicon glyphicon-chevron-right"></i></button>
+                </div>
+            </div>
+            
         </div>
-        <div class="col-md-3">
-          <h2>Customer B</h2>
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-       </div>
-        <div class="col-md-3">
-          <h2>Customer C</h2>
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-3">
-          <h2>Customer D</h2>
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-3">
-          <h2>Customer E</h2>
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        
-      </div>
+    </section>
+   
+   
+</body>
+</html>

@@ -29,10 +29,7 @@
   <div class="container-custom">      
 	<div class="container">    
       <div class="row">
-        <div class="col-sm-3 bg-color">        
-          <tiles:insertAttribute name="sidebar" />
-        </div>
-        <div class="col-sm-9 bg-color">
+        <div class="col-lg-12 bg-color">
           <tiles:insertAttribute name="body" />
         </div>
       </div><!--/row-->

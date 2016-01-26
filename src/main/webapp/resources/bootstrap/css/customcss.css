@@ -2,12 +2,12 @@
 	text-shadow: 0 1px 0 #272727 !IMPORTANT; 
 }*/
 
-body {
-padding-bottom: 0px;
-height: 100%;
-}
-            
-#timer-wrap {
+	body {
+		padding-bottom: 0px;
+		height: 100%;
+	}
+	            
+	#timer-wrap {
         position: relative;
     }
     #timer {
@@ -54,10 +54,30 @@ margin: 0px auto;
 	 font-size: 15px;
 }
 
+.container-custom {
+	background-color: #F3F3F3;
+}
+
 .hand-css {
 	position: absolute;
 	top: 0px;
 	padding: 110px 0px 0px 500px;
+}
+
+.sidebar-floating-text {
+	position:relative;
+	padding-left:10px;
+	padding-top: 5px;
+	padding-bottom: 5px; 
+	top:-30px;
+	font-size:14px;
+	color:#FFF;
+	left:0px;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.footer-text {
+	font-size: 11px;
 }
 
 .headCustom {
@@ -78,10 +98,6 @@ margin: 0px auto;
 
 .addres {
 	padding-top: 60px;
-}
-
-.page-header{
-margin-top: 60px;
 }
 
 #push {

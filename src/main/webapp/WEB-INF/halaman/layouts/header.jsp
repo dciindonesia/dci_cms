@@ -46,7 +46,7 @@
     	height: 40px;
     }
 </style>
-<nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+<nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0px; background-color: #FFF;">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -60,7 +60,7 @@
 				    <div id="timer" class="text-center">
 				    	<div class="row">
 				            <div class="col-xs-3">
-				                <a href="#"><img src="<c:url value="/resources/img/DCI_logo_small.png" />" alt="logo" /></a>
+				                <a href="recent"><img src="<c:url value="/resources/img/DCI_logo_small.png" />" alt="logo" /></a>
 				            </div>
 				            <div class="col-md-5 head-group">                  
 			                    <div class="form-group">

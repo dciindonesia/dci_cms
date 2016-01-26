@@ -32,6 +32,7 @@
     .forget-pass {
     	/*color: #4370BD;*/
     	text-shadow: 2px 2px 3px rgba(207, 150, 150, 0.3);
+    	padding-right: 120px;
     }
 
     /* Flip around the padding for proper display in narrow viewports */
@@ -54,7 +55,7 @@
     /* Carousel base class */
     .carousel {
         height: 350px;
-        margin-bottom: 60px;
+        /*margin-bottom: 60px;*/
     }
     /* Since positioning the image, we need to help out the caption */
     .carousel-caption {
@@ -194,7 +195,7 @@
                         	placeholder="PASSWORD" style="width:100%; background-color:#CCC; color:#fff;"  required>           
                     </div>
                     <div class="col-md-1">
-                    <button type="submit" class="btn btn-default btn-lg" style="background-color:#fff; border: none; color:#6FA8DC;padding-left: 4px;font-size: 30px;">
+                    <button type="submit" style="background-color:#fff; border: none; color:#6FA8DC;padding-left: 4px;font-size: 30px;">
                             <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </button>
                     </div>
@@ -206,11 +207,11 @@
         </div>
     </div>
 </div>
-<div class="page-header"></div>	
+<div class="page-header" style="margin-top:0px;"></div>	
 <!-- BODY -->        
-<div class="container">
-    <div class="row">
-        <div class="col-md-5">
+<!--  <div class="container" > -->
+    <div class="row" style="padding-top:40px;margin-bottom:-100px;">
+        <div class="col-lg-6">
         <!-- Carousel ================================================== -->
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
@@ -261,17 +262,17 @@
             </div>
         </div><!-- /.carousel -->
     </div>
-    <div class="col-md-7">
-        <div class="col-md-1">
-            <a class="navbar-brand" href="../main/form"><img src="<c:url value="/resources/img/hand.png" />" alt="No image" style="width:364px;height:292px;"/></a>
-        </div>
-        <div class="col-md-6" style="padding-top: 333px;">
-            <div style="color:#597ED2;font-size:28px; font-family: sans-serif;">JOIN NOW</div>
-                <div style="color:#6FA8DC;font-size:16px; padding-left: 3px;">find out more
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    <div class="col-lg-6"></div>
+    	<div>
+        	<img src="<c:url value="/resources/img/hand.png" />" alt="hand" class="visible-lg" style="position:relative; top:50px; left:232px;width:400px;height:350px;z-index:-1"/>
+        	<a href="form" style="color:#000;width:100px">JOIN NOW</a>
+        	<a href="form" style="color:#000;">find out more</a>
+        </div> 
+        	  	
+   
+		
+	
+</div><!-- ./container -->
+<!--  </div> --> <!-- ./page-header -->
 </body>
 </html>
