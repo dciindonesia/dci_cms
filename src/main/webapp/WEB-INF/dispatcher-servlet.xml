@@ -49,6 +49,15 @@
 			</list>
 		</property>
 	</bean>
+	
+	<!-- ======================THIS FOR UPLOAD FILES =========================== -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+		 <!-- setting maximum upload size -->
+		<property name="maxUploadSize" value="100000" />
+
+	</bean>
     	  
    	<!-- ======================THIS IS FOR HIBERNATE !!!======================== -->
    	

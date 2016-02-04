@@ -58,11 +58,21 @@ margin: 0px auto;
 	background-color: #F3F3F3;
 }
 
+.user-image {
+		height: 150px;
+		width: 250px;
+	}
+
 .hand-css {
 	position: absolute;
 	top: 0px;
 	padding: 110px 0px 0px 500px;
 }
+
+.col-lg-custom {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
 
 .sidebar-floating-text {
 	position:relative;
@@ -118,7 +128,16 @@ padding-top: 5px;
 }
 
 .bg-color {
-	background-color: #F5F5F5;
+	background-color: #F3F3F3;
+}
+
+.form-control::-moz-placeholder {
+	color: #FFF;
+}
+
+.input-text-cust {
+	width:100%; 
+	background-color:#CCC;
 }
 
 /*

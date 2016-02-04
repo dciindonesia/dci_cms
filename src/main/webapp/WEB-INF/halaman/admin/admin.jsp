@@ -1,5 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@include file="/WEB-INF/includes/taglibs.jsp" %>
 <html>
 <body>
 	<h3>Welcome : ${username}</h3>

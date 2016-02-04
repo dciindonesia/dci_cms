@@ -1,12 +1,5 @@
 <%@include file="/WEB-INF/includes/taglibs.jsp" %>
 <html>
-<head>
-	<style>
-		.form-control::-moz-placeholder {
-    		color: #FFF;
-    	}
-	</style>
-</head>
 
 <body style="background-color:#F3F3F3;">
 <div class="container" style="margin-top:40px;">
@@ -16,54 +9,54 @@
 <div class="col-lg-4">
 	<form:label path="title"></form:label>
     <form:input path="title" name="title" class="input-text-cust form-control" 
-                        	placeholder="Title" style="width:100%; background-color:#CCC; color:#fff;" />
+                        	placeholder="Title"  />
     <form:errors path="title" cssClass="error" />
     
     <form:label path="firstName"></form:label>
     <form:input path="firstName" name="firstName" class="input-text-cust form-control" 
-                        	placeholder="First Name" style="width:100%; background-color:#CCC; color:#fff;" />
+                        	placeholder="First Name" />
     <form:errors path="firstName" cssClass="error" />
     
     <form:label path="lastName"></form:label>
     <form:input path="lastName" name="lastName" class="input-text-cust form-control" 
-                        	placeholder="Last Name" style="width:100%; background-color:#CCC; color:#fff;" />
+                        	placeholder="Last Name" />
     <form:errors path="lastName" cssClass="error" />
     
     <form:label path="email"></form:label>
     <form:input path="email" name="email" class="input-text-cust form-control" 
-                        	placeholder="Email" style="width:100%; background-color:#CCC; color:#fff;" />
+                        	placeholder="Email" />
     <form:errors path="email" cssClass="error" />
     
     <form:label path="phone"></form:label>
     <form:input path="phone" name="phone" class="input-text-cust form-control"
-                        	placeholder="Phone" style="width:100%; background-color:#CCC; color:#fff;" />
+                        	placeholder="Phone" />
     <form:errors path="phone" cssClass="error" />
     
     <form:label path="password"></form:label>
     <form:password path="password" name="password" class="input-text-cust form-control" 
-                        	placeholder="Password" style="width:100%; background-color:#CCC; color:#fff;" />
+                        	placeholder="Password" />
     <form:errors path="password" cssClass="error" />
     
     <form:label path="confirmPassword"></form:label>
     <form:password path="confirmPassword" name="confirmPassword" class="input-text-cust form-control" 
-                        	placeholder="Confirm your password" style="width:100%; background-color:#CCC; color:#fff;" />
+                        	placeholder="Confirm your password" />
     <form:errors path="confirmPassword" cssClass="error" />
 </div>
 
 <div class="col-lg-4">
 	<form:label path="country"></form:label>
     <form:input path="country" name="country" class="input-text-cust form-control" 
-                        	placeholder="Country" style="width:100%; background-color:#CCC; color:#fff;" />
+                        	placeholder="Country" />
     <form:errors path="country" cssClass="error" />
     
     <form:label path="company"></form:label>
     <form:input path="company" name="company" class="input-text-cust form-control" 
-                        	placeholder="Company" style="width:100%; background-color:#CCC; color:#fff;" />
+                        	placeholder="Company" />
     <form:errors path="company" cssClass="error" />
     
     <form:label path="industry"></form:label>
     <form:input path="industry" name="industry" class="input-text-cust form-control" 
-                        	placeholder="Industry" style="width:100%; background-color:#CCC; color:#fff;" />
+                        	placeholder="Industry" />
     <form:errors path="industry" cssClass="error" />
     
     <br>

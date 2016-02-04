@@ -265,10 +265,10 @@
     <div class="col-lg-6"></div>
     	<div>
         	<img src="<c:url value="/resources/img/hand.png" />" alt="hand" class="visible-lg" style="position:relative; top:50px; left:232px;width:400px;height:350px;z-index:-1"/>
-        	<a href="form" style="color:#000;width:100px">JOIN NOW</a>
-        	<a href="form" style="color:#000;">find out more</a>
+        	
         </div> 
-        	  	
+        	<span><a href="form" style="position:relative; top:50px; left:232px;color:#000;width:100px">JOIN NOW</a></span>
+        	<span><a href="form" style="position:relative; top:50px; left:232px;color:#000;">find out more</a></span>  	
    
 		
 	

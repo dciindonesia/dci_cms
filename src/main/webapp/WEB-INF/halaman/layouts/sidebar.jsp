@@ -1,10 +1,4 @@
 <%@ include  file="/WEB-INF/includes/taglibs.jsp" %>
-<style>
-	.user-image {
-		height: 150px;
-		width: 250px;
-	}
-</style>
 <nav class="navbar-default navbar-side" role="navigation">
     <div class="sidebar-collapse">
     	<ul class="nav navbar-nav">

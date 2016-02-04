@@ -1,22 +1,32 @@
 package org.spring.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
+import org.spring.dao.CompanyDao;
 import org.spring.dao.RegistrationDao;
 import org.spring.dao.RoleDao;
 import org.spring.dao.UsersDao;
+import org.spring.model.Company;
+import org.spring.model.FilesClass;
 import org.spring.model.Registration;
 import org.spring.model.Role;
 import org.spring.model.Users;
 import org.spring.model.UsersDTO;
+import org.spring.service.FilesSave;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -27,6 +37,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -43,6 +54,11 @@ public class BasicController
 
   @Autowired
   RegistrationDao registrationDao;
+  
+  @Autowired
+  CompanyDao companyDao;
+  
+  private FilesSave filesSave;
 
   @ModelAttribute("roleList")
   public List<Role> setRoles() { List roleLists = this.roleDao.getAllRoles();
@@ -78,6 +94,38 @@ public class BasicController
     model.addAttribute("userinv", new Users());
     model.addAttribute("userret", users);
     return "listuserpage";
+  }
+  
+  @RequestMapping(value={"/setting"}, method={RequestMethod.GET})
+  public String getSettingPage(Principal principal, Model model) {
+    logger.info("Enter Setting Page");
+    String name = principal.getName();
+    Users users = usersDao.findByName(name);
+    model.addAttribute("username", users.getName());
+    model.addAttribute("filess",new FilesClass());
+    return "settingPage";
+  }
+  
+  @RequestMapping(value={"/setting"}, method={RequestMethod.POST})
+  public String setSettingPage(@ModelAttribute("filess") FilesClass filesDto, BindingResult result, Principal principal, Model model) throws IOException {
+	  logger.info("Leave Setting Page");
+	    String name = principal.getName();
+	    Users users = usersDao.findByName(name);
+	    model.addAttribute("username", users.getName());
+	    
+	    Company companies = new Company(filesDto.getCompanyName(), "");
+	    companyDao.persist(companies);
+	    String imageName = "Company-" + companies.getCompanyId();
+	    Company comp = companyDao.findById(companies.getCompanyId());
+	    comp.setLogoImg(imageName);
+	    companyDao.update(comp);
+	    filesSave = new FilesSave(imageName, filesDto);
+	    //if (filesSave.isImage()){
+	    	filesSave.saveFile();
+	    //}
+	   
+	    
+	  return "redirect:/customer";
   }
 
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})

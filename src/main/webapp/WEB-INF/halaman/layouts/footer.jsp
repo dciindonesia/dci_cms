@@ -1,10 +1,4 @@
-<%@ include  file="/WEB-INF/includes/taglibs.jsp" %>
-<style>
-	.col-lg-custom {
-		padding-left: 0px;
-		padding-right: 0px;
-	}
-</style>	
+<%@ include  file="/WEB-INF/includes/taglibs.jsp" %>	
 <div class="row">
 	<div class="col-lg-1 col-lg-custom">
 		<a href="#"><span class="footer-text">DCI Indonesia</span></a>

@@ -74,7 +74,7 @@
 						            <ul class="dropdown-menu" aria-labelledby="drop1">
 						              <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;${username}</a></li>
 						              <li class="divider" role="separator"></li>
-						              <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;&nbsp;SETTINGS</a></li>
+						              <li><a href="setting"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;&nbsp;SETTINGS</a></li>
 						              <li class="divider" role="separator"></li>
 						              <li><a href="#"><span class="glyphicon glyphicon-refresh" aria-hidden="true">&nbsp;CONNECTIONS</a></li>
 						              <li class="divider" role="separator"></li>
