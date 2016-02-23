@@ -6,6 +6,11 @@
 		padding-bottom: 0px;
 		height: 100%;
 	}
+	
+	#editor {
+		overflow:scroll;
+		min-height:380px;
+	}
 	            
 	#timer-wrap {
         position: relative;

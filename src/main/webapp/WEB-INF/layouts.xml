@@ -5,7 +5,7 @@
 
 <tiles-definitions>
 	<definition name="base.definition" template="/WEB-INF/halaman/layout.jsp">
-		<put-attribute name="title" value="" />
+		<put-attribute name="title" value="DCI Indonesia" />
 		<put-attribute name="footer" value="/WEB-INF/halaman/layouts/footer.jsp" />
   	</definition>
   
@@ -30,6 +30,11 @@
   	<definition name="utamaPage" extends="base.definition">
 		<put-attribute name="title" value="Main Page" />
 		<put-attribute name="body" value="/WEB-INF/halaman/utama.jsp" />
+	</definition>
+	
+	<definition name="forgetPage" extends="base.definition">
+		<put-attribute name="title" value="Forget YOu Password?" />
+		<put-attribute name="body" value="/WEB-INF/halaman/forget.jsp" />
 	</definition>
 	
 	<definition name="listuserpage" extends="cust.definition">
@@ -72,9 +77,14 @@
 		<put-attribute name="body" value="/WEB-INF/halaman/commonpage.jsp" />
 	</definition>
 
-	<definition name="custPage" extends="custFull.definition">
-		<put-attribute name="title" value="Customer Page" />
-		<put-attribute name="body" value="/WEB-INF/halaman/admin/customer.jsp" />
+	<definition name="custListPage" extends="custFull.definition">
+		<put-attribute name="title" value="Customer List" />
+		<put-attribute name="body" value="/WEB-INF/halaman/admin/CustomerList.jsp" />
+	</definition>
+	
+	<definition name="custCommonPage" extends="custFull.definition">
+		<put-attribute name="title" value="Customer Common" />
+		<put-attribute name="body" value="/WEB-INF/halaman/admin/CustomerCommon.jsp" />
 	</definition>
 	
 	<definition name="registration-successPage" extends="base.definition">

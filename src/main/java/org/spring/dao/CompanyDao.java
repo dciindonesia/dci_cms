@@ -6,13 +6,13 @@ import org.spring.model.Company;
 
 public interface CompanyDao {
 	
-	void persist(Company company);
+	int persist(Company company);
 	
 	void update(Company company);
 
 	void delete(Company company);
 
-	Company findById(Long companyId);
+	Company findById(int companyId);
 
 	Company findByName(String companyName);
 

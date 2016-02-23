@@ -45,8 +45,12 @@
 
 <div class="col-lg-4">
 	<form:label path="country"></form:label>
-    <form:input path="country" name="country" class="input-text-cust form-control" 
-                        	placeholder="Country" />
+    <form:select path="country" name="country" class="input-text-cust form-control" 
+                        	placeholder="Country">
+		<form:option value="">Select Country..</form:option>
+		<form:options items="${countryList}" itemValue="countryId" itemLabel="countryName" />
+	</form:select>
+	
     <form:errors path="country" cssClass="error" />
     
     <form:label path="company"></form:label>
@@ -55,14 +59,20 @@
     <form:errors path="company" cssClass="error" />
     
     <form:label path="industry"></form:label>
-    <form:input path="industry" name="industry" class="input-text-cust form-control" 
-                        	placeholder="Industry" />
+    <form:select path="industry" name="industry" class="input-text-cust form-control" 
+                        	placeholder="Industry">
+		<form:option value="">Select Industry..</form:option>
+		<form:options items="${industryList}" itemValue="industryId" itemLabel="industryName" />
+	</form:select>	                  
     <form:errors path="industry" cssClass="error" />
     
     <br>
     
     <button type="submit" class="btn btn-primary btn-lg btn-block">JOIN NOW</button>
-    <input type="checkbox" name="terms" value="agree"> I agree to the <span>Terms & Conditions</span> and <span>Privacy Policy</span><br>
+    <div class="col-lg-12">
+    	<div class="col-lg-offset-8 col-lg-4"><p style="font-size:14px;">or <a href='#'>Cancel</a></p></div>
+    </div>
+    <input type="checkbox" name="terms" value="agree"> I agree to the <a href='#'>Terms & Conditions</a> and <a href='#'>Privacy Policy</a><br>
 </div>
 
 </form:form>

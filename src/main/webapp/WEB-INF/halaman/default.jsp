@@ -199,7 +199,7 @@
                             <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </button>
                     </div>
-                	<a href="#" class="pull-right forget-pass">Forget Password?</a><span class="clearfix"></span>
+                	<a href="forget" class="pull-right forget-pass">Forget Password?</a><span class="clearfix"></span>
                 	
                 </form>
                 </div>

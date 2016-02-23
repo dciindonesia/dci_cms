@@ -1,12 +1,16 @@
 package org.spring.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name="COMPANY")
@@ -19,27 +23,26 @@ public class Company implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long companyId;
+	private int companyId;
 	private String companyName;
-	private String logoImg;
+	private String companyDesc;
+	private String companyLogo;
+	
+	public Company (String companyName,	String companyDesc) {
+		this.companyName = companyName;
+		this.companyDesc = companyDesc;
+	}
 	
 	/**
 	 * @return the companyId
 	 */
-	
-	public Company() {}
-	
-	public Company (String companyName, String logoImg) {
-		this.companyName = companyName;
-		this.logoImg = logoImg;
-	}
-	public Long getCompanyId() {
+	public int getCompanyId() {
 		return companyId;
 	}
 	/**
 	 * @param companyId the companyId to set
 	 */
-	public void setCompanyId(Long companyId) {
+	public void setCompanyId(int companyId) {
 		this.companyId = companyId;
 	}
 	/**
@@ -55,16 +58,28 @@ public class Company implements Serializable{
 		this.companyName = companyName;
 	}
 	/**
-	 * @return the logoImg
+	 * @return the companyDesc
 	 */
-	public String getLogoImg() {
-		return logoImg;
+	public String getCompanyDesc() {
+		return companyDesc;
 	}
 	/**
-	 * @param logoImg the logoImg to set
+	 * @param companyDesc the companyDesc to set
 	 */
-	public void setLogoImg(String logoImg) {
-		this.logoImg = logoImg;
+	public void setCompanyDesc(String companyDesc) {
+		this.companyDesc = companyDesc;
+	}
+	/**
+	 * @return the companyLogo
+	 */
+	public String getCompanyLogo() {
+		return companyLogo;
+	}
+	/**
+	 * @param companyLogo the companyLogo to set
+	 */
+	public void setCompanyLogo(String companyLogo) {
+		this.companyLogo = companyLogo;
 	}
 	
 }

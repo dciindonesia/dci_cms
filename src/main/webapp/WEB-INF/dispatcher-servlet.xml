@@ -56,9 +56,14 @@
 
 		 <!-- setting maximum upload size -->
 		<property name="maxUploadSize" value="100000" />
-
+		<property name="uploadTempDir" ref="uploadDirResource" />
 	</bean>
-    	  
+
+	<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
+		<constructor-arg>
+			<value>catalina.home</value>
+		</constructor-arg>
+	</bean>	  
    	<!-- ======================THIS IS FOR HIBERNATE !!!======================== -->
    	
    	<!-- Based Message Source configure for Spring MVC. -->

@@ -21,16 +21,16 @@ public class CompanyDaoImpl implements CompanyDao {
 	
 	@Transactional
 	@Override
-	public void persist(Company company) {
+	public int persist(Company company) {
 		log.debug("save Registration instance " + company.getCompanyName());
 		try {
-			this.sessionFactory.getCurrentSession().persist(company);
 			log.debug("persist successful");
+			return (Integer) sessionFactory.getCurrentSession().save(company);
+			
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
-		throw re;
+			throw re;	
 		}
-
 	}
 	
 	@Transactional
@@ -63,7 +63,7 @@ public class CompanyDaoImpl implements CompanyDao {
 
 	@Transactional(readOnly=true)
 	@Override
-	public Company findById(Long companyId) {
+	public Company findById(int companyId) {
 		log.debug("getting Company instance with id: " + companyId);
 		return (Company) sessionFactory.getCurrentSession().get(Company.class, companyId);
 	}

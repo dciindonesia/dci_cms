@@ -1,10 +1,6 @@
 package org.spring.controller;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,19 +13,21 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.spring.dao.CompanyDao;
+import org.spring.dao.CountryDao;
+import org.spring.dao.IndustryDao;
 import org.spring.dao.RegistrationDao;
 import org.spring.dao.RoleDao;
 import org.spring.dao.UsersDao;
 import org.spring.model.Company;
+import org.spring.model.Countries;
 import org.spring.model.FilesClass;
+import org.spring.model.Industry;
 import org.spring.model.Registration;
 import org.spring.model.Role;
 import org.spring.model.Users;
 import org.spring.model.UsersDTO;
 import org.spring.service.FilesSave;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,8 +56,19 @@ public class BasicController
   @Autowired
   CompanyDao companyDao;
   
+  @Autowired
+  CountryDao countryDao;
+  
+  @Autowired
+  IndustryDao industryDao;
+  
   private FilesSave filesSave;
-
+  /*
+  @ModelAttribute("countries")
+	public List<Country> setCountry() {
+		return countryDao.getAllCountry();
+	}
+*/
   @ModelAttribute("roleList")
   public List<Role> setRoles() { List roleLists = this.roleDao.getAllRoles();
     return roleLists;
@@ -113,19 +122,46 @@ public class BasicController
 	    Users users = usersDao.findByName(name);
 	    model.addAttribute("username", users.getName());
 	    
-	    Company companies = new Company(filesDto.getCompanyName(), "");
-	    companyDao.persist(companies);
-	    String imageName = "Company-" + companies.getCompanyId();
-	    Company comp = companyDao.findById(companies.getCompanyId());
-	    comp.setLogoImg(imageName);
-	    companyDao.update(comp);
+	    Company companies = new Company(filesDto.getCompanyName(), filesDto.getCompanyDesc());
+	    filesDto.setCompanyId(companies.getCompanyId());
+	    String imageName = "Company-" + companyDao.persist(companies);
+	    //Company comp = companyDao.findById(companies.getCompanyId());
+	    //comp.setLogoImg(imageName);
+	    companies.setCompanyLogo(imageName);
+	    companyDao.update(companies);
 	    filesSave = new FilesSave(imageName, filesDto);
 	    //if (filesSave.isImage()){
 	    	filesSave.saveFile();
-	    //}
-	   
+	    ////}
+	    //int contactPersonId = companyDao.persist(company);
+	    
 	    
 	  return "redirect:/customer";
+  }
+  
+  @RequestMapping(value={"/forget"}, method={RequestMethod.GET})
+  public String getForgetPage(Principal principal, Model model) {
+    logger.info("Enter Setting Page");
+    model.addAttribute("forgetMethod", new String());
+    model.addAttribute("sendPass", new String());
+    return "forgetPage";
+  }
+  
+  @RequestMapping(value={"/forget"}, method={RequestMethod.POST})
+  public String setForgetPage( BindingResult result, Principal principal, Model model) throws IOException {
+	  //@RequestParam("forgetMethod") String forgetParam,
+	  logger.info("Leave Setting Page");
+	  /*
+	  Users users = usersDao.findByName(forgetParam);
+	  if (users != null ) {
+		  //TODO : proses Email..
+		  return "registration-successPage";
+	  } else {
+		  model.addAttribute("message", "Users doesn't exist");
+		  return "redirect:/forgetPage";
+	  }
+	  */
+	  return "registration-successPage";
   }
 
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
@@ -199,25 +235,39 @@ public class BasicController
     return "defaultPage";
   }
 
-  @RequestMapping(value={"/logout"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  @RequestMapping(value={"/logout"}, method={RequestMethod.GET})
   public String logout(ModelMap model)
   {
     return "defaultPage";
   }
+  
+  @RequestMapping(value={"/custCommon"}, method={RequestMethod.GET})
+  public String getCustomerCommon(ModelMap model, Principal principal)
+  {
+	  logger.debug("Received request to show form page");
+	  String name = principal.getName();
+	  Users users = this.usersDao.findByName(name);
+	  model.addAttribute("username", users.getName().toUpperCase());
+	  return "custCommonPage";
+  }
 
-  @RequestMapping(value={"/customer"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  public String getCustomer(ModelMap model, Principal principal)
+  @RequestMapping(value={"/customerList"}, method={RequestMethod.GET})
+  public String getCustomerList(ModelMap model, Principal principal)
   {
 	  String name = principal.getName();
 	  Users users = this.usersDao.findByName(name);
 	  model.addAttribute("username", users.getName().toUpperCase());
-	  return "custPage";
+	  return "custListPage";
   }
 
-  @RequestMapping(value={"/form"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  @RequestMapping(value={"/form"}, method={RequestMethod.GET})
   public String getFormPage(Model model)
   {
     logger.debug("Received request to show form page");
+    List<Countries> countryList = countryDao.getAllCountry();
+    model.addAttribute("countryList", countryList);
+    List<Industry> industryList = industryDao.getAllindustry();
+    model.addAttribute("industryList", industryList);
     Registration registration = new Registration();
     model.addAttribute("registration", registration);
     return "formPage";
