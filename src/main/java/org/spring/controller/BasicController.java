@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
-import org.apache.taglibs.standard.extra.spath.Path;
 import org.spring.dao.CompanyDao;
 import org.spring.dao.ContactPersonDao;
 import org.spring.dao.CountryDao;
@@ -28,7 +27,6 @@ import org.spring.model.CompanyDto;
 import org.spring.model.ContactPerson;
 import org.spring.model.ContactPersonDto;
 import org.spring.model.Countries;
-import org.spring.model.FilesClass;
 import org.spring.model.Industry;
 import org.spring.model.Registration;
 import org.spring.model.Role;
@@ -48,6 +46,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 
 @Controller
 public class BasicController
@@ -83,7 +82,7 @@ public class BasicController
 	}
 */
   @ModelAttribute("roleList")
-  public List<Role> setRoles() { List roleLists = this.roleDao.getAllRoles();
+  public List<Role> setRoles() { List<Role> roleLists = this.roleDao.getAllRoles();
     return roleLists;
   }
 
@@ -110,7 +109,7 @@ public class BasicController
   @RequestMapping({"/listuser"})
   public String getListUser(Locale locale, Model model, Principal principal) {
     logger.info("list of USer");
-    List users = this.usersDao.getAllUser();
+    List<Users> users = this.usersDao.getAllUser();
     String name = principal.getName();
     model.addAttribute("username", name);
     model.addAttribute("userinv", new Users());
@@ -121,25 +120,52 @@ public class BasicController
   
   
   @RequestMapping(value={"/editCP"}, method={RequestMethod.GET})
-  public String getEditCP(@RequestParam("id") int uid, Principal principal, Model model) {
+  public String getEditCP(@RequestParam("companyId") Long companyId, Principal principal, HttpServletRequest request, Model model) {
     logger.info("Enter Edit Contact Person Page");
     String name = principal.getName();
     Users users = usersDao.findByName(name);
     model.addAttribute("username", users.getName());
-    model.addAttribute("custList", companyDao.getAllCompany());
+    model.addAttribute("companyId", companyId);
+    Company company = companyDao.findById(companyId);
+    String logoimg = company.getCompanyLogo();
+    File logoPath = new File( File.separator + "DCI" + File.separator + "resources" + File.separator + "img" + File.separator + logoimg);
+    model.addAttribute("logoPath", logoPath);
     
     
     model.addAttribute("editImage", new String());
     return "editCPPage";
   }
   
-  @RequestMapping(value={"/editCP"}, method={RequestMethod.POST})
-  public String setEditCP(@RequestParam("getImg") MultipartFile imgCp, Principal principal, Model model) {
+  @RequestMapping(value={"/editCPs"}, method={RequestMethod.GET})
+  public String setEditCP(@RequestParam("companyId") Long companyId, HttpServletRequest request, Principal principal, Model model) {
     logger.info("Leave Edit Contact Person Page");
     String name = principal.getName();
     Users users = usersDao.findByName(name);
     model.addAttribute("username", users.getName());
-    filesSave.getFiles(imgCp);
+    Company companies = companyDao.findById(companyId);
+    MultipartRequest multipartRequest = (MultipartRequest) request;
+    MultipartFile imgCp = multipartRequest.getFile("getImg");
+    //MultipartFile imgCp = null; //request.getParameter("getImg");
+    String nameImage = imgCp.getOriginalFilename();
+	String extFile = nameImage.substring(nameImage.lastIndexOf("."), nameImage.length());
+	String imageName = "Company-" + companyId + extFile;
+	companies.setCompanyLogo(imageName);
+	companyDao.update(companies);
+    File fileSave = new File( request.getRealPath("/") + File.separator + "resources" + File.separator + "img" );
+    try {
+		byte[] bytes = imgCp.getBytes();
+	    String rootPath = fileSave.getAbsolutePath();
+		File dir = new File(rootPath);
+	    File serverFile = new File( dir.getAbsoluteFile()
+	    		+ File.separator + imageName);
+	    if (serverFile.exists()) {serverFile.delete();}
+	    BufferedOutputStream stream = new BufferedOutputStream(
+	    		new FileOutputStream(serverFile));
+	    stream.write(bytes);
+		stream.close();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
     
     return "redirect:/custCommon";
   }
@@ -178,32 +204,32 @@ public class BasicController
     	filesSave = new FilesSave(imageName, filesDto, fileSave.getAbsolutePath() , companies);
     	filesSave.saveFile();
     	
-    	int counter = 1;
+    	//int counter = 1;
     	for (ContactPersonDto cpDto : filesDto.getContactList()) {
 			System.out.println("loop contact person");
 			MultipartFile parts = cpDto.getContactImg();
 			
 			try {
 				byte[] bytes = parts.getBytes();
-				String cpImage = parts.getOriginalFilename();
-				String cpExtFile = cpImage.substring(cpImage.lastIndexOf("."), cpImage.length());
+				//String cpImage = parts.getOriginalFilename();
+				//String cpExtFile = cpImage.substring(cpImage.lastIndexOf("."), cpImage.length());
 			    //String rootPath = System.getProperty("catalina.home");
-				String cpImageName = "Contactperson-" + companyIds + counter + extFile;
+				//String cpImageName = "Contactperson-" + companyIds + counter + extFile;
 			    String rootPath = fileSave.getAbsolutePath();
 				File dir = new File(rootPath);
 			    File serverFile = new File( dir.getAbsoluteFile()
 			    		+ File.separator + imageName);
-			    if (! serverFile.exists()) {
-			    	BufferedOutputStream stream = new BufferedOutputStream(
-			    			new FileOutputStream(serverFile));
-			    	stream.write(bytes);
-				    stream.close();
-				}
+			    if (serverFile.exists()) {serverFile.delete();}
+			    BufferedOutputStream stream = new BufferedOutputStream(
+			    		new FileOutputStream(serverFile));
+			    stream.write(bytes);
+				stream.close();
+				
 			    System.out.println("Path= " + serverFile.getAbsolutePath());
 			    System.out.println(cpDto.getContactName() + " " + cpDto.getContactEmail() + " " + cpDto.getContactImg().getOriginalFilename());
-				ContactPerson contactPerson = new ContactPerson(cpDto.getContactName(), cpDto.getContactEmail(), parts.getOriginalFilename(), companies);
-				contactPersonDao.persist(contactPerson);
-				counter++;
+				ContactPerson contactPerson = new ContactPerson(cpDto.getContactName(), cpDto.getContactEmail(), parts.getOriginalFilename());
+				contactPersonDao.persist(contactPerson, companies.getCompanyId());
+				//counter++;
 			} catch (IOException e) {
 				System.out.println(e.getMessage());
 				e.printStackTrace();
@@ -250,7 +276,7 @@ public class BasicController
     model.addAttribute("username", name);
 
     Users users = this.usersDao.findById(uid);
-    List groupList = this.roleDao.findByUsers(users.getUsername());
+    List<Role> groupList = this.roleDao.findByUsers(users.getUsername());
 
     UsersDTO usersDTO = new UsersDTO();
     usersDTO.setUsers(users);
@@ -261,7 +287,8 @@ public class BasicController
     return "editpage";
   }
 
-  @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+@RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String setEdit(@ModelAttribute("usersDTO") UsersDTO usersDTO, BindingResult result, HttpServletRequest request, SessionStatus status, Principal principal, Model model)
   {
     logger.debug("POST edit");
@@ -269,7 +296,7 @@ public class BasicController
     String name = principal.getName();
     model.addAttribute("username", name);
     String[] userGrpArray = request.getParameterValues("usergroups");
-    List grpList = new ArrayList();
+    List<Role> grpList = new ArrayList();
     for (String str : userGrpArray) {
       Role usrGroup = this.roleDao.findById(str);
       grpList.add(usrGroup);
@@ -333,7 +360,10 @@ public class BasicController
 	  companyDto.setCompanyId(company.getCompanyId());
 	  companyDto.setCompanyName(company.getCompanyName());
 	  companyDto.setCompanyDesc(company.getCompanyDesc());
-	  String path = File.separator + "resources" + File.separator + "img" + File.separator;
+	  companyDto.setCompanySize(company.getCompanySize());
+	  companyDto.setCompanyFollower(company.getCompanyFollower());
+	  companyDto.setCompanyHQ(company.getCompanyHQ());
+	  String path = File.separator + "DCI" + File.separator + "resources" + File.separator + "img" + File.separator;
 	  companyDto.setCompanyImage(path + company.getCompanyLogo());
 	  //List<ContactPerson> cp = contactPersonDao.getAllContactPerson(company.getCompanyId());
 	  List<ContactPerson> cp = contactPersonDao.getAllContactPerson(company.getCompanyId());

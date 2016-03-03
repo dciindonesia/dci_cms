@@ -10,7 +10,7 @@ public interface CompanyDao {
 	
 	void update(Company company);
 
-	void delete(Company company);
+	void delete(Long companyId);
 
 	Company findById(Long companyId);
 

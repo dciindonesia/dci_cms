@@ -2,13 +2,12 @@ package org.spring.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
-import org.hibernate.classic.Session;
 import org.spring.model.Company;
-import org.spring.model.Registration;
-import org.spring.model.Users;
+import org.spring.model.ContactPerson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +26,7 @@ public class CompanyDaoImpl implements CompanyDao {
 		log.debug("save Registration instance " + company.getCompanyName());
 		try {
 			log.debug("persist successful");
+			
 			return (Long) sessionFactory.getCurrentSession().save(company);
 			
 		} catch (RuntimeException re) {
@@ -51,10 +51,16 @@ public class CompanyDaoImpl implements CompanyDao {
 
 	@Transactional
 	@Override
-	public void delete(Company company) {
+	public void delete(Long companyId) {
 		log.debug("deleting User instance");
 		try {
-			sessionFactory.getCurrentSession().delete(company);
+			Company company = (Company) this.sessionFactory.getCurrentSession().createQuery("FROM Company as p LEFT JOIN FETCH  p.contactPersons WHERE p.companyId = :companyId")
+					.setParameter("companyId", companyId).uniqueResult();
+			Set<ContactPerson> contactSet = company.getContactPersons();
+			this.sessionFactory.getCurrentSession().delete(company);
+			for (ContactPerson contact : contactSet) {
+				this.sessionFactory.getCurrentSession().delete(contact);
+			}
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -89,13 +95,14 @@ public class CompanyDaoImpl implements CompanyDao {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked", "deprecation" })
+	@SuppressWarnings({ "unchecked"})
 	@Transactional(readOnly=true)
 	@Override
 	public List<Company> getAllCompany() {
 		log.debug("getting All Company instance");
 		try {
-			List companyList = this.sessionFactory.getCurrentSession().find("from " + Company.class.getName());
+			List<Company> companyList = new ArrayList<Company>(this.sessionFactory
+					.getCurrentSession().createQuery("from " + Company.class.getName()).list());
 			return companyList;
 		} catch (RuntimeException re) {
 			log.error("get All Company failed ", re);

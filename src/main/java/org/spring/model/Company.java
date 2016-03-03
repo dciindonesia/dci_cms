@@ -25,6 +25,10 @@ public class Company implements Serializable{
 	private String companyName;
 	private String companyDesc;
 	private String companyLogo;
+	private String companySize;
+	private int companyFollower;
+	private String companyHQ;
+	private Industry industry;
 	@OneToMany
 	private Set<ContactPerson> contactPersons;
 	
@@ -84,11 +88,43 @@ public class Company implements Serializable{
 		this.companyLogo = companyLogo;
 	}
 
+	public String getCompanySize() {
+		return companySize;
+	}
+
+	public void setCompanySize(String companySize) {
+		this.companySize = companySize;
+	}
+
+	public int getCompanyFollower() {
+		return companyFollower;
+	}
+
+	public void setCompanyFollower(int companyFollower) {
+		this.companyFollower = companyFollower;
+	}
+
+	public String getCompanyHQ() {
+		return companyHQ;
+	}
+
+	public void setCompanyHQ(String companyHQ) {
+		this.companyHQ = companyHQ;
+	}
+
 	public Set<ContactPerson> getContactPersons() {
 		return contactPersons;
 	}
 
 	public void setContactPersons(Set<ContactPerson> contactPersons) {
 		this.contactPersons = contactPersons;
+	}
+
+	public Industry getIndustry() {
+		return industry;
+	}
+
+	public void setIndustry(Industry industry) {
+		this.industry = industry;
 	}
 }

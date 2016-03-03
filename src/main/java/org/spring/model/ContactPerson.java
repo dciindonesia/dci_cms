@@ -9,8 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -32,17 +30,13 @@ public class ContactPerson implements Serializable{
 	private String contactName;
 	private String contactEmail;
 	private String contactImg;
-	@ManyToOne
-	@JoinColumn(name ="companyId")
-	private Company company;
 	
 	public ContactPerson(){}
 	
-	public ContactPerson (String contactName, String contactEmail, String contactImg, Company company) {
+	public ContactPerson (String contactName, String contactEmail, String contactImg) {
 		this.contactName = contactName;
 		this.contactEmail = contactEmail;
 		this.contactImg = contactImg;
-		this.company = company;
 	}
 	
 	/**
@@ -93,18 +87,5 @@ public class ContactPerson implements Serializable{
 	public void setContactImg(String contactImg) {
 		this.contactImg = contactImg;
 	}
-	/**
-	 * @return the company
-	 */
-	public Company getCompany() {
-		return company;
-	}
-	/**
-	 * @param company the company to set
-	 */
-	public void setCompany(Company company) {
-		this.company = company;
-	}
-	
 
 }

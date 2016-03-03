@@ -69,16 +69,16 @@ public class FilesSave{
 				File dir = new File(rootPath);
 			    File serverFile = new File( dir.getAbsoluteFile()
 			    		+ File.separator + imageName);
-			    if (! serverFile.exists()) {
+			    if (serverFile.exists()) { serverFile.delete(); }
 			    	BufferedOutputStream stream = new BufferedOutputStream(
 			    			new FileOutputStream(serverFile));
 			    	stream.write(bytes);
 				    stream.close();
-				}
+				
 			    System.out.println("Path= " + serverFile.getAbsolutePath());
 			    System.out.println(cpDto.getContactName() + " " + cpDto.getContactEmail() + " " + cpDto.getContactImg().getOriginalFilename());
-				ContactPerson contactPerson = new ContactPerson(cpDto.getContactName(), cpDto.getContactEmail(), parts.getOriginalFilename(), company);
-				contactPersonDao.persist(contactPerson);
+				ContactPerson contactPerson = new ContactPerson(cpDto.getContactName(), cpDto.getContactEmail(), parts.getOriginalFilename());
+				contactPersonDao.persist(contactPerson, company.getCompanyId());
 				counter++;
 			} catch (IOException e) {
 				System.out.println(e.getMessage());
@@ -112,12 +112,12 @@ public class FilesSave{
                 //logger.info(serverFile + " " + FilesClass.getFile().getName());
                 System.out.println(serverFile + " " + fileName + extFile);
                 
-                if (! serverFile.exists()) {
+                if (serverFile.exists()) { serverFile.delete(); }
 	                BufferedOutputStream stream = new BufferedOutputStream(
 	                        new FileOutputStream(serverFile));
 	                stream.write(bytes);
 	                stream.close();
-	            }
+	            
                 
                 /*
         	    byte[] bytes = fileInput.getBytes(); 

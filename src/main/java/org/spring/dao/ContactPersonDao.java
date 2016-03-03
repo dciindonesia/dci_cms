@@ -13,8 +13,12 @@ import org.spring.service.SearchCriteria;
  *
  */
 public interface ContactPersonDao {
-	void persist (ContactPerson contactPerson);
-	List<ContactPerson> getAllContactPerson(Long clientId);
+	void persist (ContactPerson contactPerson, Long companyId);
+	void delete(int contactId);
+	void update(ContactPerson contactPerson);
+	ContactPerson findById(int contactId);
+	List<ContactPerson> getAllContactPerson(Long companyId);
+	List<ContactPerson> getAllContactPerson();
 	String getSearchPattern(SearchCriteria criteria);
 	ContactPerson findContactPerson(String username);
 	int getNumberOfHotels(SearchCriteria criteria);
