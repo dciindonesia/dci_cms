@@ -1,4 +1,47 @@
 <%@include file="/WEB-INF/includes/taglibs.jsp" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+        // Start indexing at the size of the current list
+        var index = 0; 
+        //${fn:length(filess.contactList)};
+        var msg = "";
+        
+        // Add a new Employee
+        $("#add").click(function () {
+            $(this).before(function() {
+            	
+                var html = '<div id="contactList' + index + '.wrapper">';                    
+                html += '<input type="file" id="contactList' + index + '.contactImg" name="contactList[' + index + '].contactImg" value="" />';
+                html += '<input type="text" id="contactList' + index + '.contactName" name="contactList[' + index + '].contactName" value="" class="input-text-cust form-control" placeholder="Contact Name" />';
+                html += '<input type="text" id="contactList' + index + '.contactEmail" name="contactList[' + index + '].contactEmail" value="" class="input-text-cust form-control" placeholder="Contact Email" />';
+                html += '<a href="#" id="remove" data-index="' + index + '">remove</a>';
+                html += '</div>';
+                return html;
+            });
+            $("#contactList" + index + "\\.wrapper").show();
+            index++;
+            return false;
+        });
+        
+
+        // Remove an Employee .frameworks\\.remove
+        $(document).on('click', 'a#remove', function() {
+            var index2remove = $(this).data("index");
+            msg = "Field Address number: " + index2remove + " was removed";
+            $("#contactList" + index2remove + "\\.wrapper").hide();
+            $("#contactList" + index2remove + "\\.remove").val("1");
+            alert(msg);
+            return false;
+        });
+        
+    });
+    </script>	
+</head>
+<body>
 
 <form:form action="setting" method="POST" commandName="filess" enctype="multipart/form-data">
 	
@@ -24,22 +67,57 @@
     <br>
     
     <div id='TextBoxesGroup'>
-		<div id="TextBoxDiv1">
-			<form:label path="contactImg">Contact Person 1</form:label>
-			<form:input path="contactImg" type="file" name="contactImg" id="imgInp" />
-			<img id="imgResult" src="#" width="100px" height="100px" alt="" />
-			<form:errors path="contactImg" cssClass="error" />
-			
-			<form:label path="contactName">Name :</form:label>
-		    <form:input path="contactName" name="contactName" class="input-text-cust form-control" 
-		     	placeholder="Conract Name" />
-		    <form:errors path="contactName" cssClass="error" />
-		</div>
-		<br><br>
-	</div>
-	
-    <input type='button' value='Add Contact Person' id='addButton'> &nbsp;&nbsp;
-	<input type='button' value='Remove Contact Person' id='removeButton'>
+	<c:forEach items="${filess.contactList}" varStatus="loop">
+	<!-- Add a wrapping div -->
+    <c:choose>
+    	<c:when test="${filess.contactList[loop.index].remove eq 1}">
+        	<div id="TextBoxDiv${loop.index}" class="hidden">
+        </c:when>
+	    <c:otherwise>
+	    	<div id="TextBoxDiv${loop.index}">
+		</c:otherwise>
+    </c:choose>
+    
+   
+
+	<!-- Generate the fields -->
+	<form:label path="contactList[${loop.index}].contactImg">Contact Person 1</form:label>
+	<form:input path="contactList[${loop.index}].contactImg" type="file" name="contactList[${loop.index}].contactImg" id="imgInp" />
+	<img id="imgResult" src="#" width="100px" height="100px" alt="" />
+	<form:errors path="contactList[${loop.index}].contactImg" cssClass="error" />
+						
+	<form:label path="contactList[${loop.index}].contactName">Name :</form:label>
+	<form:input path="contactList[${loop.index}].contactName" name="contactList[${loop.index}]contactName" class="input-text-cust form-control" 
+		placeholder="Contact Name" />
+	<form:errors path="contactList[${loop.index}].contactName" cssClass="error" />
+					    
+	<form:label path="contactList[${loop.index}].contactEmail">Name :</form:label>
+	<form:input path="contactList[${loop.index}].contactEmail" name="contactList[${loop.index}].contactEmail" class="input-text-cust form-control" 
+		placeholder="Contact Email" />
+	<form:errors path="contactList[${loop.index}].contactEmail" cssClass="error" />
+						
+    <!-- Add the remove flag -->
+    <c:choose>
+    	<c:when test="${contactList[loop.index].remove eq 1}">
+        	<c:set var="hiddenValue" value="1" />
+        </c:when>
+	    <c:otherwise>
+	    	<c:set var="hiddenValue" value="0" />
+	    </c:otherwise>
+    </c:choose>
+
+    <form:hidden path="contactList[${loop.index}].remove" value="${hiddenValue}" />
+    <!-- Add a link to remove the Frameworks -->
+    <a href="#" id="remove" data-index="${loop.index}">Remove</a>
+                        
+    	</div>
+	<br><br>
+    </c:forEach>
+    </div>
+	<button id="add" type="button">Add Contact Person</button>
+    
     <br>
     <button type="submit" class="btn btn-primary btn-lg">SUBMIT</button>
 </form:form>
+</body>
+</html>

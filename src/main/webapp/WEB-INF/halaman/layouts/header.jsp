@@ -72,7 +72,7 @@
 			                    <li class="dropdown">
 			            			<a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<c:url value="/resources/img/user.png" />" alt="user" /> <b class="caret"></b></a>
 						            <ul class="dropdown-menu" aria-labelledby="drop1">
-						              <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;${username}</a></li>
+						              <li><a href="main/list"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;${username}</a></li>
 						              <li class="divider" role="separator"></li>
 						              <li><a href="setting"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;&nbsp;SETTINGS</a></li>
 						              <li class="divider" role="separator"></li>

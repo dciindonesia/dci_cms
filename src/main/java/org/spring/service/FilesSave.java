@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.spring.dao.ContactPersonDao;
+import org.spring.model.Company;
+import org.spring.model.CompanyDto;
 import org.spring.model.ContactPerson;
 import org.spring.model.ContactPersonDto;
 import org.spring.model.FilesClass;
@@ -25,12 +27,16 @@ public class FilesSave{
 	
 	private UtilsExtension utilsExt;
 	
-	private String 	fileName;
-	private FilesClass filesClass;
+	private String 		fileName;
+	private String 		fileNameFull;
+	private CompanyDto 	filesClass;
+	private Company		company;
 	
-	public FilesSave(String fileName, FilesClass filesClass){
-		this.fileName = fileName;
-		this.filesClass = filesClass;
+	public FilesSave(String fileName, CompanyDto filesClass, String fileNameFull, Company company){
+		this.fileName 		= fileName;
+		this.filesClass 	= filesClass;
+		this.fileNameFull 	= fileNameFull;
+		this.company		= company;
 	}
 	
 	public boolean isImage() throws IllegalStateException, IOException {
@@ -45,44 +51,42 @@ public class FilesSave{
 	}
 	
 	public void iterateContactPerson() throws IOException {
-		List<MultipartFile> parts = filesClass.getContactImg();
-		List<ContactPersonDto> cpDtoList = null;
-		if(null != parts && parts.size() > 0) {
-			for (MultipartFile files : parts) {
-				
-			}	
-				
-				/*
-			    for (String contactNames: filesClass.getContactName()) {
-			    	for (String contactEmails: filesClass.getContactName()) {
-			    		byte[] bytes = null;
-						try {
-							bytes = files.getBytes();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-		            	String nameImage = files.getOriginalFilename();
-		            	String extFile = nameImage.substring(nameImage.lastIndexOf("."), nameImage.length());
-		            	String rootPath = System.getProperty("catalina.home");
-		            	File dir = new File(rootPath);
-		            	File serverFile = new File( dir.getAbsoluteFile()
-		            			+ File.separator + files.getOriginalFilename() + extFile);
-		            	if (! serverFile.exists()) {
-			                BufferedOutputStream stream = new BufferedOutputStream(
-			                        new FileOutputStream(serverFile));
-			                stream.write(bytes);
-			                stream.close();
-			            }
-		            	System.out.println(contactNames + " " + contactEmails + " " + files.getOriginalFilename());
-			    		//ContactPerson contactPerson = new ContactPerson(contactNames, contactEmails, files.getOriginalFilename(), filesClass.getCompanyId());
-			    		//contactPersonDao.persist(contactPerson);
-			    	}
-			    } 	
-			} 	*/
-	    }
-	    
-	}
+		System.out.println("into contact person");
+		Long companyId = company.getCompanyId();
+		int counter = 1;
+		
+		for (ContactPersonDto cpDto : filesClass.getContactList()) {
+			System.out.println("loop contact person");
+			MultipartFile parts = cpDto.getContactImg();
+			
+			try {
+				byte[] bytes = parts.getBytes();
+				String nameImage = parts.getOriginalFilename();
+				String extFile = nameImage.substring(nameImage.lastIndexOf("."), nameImage.length());
+			    //String rootPath = System.getProperty("catalina.home");
+				String imageName = "Contactperson-" + companyId + counter + extFile;
+			    String rootPath= this.fileNameFull;
+				File dir = new File(rootPath);
+			    File serverFile = new File( dir.getAbsoluteFile()
+			    		+ File.separator + imageName);
+			    if (! serverFile.exists()) {
+			    	BufferedOutputStream stream = new BufferedOutputStream(
+			    			new FileOutputStream(serverFile));
+			    	stream.write(bytes);
+				    stream.close();
+				}
+			    System.out.println("Path= " + serverFile.getAbsolutePath());
+			    System.out.println(cpDto.getContactName() + " " + cpDto.getContactEmail() + " " + cpDto.getContactImg().getOriginalFilename());
+				ContactPerson contactPerson = new ContactPerson(cpDto.getContactName(), cpDto.getContactEmail(), parts.getOriginalFilename(), company);
+				contactPersonDao.persist(contactPerson);
+				counter++;
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	} 	
+	
 	
 	
 	public String saveFile() {
@@ -94,7 +98,8 @@ public class FilesSave{
             	String nameImage = filesClass.getCompanyLogo().getOriginalFilename();
             	String extFile = nameImage.substring(nameImage.lastIndexOf("."), nameImage.length());
              // Creating the directory to store file
-                String rootPath = System.getProperty("catalina.home");
+                //String rootPath = System.getProperty("catalina.home");
+                String rootPath= this.fileNameFull;
             	//String rootPath = System.getProperty("usr.home");
             	//String rootPath = getClass().getClassLoader().getResource("").getPath();
                 
@@ -103,7 +108,7 @@ public class FilesSave{
                 //String f = new File (dir.getParent()).getParent();
                 File serverFile = new File( dir.getAbsoluteFile() 
                 		//f + File.separator + "resources" + File.separator + "img"
-                		+ File.separator + fileName + extFile);
+                		+ File.separator + fileName ); //+ extFile
                 //logger.info(serverFile + " " + FilesClass.getFile().getName());
                 System.out.println(serverFile + " " + fileName + extFile);
                 
@@ -143,10 +148,51 @@ public class FilesSave{
  				
                 logger.info("Server File Location="
                         + serverFile.getAbsolutePath());
-                this.iterateContactPerson();
-                return "You successfully uploaded file=" + filesClass.getCompanyLogo().getOriginalFilename();
+                //this.iterateContactPerson();
+                return serverFile.getAbsolutePath();
             } catch (Exception e) {
-            	logger.info("You failed to upload " + filesClass.getCompanyLogo().getOriginalFilename() + " => " + e.getMessage());
+            	System.out.println("You failed to upload " + filesClass.getCompanyLogo().getOriginalFilename()+ " => " + e.getMessage());
+                 return ""; 
+            }
+        } else {
+        	System.out.println("because the file was empty " + filesClass.getCompanyLogo().getOriginalFilename());
+        	return "";
+        }
+	}
+	
+	public String uploadImage(String paths) {
+		logger.info("get " + paths);
+		if (!paths.isEmpty()) {
+            try {
+            	logger.info("get in to getFiles");
+                String rootPath = System.getProperty("catalina.home");
+            	File dir = new File(rootPath);
+            	File serverFile = new File( dir.getAbsoluteFile() 
+            			+ File.separator + paths);
+                System.out.println(serverFile + " " + fileName + paths);
+            	
+            	
+            	
+            	byte[] bytes = filesClass.getCompanyLogo().getBytes();
+            	String nameImage = filesClass.getCompanyLogo().getOriginalFilename();
+            	String extFile = nameImage.substring(nameImage.lastIndexOf("."), nameImage.length());
+             
+                
+                if (! serverFile.exists()) {
+	                BufferedOutputStream stream = new BufferedOutputStream(
+	                        new FileOutputStream(serverFile));
+	                stream.write(bytes);
+	                stream.close();
+	            }
+                
+                
+ 				
+                logger.info("Server File Location="
+                        + serverFile.getAbsolutePath());
+                
+                return "You successfully display image=" + filesClass.getCompanyLogo().getOriginalFilename();
+            } catch (Exception e) {
+            	logger.info("You failed to display image " + filesClass.getCompanyLogo().getOriginalFilename() + " => " + e.getMessage());
                 return "You failed to upload " + filesClass.getCompanyLogo().getOriginalFilename()+ " => " + e.getMessage();
             }
         } else {
@@ -156,7 +202,44 @@ public class FilesSave{
         }
 	}
 	
-
+	public String getFiles(MultipartFile files) {
+		logger.info(files.getOriginalFilename());
+		if (!files.isEmpty()) {
+            try {
+            	logger.info("get in to getFiles");
+            	byte[] bytes = files.getBytes();
+            	String nameImage = files.getOriginalFilename();
+            	String extFile = nameImage.substring(nameImage.lastIndexOf("."), nameImage.length());
+             // Creating the directory to store file
+                String rootPath = System.getProperty("catalina.home");
+                
+                File dir = new File(rootPath);
+                
+                File serverFile = new File( dir.getAbsoluteFile()
+                		+ File.separator + fileName + extFile);                
+                System.out.println(serverFile + " " + fileName + extFile);
+                
+                if (! serverFile.exists()) {
+	                BufferedOutputStream stream = new BufferedOutputStream(
+	                        new FileOutputStream(serverFile));
+	                stream.write(bytes);
+	                stream.close();
+	            }
+               
+                logger.info("Server File Location="
+                        + serverFile.getAbsolutePath());
+                this.iterateContactPerson();
+                return "You successfully uploaded file=" + files.getOriginalFilename();
+            } catch (Exception e) {
+            	logger.info("You failed to upload " + files.getOriginalFilename() + " => " + e.getMessage());
+                return "You failed to upload " + files.getOriginalFilename()+ " => " + e.getMessage();
+            }
+        } else {
+        	logger.info("You failed to upload " + files.getOriginalFilename() + " because the file was empty.");
+            return "You failed to upload " + files.getOriginalFilename()
+                    + " because the file was empty.";
+        }
+	}
 
 
 	/**
@@ -177,15 +260,37 @@ public class FilesSave{
 	/**
 	 * @return the FilesClass
 	 */
-	public FilesClass getFilesClass() {
+	public CompanyDto getFilesClass() {
 		return filesClass;
 	}
 
 	/**
 	 * @param FilesClass the FilesClass to set
 	 */
-	public void setFilesClass(FilesClass filesClass) {
+	public void setFilesClass(CompanyDto filesClass) {
 		this.filesClass = filesClass;
+	}
+
+	/**
+	 * @return the fileNameFull
+	 */
+	public String getFileNameFull() {
+		return fileNameFull;
+	}
+
+	/**
+	 * @param fileNameFull the fileNameFull to set
+	 */
+	public void setFileNameFull(String fileNameFull) {
+		this.fileNameFull = fileNameFull;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 

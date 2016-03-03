@@ -28,6 +28,5 @@
     <script type="text/javascript" src="./resources/bootstrap/js/custom.js"></script>
 	<title><tiles:insertAttribute name="title" ignore="true" /></title>
 	<link href="./resources/bootstrap/css/freelancer.css" rel="stylesheet" >
-	<script src="dist/js/freelancer.js"></script>
 </head>
 </html>

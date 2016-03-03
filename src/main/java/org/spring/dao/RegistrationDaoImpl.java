@@ -1,11 +1,13 @@
 /*     */ package org.spring.dao;
 /*     */ 
 /*     */ import java.util.List;
+
 /*     */ import org.apache.log4j.Logger;
 /*     */ import org.hibernate.Query;
 /*     */ import org.hibernate.SessionFactory;
 /*     */ import org.hibernate.classic.Session;
 /*     */ import org.spring.model.Registration;
+import org.spring.model.Users;
 /*     */ import org.springframework.beans.factory.annotation.Autowired;
 /*     */ import org.springframework.stereotype.Repository;
 /*     */ import org.springframework.transaction.annotation.Transactional;
@@ -71,26 +73,31 @@
 /*     */     }
 /*     */   }
 /*     */ 
-/*     */   @Transactional(readOnly=true)
-/*     */   public List<Registration> getAllRegistration()
-/*     */   {
-/*  99 */     log.debug("getting All Registration instance");
-/*     */     try
-/*     */     {
-/* 102 */       List instance = this.sessionFactory.getCurrentSession().createQuery("from " + Registration.class.getName()).list();
-/*     */ 
-/* 104 */       if (instance == null)
-/* 105 */         log.debug("get successful, no instance found");
-/*     */       else {
-/* 107 */         log.debug("get successful, instance found");
-/*     */       }
-/* 109 */       return instance;
-/*     */     } catch (RuntimeException re) {
-/* 111 */       log.error("get failed", re);
-/* 112 */       throw re;
-/*     */     }
-/*     */   }
-/*     */ }
+	@Transactional(readOnly=true)
+	public List<Registration> getAllRegistration()
+	{
+	/*
+	List instance = (List<Registration>)this.sessionFactory.getCurrentSession().find("from " + Registration.class.getName());
+	//List<Users> instance = (List<Users>) session
+	//		.find("from " + Users.class.getName());
+	return instance;
+	*/
+	log.debug("getting All Registration instance");
+	try
+	{
+		List instance = this.sessionFactory.getCurrentSession().find("from " + Registration.class.getName());
+		if (instance == null)
+			log.debug("get successful, no instance found");
+		else
+			log.debug("get successful, instance found");
+		return instance;
+	} catch (RuntimeException re) {
+		log.error("get failed", re);
+		throw re;
+	}
+	}
+
+}
 
 /* Location:           /Users/rahadhitya/Downloads/DCI/WEB-INF/classes/
  * Qualified Name:     org.spring.dao.RegistrationDaoImpl

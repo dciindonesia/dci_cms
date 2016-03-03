@@ -22,6 +22,29 @@
 	    <put-attribute name="footer" value="/WEB-INF/halaman/layouts/footer.jsp" />
   	</definition>
   	
+  	<!-- TEMPORARY -->
+  	<definition name="records" extends="custFull.definition">
+		<put-attribute name="title" value="Temp List Page" />
+		<put-attribute name="body" value="/WEB-INF/halaman/records.jsp" />
+	</definition>
+	<definition name="add-record" extends="custFull.definition">
+		<put-attribute name="title" value="Temp List Page" />
+		<put-attribute name="body" value="/WEB-INF/halaman/add-record.jsp" />
+	</definition>
+	<definition name="edit-record" extends="custFull.definition">
+		<put-attribute name="title" value="Temp List Page" />
+		<put-attribute name="body" value="/WEB-INF/halaman/edit-record.jsp" />
+	</definition>
+	<definition name="add-credit-card" extends="custFull.definition">
+		<put-attribute name="title" value="Temp List Page" />
+		<put-attribute name="body" value="/WEB-INF/halaman/add-credit-card.jsp" />
+	</definition>
+	<definition name="edit-credit-card" extends="custFull.definition">
+		<put-attribute name="title" value="Temp List Page" />
+		<put-attribute name="body" value="/WEB-INF/halaman/edit-credit-card.jsp" />
+	</definition>
+  	<!--  -->
+  	
   	<definition name="settingPage" extends="custFull.definition">
 		<put-attribute name="title" value="Customer Page" />
 		<put-attribute name="body" value="/WEB-INF/halaman/admin/setting.jsp" />
@@ -75,6 +98,11 @@
 	<definition name="commoncrot" extends="base.definition">
 		<put-attribute name="title" value="Standard Page" />
 		<put-attribute name="body" value="/WEB-INF/halaman/commonpage.jsp" />
+	</definition>
+	
+	<definition name="editCPPage" extends="custFull.definition">
+		<put-attribute name="title" value="Contact Person" />
+		<put-attribute name="body" value="/WEB-INF/halaman/admin/ModalEditCP.jsp" />
 	</definition>
 
 	<definition name="custListPage" extends="custFull.definition">

@@ -13,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.web.multipart.MultipartFile;
-
 /**
  * @author rahadhitya
  *
@@ -37,6 +35,8 @@ public class ContactPerson implements Serializable{
 	@ManyToOne
 	@JoinColumn(name ="companyId")
 	private Company company;
+	
+	public ContactPerson(){}
 	
 	public ContactPerson (String contactName, String contactEmail, String contactImg, Company company) {
 		this.contactName = contactName;

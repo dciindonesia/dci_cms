@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FilesClass {
-	private int companyId;
+	private Long companyId;
 	private String companyName;
 	private String companyDesc;
 	private MultipartFile companyLogo;
-	private List<ContactPerson> contactList;	
+	private List<ContactPersonDto> contactList;	
 	private List<String> contactName;
 	private List<String> contactEmail;
 	private List<MultipartFile> contactImg;
@@ -30,7 +30,7 @@ public class FilesClass {
 	/**
 	 * @param companyId the companyId to set
 	 */
-	public void setCompanyId(int companyId) {
+	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
 	}
 	public String getCompanyName() {
@@ -69,13 +69,13 @@ public class FilesClass {
 	/**
 	 * @return the contactList
 	 */
-	public List<ContactPerson> getContactList() {
+	public List<ContactPersonDto> getContactList() {
 		return contactList;
 	}
 	/**
 	 * @param contactList the contactList to set
 	 */
-	public void setContactList(List<ContactPerson> contactList) {
+	public void setContactList(List<ContactPersonDto> contactList) {
 		this.contactList = contactList;
 	}
 	/**

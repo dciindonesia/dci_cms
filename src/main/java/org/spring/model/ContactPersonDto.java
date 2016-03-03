@@ -10,9 +10,17 @@ import org.springframework.web.multipart.MultipartFile;
  *
  */
 public class ContactPersonDto {
+	private int contactId;
 	private String contactName;
 	private String contactEmail;
 	private MultipartFile contactImg;
+	private String contactFoto;
+	public int getContactId() {
+		return contactId;
+	}
+	public void setContactId(int contactId) {
+		this.contactId = contactId;
+	}
 	/**
 	 * @return the contactName
 	 */
@@ -48,5 +56,11 @@ public class ContactPersonDto {
 	 */
 	public void setContactImg(MultipartFile contactImg) {
 		this.contactImg = contactImg;
+	}
+	public String getContactFoto() {
+		return contactFoto;
+	}
+	public void setContactFoto(String contactFoto) {
+		this.contactFoto = contactFoto;
 	}
 }

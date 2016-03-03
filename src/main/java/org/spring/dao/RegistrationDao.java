@@ -1,7 +1,9 @@
 package org.spring.dao;
 
 import java.util.List;
+
 import org.spring.model.Registration;
+import org.spring.model.Users;
 
 public abstract interface RegistrationDao
 {

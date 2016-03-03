@@ -26,11 +26,11 @@
 		<tbody>
 			<c:forEach items="${userret}" var="person">
 				<tr>
-					<td><c:out value="${person.firstName}" /></td>
-					<td><c:out value="${person.lastName}" /></td>
-					<td><c:out value="${person.password}" /></td>
+					<td><c:out value="${person.email}" /></td>
+					<td><c:out value="${person.email}" /></td>
+					<td><c:out value="${person.email}" /></td>
 					
-					<td><a href="edit?id=${person.firstName}">Edit</a></td>
+					<td><a href="edit?id=${person.userId}">Edit</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

@@ -1,11 +1,13 @@
 package org.spring.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.spring.model.Company;
+import org.spring.model.Registration;
 import org.spring.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,11 +23,11 @@ public class CompanyDaoImpl implements CompanyDao {
 	
 	@Transactional
 	@Override
-	public int persist(Company company) {
+	public Long persist(Company company) {
 		log.debug("save Registration instance " + company.getCompanyName());
 		try {
 			log.debug("persist successful");
-			return (Integer) sessionFactory.getCurrentSession().save(company);
+			return (Long) sessionFactory.getCurrentSession().save(company);
 			
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
@@ -63,7 +65,7 @@ public class CompanyDaoImpl implements CompanyDao {
 
 	@Transactional(readOnly=true)
 	@Override
-	public Company findById(int companyId) {
+	public Company findById(Long companyId) {
 		log.debug("getting Company instance with id: " + companyId);
 		return (Company) sessionFactory.getCurrentSession().get(Company.class, companyId);
 	}
@@ -87,14 +89,13 @@ public class CompanyDaoImpl implements CompanyDao {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked", "deprecation" })
 	@Transactional(readOnly=true)
 	@Override
 	public List<Company> getAllCompany() {
 		log.debug("getting All Company instance");
 		try {
-			@SuppressWarnings("unchecked")
-			List<Company> companyList = (List<Company>) sessionFactory.getCurrentSession()
-				.createQuery("from " + Company.class).list();
+			List companyList = this.sessionFactory.getCurrentSession().find("from " + Company.class.getName());
 			return companyList;
 		} catch (RuntimeException re) {
 			log.error("get All Company failed ", re);

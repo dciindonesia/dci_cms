@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -23,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
  * <p>
  * This custom service must implement Spring's {@link UserDetailsService}
  */
+@Service
 @Transactional(readOnly = true)
 public class CustomUserDetailsService implements UserDetailsService {
 	
