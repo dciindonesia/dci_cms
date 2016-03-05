@@ -204,21 +204,21 @@ public class BasicController
     	filesSave = new FilesSave(imageName, filesDto, fileSave.getAbsolutePath() , companies);
     	filesSave.saveFile();
     	
-    	//int counter = 1;
+    	int counter = 1;
     	for (ContactPersonDto cpDto : filesDto.getContactList()) {
 			System.out.println("loop contact person");
 			MultipartFile parts = cpDto.getContactImg();
 			
 			try {
 				byte[] bytes = parts.getBytes();
-				//String cpImage = parts.getOriginalFilename();
-				//String cpExtFile = cpImage.substring(cpImage.lastIndexOf("."), cpImage.length());
+				String cpImage = parts.getOriginalFilename();
+				String cpExtFile = cpImage.substring(cpImage.lastIndexOf("."), cpImage.length());
 			    //String rootPath = System.getProperty("catalina.home");
-				//String cpImageName = "Contactperson-" + companyIds + counter + extFile;
-			    String rootPath = fileSave.getAbsolutePath();
-				File dir = new File(rootPath);
-			    File serverFile = new File( dir.getAbsoluteFile()
-			    		+ File.separator + imageName);
+				String cpImageName = "Contact-" + companyIds + counter + cpExtFile;
+			    //String rootPath = fileSave.getAbsolutePath();
+				//File dir = new File(rootPath);
+			    File serverFile = new File( fileSave.getAbsoluteFile()
+			    		+ File.separator + cpImageName);
 			    if (serverFile.exists()) {serverFile.delete();}
 			    BufferedOutputStream stream = new BufferedOutputStream(
 			    		new FileOutputStream(serverFile));
@@ -227,9 +227,9 @@ public class BasicController
 				
 			    System.out.println("Path= " + serverFile.getAbsolutePath());
 			    System.out.println(cpDto.getContactName() + " " + cpDto.getContactEmail() + " " + cpDto.getContactImg().getOriginalFilename());
-				ContactPerson contactPerson = new ContactPerson(cpDto.getContactName(), cpDto.getContactEmail(), parts.getOriginalFilename());
+				ContactPerson contactPerson = new ContactPerson(cpDto.getContactName(), cpDto.getContactEmail(), cpImageName, companies);
 				contactPersonDao.persist(contactPerson, companies.getCompanyId());
-				//counter++;
+				counter++;
 			} catch (IOException e) {
 				System.out.println(e.getMessage());
 				e.printStackTrace();
@@ -246,15 +246,15 @@ public class BasicController
   @RequestMapping(value={"/forget"}, method={RequestMethod.GET})
   public String getForgetPage(Principal principal, Model model) {
     logger.info("Enter Setting Page");
-    model.addAttribute("forgetMethod", new String());
     model.addAttribute("sendPass", new String());
     return "forgetPage";
   }
   
   @RequestMapping(value={"/forget"}, method={RequestMethod.POST})
-  public String setForgetPage( BindingResult result, Principal principal, Model model) throws IOException {
+  public String setForgetPage(Principal principal, Model model, HttpServletRequest request){
 	  //@RequestParam("forgetMethod") String forgetParam,
-	  logger.info("Leave Setting Page");
+	  String passStr = "Change Password " + request.getParameter("sendPass");
+	  logger.debug(passStr);
 	  /*
 	  Users users = usersDao.findByName(forgetParam);
 	  if (users != null ) {
@@ -265,6 +265,7 @@ public class BasicController
 		  return "redirect:/forgetPage";
 	  }
 	  */
+	  model.addAttribute("message", passStr);
 	  return "registration-successPage";
   }
 
@@ -373,7 +374,8 @@ public class BasicController
 		  cpDto.setContactId(cpo.getContactId());
 		  cpDto.setContactName(cpo.getContactName());
 		  cpDto.setContactEmail(cpo.getContactEmail());
-		  cpDto.setContactFoto(path + cpo.getContactImg());
+		  String pathContactFoto = File.separator + "resources" + File.separator + "img" + File.separator; //File.separator + "DCI" + 
+		  cpDto.setContactFoto(pathContactFoto + cpo.getContactImg());
 		  contactDtoList.add(cpDto);
 		  logger.info(cpDto.getContactId() + " " + cpDto.getContactName() + " " + cpDto.getContactEmail() + " " + cpDto.getContactFoto());
 	  }

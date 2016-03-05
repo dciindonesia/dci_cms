@@ -113,7 +113,18 @@ position: absolute;
       <div class="row" style="background-color: white !important; ">
         <div class="col-md-12">
           <h3 class="text-info">About</h3>
-          <c:out value="${companyDto.companyDesc}" />
+          <p>DCI was established as an enabler for business community by providing
+            a reliable, well networked and well managed carrier neutral Data Center
+            Infrastructure Services in Jakarta and its surrounding area, Indonesia.</p>
+          <p>DCIâs strong industry expertise was developed from many years of combined
+            experience of key people and shareholders in IT Services, Data Center Services,
+            and Building Infrastructure Management through local and international
+            leading companies. Based on experience, DCI believes; to provide reliable
+            data center services; not only data center design and construction are
+            important, but also solid operation process is important in order to be
+            able to deliver a stable committed SLA. With our expertise backgrounds
+            and years of experiences, DCI is here to bring world class data center
+            to Indonesia.</p>
         </div>
       </div>
     </div>

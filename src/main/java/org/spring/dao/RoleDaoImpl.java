@@ -41,10 +41,8 @@ public class RoleDaoImpl implements RoleDao{
 
 
 	public void persist(Role transientInstance) {
-		log.debug("persisting Usergroup instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
-			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
 			throw re;
@@ -52,10 +50,8 @@ public class RoleDaoImpl implements RoleDao{
 	}
 
 	public void attachDirty(Role instance) {
-		log.debug("attaching dirty Usergroup instance");
 		try {
 			sessionFactory.getCurrentSession().saveOrUpdate(instance);
-			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
 			throw re;
@@ -63,10 +59,8 @@ public class RoleDaoImpl implements RoleDao{
 	}
 
 	public void attachClean(Role instance) {
-		log.debug("attaching clean Usergroup instance");
 		try {
 			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
-			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
 			throw re;
@@ -74,10 +68,8 @@ public class RoleDaoImpl implements RoleDao{
 	}
 
 	public void delete(Role persistentInstance) {
-		log.debug("deleting Usergroup instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
-			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
 			throw re;
@@ -85,11 +77,9 @@ public class RoleDaoImpl implements RoleDao{
 	}
 
 	public Role merge(Role detachedInstance) {
-		log.debug("merging Usergroup instance");
 		try {
 			Role result = (Role) sessionFactory.getCurrentSession()
 					.merge(detachedInstance);
-			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
 			log.error("merge failed", re);
@@ -98,15 +88,16 @@ public class RoleDaoImpl implements RoleDao{
 	}
 
 	public Role findById(java.lang.String id) {
-		log.debug("getting Usergroup instance with id: " + id);
 		try {
 			Role instance = (Role) sessionFactory.getCurrentSession()
 					.get(Role.class, id);
+			/*
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
 				log.debug("get successful, instance found");
 			}
+			*/
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -116,13 +107,10 @@ public class RoleDaoImpl implements RoleDao{
 
 	@SuppressWarnings("rawtypes")
 	public List findByExample(Role instance) {
-		log.debug("finding Usergroup instance by example");
 		try {
 			List results = sessionFactory.getCurrentSession()
 					.createCriteria("Usergroup").add(Example.create(instance))
 					.list();
-			log.debug("find by example successful, result size: "
-					+ results.size());
 			return results;
 		} catch (RuntimeException re) {
 			log.error("find by example failed", re);
@@ -130,17 +118,13 @@ public class RoleDaoImpl implements RoleDao{
 		}
 	}
 	
-	@SuppressWarnings({ "unchecked", "deprecation" })
+	@SuppressWarnings({ "unchecked" })
 	public List<Role> getAllRoles() {
 		log.debug("get all Usergroup by List");
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			List<Role> roleList = (List<Role>) session
 				.createQuery("from " + Role.class.getName()).list();
-				//.createQuery( "select i from Item i");
-				//.find("from " + Role.class.getName());
-			log.debug("find all usergroup successful, result size: "
-				+ roleList.size());
 			return roleList;
 		} catch (RuntimeException re) {
 			log.error("find all usergroup failed", re);
@@ -150,7 +134,6 @@ public class RoleDaoImpl implements RoleDao{
 
 	@Override
 	public List<Role> findByUsers(String uid) {
-		log.debug("get all Usergroup join with User");
 		List<Role> groupList = new ArrayList<Role>();
 		Users users = usersDao.getUserById(uid);
 		for (Role grp : users.getRoles()) {

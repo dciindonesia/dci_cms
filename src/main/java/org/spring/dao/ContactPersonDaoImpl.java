@@ -39,11 +39,13 @@ public class ContactPersonDaoImpl implements ContactPersonDao {
 	public void persist(ContactPerson contactPerson, Long companyId) {
 		log.debug("save ContactPerson instance " + contactPerson.getContactName());
 		try {
+//			Company company = companyDao.findById(companyId);
+//			contactPerson.setCompany(company);
 			this.sessionFactory.getCurrentSession().persist(contactPerson);
-			Company company = companyDao.findById(companyId);
-			company.getContactPersons().add(contactPerson);
-			companyDao.update(company);
-			log.debug("persist successful");
+			
+//			company.getContactPersons().add(contactPerson);
+//			companyDao.update(company);
+//			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
 		throw re;

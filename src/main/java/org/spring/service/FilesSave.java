@@ -77,7 +77,7 @@ public class FilesSave{
 				
 			    System.out.println("Path= " + serverFile.getAbsolutePath());
 			    System.out.println(cpDto.getContactName() + " " + cpDto.getContactEmail() + " " + cpDto.getContactImg().getOriginalFilename());
-				ContactPerson contactPerson = new ContactPerson(cpDto.getContactName(), cpDto.getContactEmail(), parts.getOriginalFilename());
+				ContactPerson contactPerson = new ContactPerson(cpDto.getContactName(), cpDto.getContactEmail(), parts.getOriginalFilename(), company);
 				contactPersonDao.persist(contactPerson, company.getCompanyId());
 				counter++;
 			} catch (IOException e) {

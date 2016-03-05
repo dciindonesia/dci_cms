@@ -70,7 +70,7 @@
     
     <button type="submit" class="btn btn-primary btn-lg btn-block">JOIN NOW</button>
     <div class="col-lg-12">
-    	<div class="col-lg-offset-8 col-lg-4"><p style="font-size:14px;">or <a href='#'>Cancel</a></p></div>
+    	<div class="col-lg-offset-8 col-lg-4"><p style="font-size:14px;">or <a href='default'>Cancel</a></p></div>
     </div>
     <input type="checkbox" name="terms" value="agree"> I agree to the <a href='#'>Terms & Conditions</a> and <a href='#'>Privacy Policy</a><br>
 </div>

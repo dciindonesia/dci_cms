@@ -32,10 +32,8 @@ public class UsersDaoImpl implements UsersDao{
 	
 	@Transactional
 	public void update(Users transientInstance) {
-		log.debug("Progress Update User instance");
 		try {
 			sessionFactory.getCurrentSession().update(transientInstance);
-			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("update failed", re);
 		}
@@ -43,10 +41,8 @@ public class UsersDaoImpl implements UsersDao{
 	
 	@Transactional
 	public void persist(Users transientInstance) {
-		log.debug("persisting User instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
-			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
 			throw re;
@@ -55,10 +51,8 @@ public class UsersDaoImpl implements UsersDao{
 	
 	@Transactional
 	public void attachDirty(Users instance) {
-		log.debug("attaching dirty User instance");
 		try {
 			sessionFactory.getCurrentSession().saveOrUpdate(instance);
-			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
 			throw re;
@@ -67,10 +61,8 @@ public class UsersDaoImpl implements UsersDao{
 	
 	@Transactional
 	public void attachClean(Users instance) {
-		log.debug("attaching clean User instance");
 		try {
 			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
-			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
 			throw re;
@@ -79,7 +71,6 @@ public class UsersDaoImpl implements UsersDao{
 	
 	@Transactional
 	public void delete(Users persistentInstance) {
-		log.debug("deleting User instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -91,7 +82,6 @@ public class UsersDaoImpl implements UsersDao{
 	
 	@Transactional
 	public Users merge(Users detachedInstance) {
-		log.debug("merging User instance");
 		try {
 			Users result = (Users) sessionFactory.getCurrentSession().merge(
 					detachedInstance);
@@ -105,18 +95,16 @@ public class UsersDaoImpl implements UsersDao{
 	
 	@Transactional
 	public Users findById(java.lang.String id) {
-		log.debug("getting User instance with id: " + id);
 		try {
-			//Userx instance = (Userx) sessionFactory.getCurrentSession().get(
-			//		"User", id);
 			Users instance = (Users) sessionFactory.getCurrentSession().createQuery(
 					"from " + Users.class.getName() + " u where u.firstName='" + id + "'").uniqueResult();
-					//.addEntity("com.jsfsample.model.Userx").list();
+			/*
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
 				log.debug("get successful, instance found");
 			}
+			*/
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -127,13 +115,10 @@ public class UsersDaoImpl implements UsersDao{
 	@Transactional
 	@SuppressWarnings("rawtypes")
 	public List findByExample(Users instance) {
-		log.debug("finding User instance by example");
 		try {
 			List results = sessionFactory.getCurrentSession()
 					.createCriteria("User").add(Example.create(instance))
 					.list();
-			log.debug("find by example successful, result size: "
-					+ results.size());
 			return results;
 		} catch (RuntimeException re) {
 			log.error("find by example failed", re);
@@ -147,15 +132,12 @@ public class UsersDaoImpl implements UsersDao{
 		Session session = sessionFactory.getCurrentSession();
 		
 		List<Users> userx = (List<Users>) session
-				//.createQuery("from User").list();
-				//.createQuery( "select i from Item i");
 				.find("from " + Users.class.getName());
 		return userx;
 	}
 	
 	@Transactional
 	public Users findByName(java.lang.String name) {
-		log.debug("getting User instance with id: " + name);
 		Users useren = new Users();
 		try {
 			List<Users> users = this.getAllUser();
@@ -176,7 +158,6 @@ public class UsersDaoImpl implements UsersDao{
 	@Transactional
 	@Override
 	public Users getUserById(String uid) {
-		log.debug("getting User instance with id: " + uid);
 		Session session = sessionFactory.getCurrentSession();
 		return (Users) session.get(Users.class, uid);
 	}

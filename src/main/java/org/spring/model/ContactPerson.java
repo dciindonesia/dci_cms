@@ -6,9 +6,12 @@ package org.spring.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -30,13 +33,20 @@ public class ContactPerson implements Serializable{
 	private String contactName;
 	private String contactEmail;
 	private String contactImg;
+//	@ManyToOne
+//	@JoinColumn(name = "company")
+	@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="companyId", nullable=false)
+	private Company company;
+	
 	
 	public ContactPerson(){}
 	
-	public ContactPerson (String contactName, String contactEmail, String contactImg) {
+	public ContactPerson (String contactName, String contactEmail, String contactImg, Company company) {
 		this.contactName = contactName;
 		this.contactEmail = contactEmail;
 		this.contactImg = contactImg;
+		this.company = company;
 	}
 	
 	/**
@@ -86,6 +96,16 @@ public class ContactPerson implements Serializable{
 	 */
 	public void setContactImg(String contactImg) {
 		this.contactImg = contactImg;
+	}
+//	@ManyToOne(cascade = {CascadeType.ALL},fetch= FetchType.EAGER)
+//	@JoinColumn(name = "companyId", referencedColumnName = "companyId")
+	
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 }

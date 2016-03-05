@@ -3,10 +3,13 @@ package org.spring.model;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -29,7 +32,9 @@ public class Company implements Serializable{
 	private int companyFollower;
 	private String companyHQ;
 	private Industry industry;
-	@OneToMany
+	//@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(fetch=FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy="company")
+    @JoinColumn(name="companyId") 
 	private Set<ContactPerson> contactPersons;
 	
 	public Company(){}
@@ -111,7 +116,8 @@ public class Company implements Serializable{
 	public void setCompanyHQ(String companyHQ) {
 		this.companyHQ = companyHQ;
 	}
-
+	
+	
 	public Set<ContactPerson> getContactPersons() {
 		return contactPersons;
 	}
