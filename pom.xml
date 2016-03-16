@@ -52,6 +52,12 @@
         <version>${jsr250.version}</version>
       </dependency>
     
+   <dependency>
+		<groupId>javax.mail</groupId>
+		<artifactId>mail</artifactId>
+		<version>1.4</version>
+	</dependency>
+
    
     
 	<!-- Apache Commons FileUpload --> 
@@ -208,6 +214,19 @@
     	<type>jar</type>
     	<scope>compile</scope>
     </dependency>
+    <dependency>
+	<groupId>org.hibernate</groupId>
+	<artifactId>hibernate-validator</artifactId>
+	<version>4.1.0.FINAL</version>
+</dependency>
+
+    <dependency>
+	<groupId>javax.validation</groupId>
+	<artifactId>validation-api</artifactId>
+	<version>1.0.0.GA</version>
+</dependency>
+
+    
     <dependency>
     	<groupId>javax.persistence</groupId>
     	<artifactId>persistence-api</artifactId>

@@ -1,123 +1,230 @@
 <%@include file="/WEB-INF/includes/taglibs.jsp" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript">
-	$(document).ready(function(){
-
-        // Start indexing at the size of the current list
-        var index = 0; 
-        //${fn:length(filess.contactList)};
-        var msg = "";
-        
-        // Add a new Employee
-        $("#add").click(function () {
-            $(this).before(function() {
-            	
-                var html = '<div id="contactList' + index + '.wrapper">';                    
-                html += '<input type="file" id="contactList' + index + '.contactImg" name="contactList[' + index + '].contactImg" value="" />';
-                html += '<input type="text" id="contactList' + index + '.contactName" name="contactList[' + index + '].contactName" value="" class="input-text-cust form-control" placeholder="Contact Name" />';
-                html += '<input type="text" id="contactList' + index + '.contactEmail" name="contactList[' + index + '].contactEmail" value="" class="input-text-cust form-control" placeholder="Contact Email" />';
-                html += '<a href="#" id="remove" data-index="' + index + '">remove</a>';
-                html += '</div>';
-                return html;
-            });
-            $("#contactList" + index + "\\.wrapper").show();
-            index++;
-            return false;
-        });
-        
-
-        // Remove an Employee .frameworks\\.remove
-        $(document).on('click', 'a#remove', function() {
-            var index2remove = $(this).data("index");
-            msg = "Field Address number: " + index2remove + " was removed";
-            $("#contactList" + index2remove + "\\.wrapper").hide();
-            $("#contactList" + index2remove + "\\.remove").val("1");
-            alert(msg);
-            return false;
-        });
-        
-    });
-    </script>	
+	<style type="text/css">
+		
+		.panel-primary {
+		    border-color: 1px solid rgba(0, 0, 0, 0.2); /* #337ab7; */
+		}
+		
+		.panel-body {
+		    padding: 0;
+		}
+		
+		ul
+		{
+		    list-style-type: none;
+		}
+		
+		p {
+			font-size:18px;
+		}
+		
+		.hoverCustomLogo {
+			position: absolute;
+			width: 100px;
+			height: 100px;
+			opacity: 0;
+			background: rgba(0, 0, 0, .5);
+			-webkit-transition: all ease .5s;
+			-moz-transition: all ease .5s;
+			transition: all ease .5s;
+			z-index: 2;
+		}
+		
+		.hoverCustomLogo:hover {
+			opacity:1;
+		}
+	</style>
 </head>
-<body>
+<body style="background-color:#FFF">
+<div class="container" style="margin-top:40px;">
 
-<form:form action="setting" method="POST" commandName="filess" enctype="multipart/form-data">
+	<div class="panel panel-primary" style="height: 450px; width:95%; background-color:#FFF;">
 	
-	<div class="inline">
-		<form:label path="companyLogo">Insert Logo Company</form:label>
-		<!--  <input type="file" path="file" id="imgInp" name="logoImg" class="btn btn-info"/> -->
-		<form:input path="companyLogo" type="file" name="logoImg" class="imgInp" />
-		<img id="imgResult" src="#" width="100px" height="100px" alt="" />
-		<form:errors path="companyLogo" cssClass="error" />
+	<div class="panel-heading">
+    	<p style="font-size:16px;"class="panel-title"><i class="glyphicon glyphicon-cog"></i>&nbsp;&nbsp;Settings</p>
+    </div>
+    
+    <div class="panel-body">
+    	<div class="row">
+			<div class="col-sm-4">        
+		    	<ul>
+		    		<li style="color:#1F8CD2;font-size:16px; padding-top:50px;"><a href="#"><i class="glyphicon glyphicon-cog" ></i>&nbsp;&nbsp;General</a></li>
+		    		<li style="color:#1F8CD2;font-size:16px; padding-top:20px;"><a href="settingCP"><i class="glyphicon glyphicon-user" ></i>&nbsp;&nbsp;Account</a></li>
+		    		<li style="color:#1F8CD2;font-size:16px; padding-top:20px;"><a href="settingPrivacy"><i class="glyphicon glyphicon-alert" ></i>&nbsp;&nbsp;Privacy</a></li>
+		    	</ul>      
+		    </div>
+		    
+		    
+		    
+		    
+		    <div class="col-sm-8" style="padding-top:10%;color:#1F8CD2;">
+		    	<div>
+			    	<div class='hoverCustomLogo' style='width:330px;height:30px;'>
+							<p style="position:relative; top:4px;font-size:20px;color:#FFF;left:300px;">
+								<a href="#" data-toggle="modal" data-target="#modalAccount"><i style='color:#FFFFFF;' class="glyphicon glyphicon-pencil" aria-hidden="true"></i></a>
+							</p>
+					</div>
+					<p><i style="font-size:22px;" class="glyphicon glyphicon-user" ></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Administrator</p>
+				</div>
+		   
+		        
+			<form:form cssClass="form-horizontal blogForm" >
+			<!-- Modal -->
+			<div class="modal fade" id="modalAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        <h4 class="modal-title" id="myModalLabel">Edit Account Name</h4>
+			      </div>
+			      <div class="modal-body">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Insert Full Name</label>
+						<div class="col-sm-10">
+							Administrator
+						</div>
+					</div>
+			
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <input type="submit" class="btn btn-primary" value="Save" />
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			</form:form>
+			
+			<div>
+		    	<div class='hoverCustomLogo' style='width:330px;height:30px;'>
+						<p style="position:relative; top:4px;font-size:20px;color:#FFF;left:300px;">
+							<a href="#" data-toggle="modal" data-target="#modalEmail"><i style='color:#FFFFFF;' class="glyphicon glyphicon-pencil" aria-hidden="true"></i></a>
+						</p>
+				</div>
+				<p><i style="font-size:22px;" class="glyphicon glyphicon-envelope" ></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;admin@dci-indonesia.com</p>
+			</div>
+		   
+		        
+			<form:form cssClass="form-horizontal blogForm" >
+			<!-- Modal -->
+			<div class="modal fade" id="modalEmail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        <h4 class="modal-title" id="myModalLabel">Edit Email Address</h4>
+			      </div>
+			      <div class="modal-body">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Insert your Email address</label>
+						<div class="col-sm-10">
+							admin@dci-indonesia.com
+						</div>
+					</div>
+			
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <input type="submit" class="btn btn-primary" value="Save" />
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			</form:form>
+			
+		    
+		    
+		    <div>
+		    	<div class='hoverCustomLogo' style='width:330px;height:30px;'>
+						<p style="position:relative; top:4px;font-size:20px;color:#FFF;left:300px;">
+							<a href="#" data-toggle="modal" data-target="#modalPhone"><i style='color:#FFFFFF;' class="glyphicon glyphicon-pencil" aria-hidden="true"></i></a>
+						</p>
+				</div>
+				<p><i style="font-size:22px;" class="glyphicon glyphicon-phone-alt" ></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;08111111111</p>
+			</div>
+		   
+		        
+			<form:form cssClass="form-horizontal blogForm" >
+			<!-- Modal -->
+			<div class="modal fade" id="modalPhone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        <h4 class="modal-title" id="myModalLabel">Edit Phone Number</h4>
+			      </div>
+			      <div class="modal-body">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Phone Number</label>
+						<div class="col-sm-10">
+							08111111111
+						</div>
+					</div>
+			
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <input type="submit" class="btn btn-primary" value="Save" />
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			</form:form>
+			
+			
+			<div>
+		    	<div class='hoverCustomLogo' style='width:330px;height:30px;'>
+						<p style="position:relative; top:4px;font-size:20px;color:#FFF;left:300px;">
+							<a href="#" data-toggle="modal" data-target="#modalPassword"><i style='color:#FFFFFF;' class="glyphicon glyphicon-pencil" aria-hidden="true"></i></a>
+						</p>
+				</div>
+				<p><i style="font-size:22px;" class="glyphicon glyphicon-lock" ></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Change password</p>
+			</div>
+		   
+		        
+			<form:form cssClass="form-horizontal blogForm" >
+			<!-- Modal -->
+			<div class="modal fade" id="modalPassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        <h4 class="modal-title" id="myModalLabel">Change Password</h4>
+			      </div>
+			      <div class="modal-body">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Insert your new Password</label>
+						<div class="col-sm-10">
+							Password
+						</div>
+					</div>
+			
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <input type="submit" class="btn btn-primary" value="Save" />
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			</form:form>
+			
+			
+			
+			
+			
+			<br><br><br><br><br>
+			<a href="recent" class="pull-right" style="padding-right:110px;font-size:20px;">Confirm Changes</a>	
+			</div>
+		</div>
+    </div>
+	
 	</div>
 	
-	<br>
-	
-	<form:label path="companyName">Your Company Name</form:label>
-    <form:input path="companyName" name="companyName" class="input-text-cust form-control" 
-     placeholder="Company Name" />
-    <form:errors path="companyName" cssClass="error" />
-    <br>
-    
-	<form:label path="companyDesc">Your Company Description</form:label>
-	<form:textarea path="companyDesc" id="editor" placeholder="Enter text ..." style="width: 810px; height: 200px"></form:textarea>
-    <form:errors path="companyDesc" cssClass="error" />
-    <br>
-    
-    <div id='TextBoxesGroup'>
-	<c:forEach items="${filess.contactList}" varStatus="loop">
-	<!-- Add a wrapping div -->
-    <c:choose>
-    	<c:when test="${filess.contactList[loop.index].remove eq 1}">
-        	<div id="TextBoxDiv${loop.index}" class="hidden">
-        </c:when>
-	    <c:otherwise>
-	    	<div id="TextBoxDiv${loop.index}">
-		</c:otherwise>
-    </c:choose>
-    
-   
-
-	<!-- Generate the fields -->
-	<form:label path="contactList[${loop.index}].contactImg">Contact Person 1</form:label>
-	<form:input path="contactList[${loop.index}].contactImg" type="file" name="contactList[${loop.index}].contactImg" id="imgInp" />
-	<img id="imgResult" src="#" width="100px" height="100px" alt="" />
-	<form:errors path="contactList[${loop.index}].contactImg" cssClass="error" />
-						
-	<form:label path="contactList[${loop.index}].contactName">Name :</form:label>
-	<form:input path="contactList[${loop.index}].contactName" name="contactList[${loop.index}]contactName" class="input-text-cust form-control" 
-		placeholder="Contact Name" />
-	<form:errors path="contactList[${loop.index}].contactName" cssClass="error" />
-					    
-	<form:label path="contactList[${loop.index}].contactEmail">Name :</form:label>
-	<form:input path="contactList[${loop.index}].contactEmail" name="contactList[${loop.index}].contactEmail" class="input-text-cust form-control" 
-		placeholder="Contact Email" />
-	<form:errors path="contactList[${loop.index}].contactEmail" cssClass="error" />
-						
-    <!-- Add the remove flag -->
-    <c:choose>
-    	<c:when test="${contactList[loop.index].remove eq 1}">
-        	<c:set var="hiddenValue" value="1" />
-        </c:when>
-	    <c:otherwise>
-	    	<c:set var="hiddenValue" value="0" />
-	    </c:otherwise>
-    </c:choose>
-
-    <form:hidden path="contactList[${loop.index}].remove" value="${hiddenValue}" />
-    <!-- Add a link to remove the Frameworks -->
-    <a href="#" id="remove" data-index="${loop.index}">Remove</a>
-                        
-    	</div>
-	<br><br>
-    </c:forEach>
-    </div>
-	<button id="add" type="button">Add Contact Person</button>
-    
-    <br>
-    <button type="submit" class="btn btn-primary btn-lg">SUBMIT</button>
-</form:form>
+</div>			
 </body>
 </html>

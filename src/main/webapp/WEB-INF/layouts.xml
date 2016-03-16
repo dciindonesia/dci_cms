@@ -23,6 +23,10 @@
   	</definition>
   	
   	<!-- TEMPORARY -->
+  	<definition name="account" extends="custFull.definition">
+		<put-attribute name="title" value="Temp List Page" />
+		<put-attribute name="body" value="/WEB-INF/halaman/admin/user-account.jsp" />
+	</definition>
   	<definition name="records" extends="custFull.definition">
 		<put-attribute name="title" value="Temp List Page" />
 		<put-attribute name="body" value="/WEB-INF/halaman/records.jsp" />
@@ -46,8 +50,23 @@
   	<!--  -->
   	
   	<definition name="settingPage" extends="custFull.definition">
-		<put-attribute name="title" value="Customer Page" />
+		<put-attribute name="title" value="Setting Page" />
 		<put-attribute name="body" value="/WEB-INF/halaman/admin/setting.jsp" />
+	</definition>
+	
+	<definition name="settingCPPage" extends="custFull.definition">
+		<put-attribute name="title" value="Setting Page" />
+		<put-attribute name="body" value="/WEB-INF/halaman/admin/settingCp.jsp" />
+	</definition>
+	
+	<definition name="settingPrivacyPage" extends="custFull.definition">
+		<put-attribute name="title" value="Setting Page" />
+		<put-attribute name="body" value="/WEB-INF/halaman/admin/settingPrivacy.jsp" />
+	</definition>
+	
+	<definition name="settingTmpPage" extends="custFull.definition">
+		<put-attribute name="title" value="Setting Page" />
+		<put-attribute name="body" value="/WEB-INF/halaman/admin/settingTmp.jsp" />
 	</definition>
   
   	<definition name="utamaPage" extends="base.definition">
@@ -55,8 +74,8 @@
 		<put-attribute name="body" value="/WEB-INF/halaman/utama.jsp" />
 	</definition>
 	
-	<definition name="forgetPage" extends="base.definition">
-		<put-attribute name="title" value="Forget YOu Password?" />
+	<definition name="forgetPage" extends="custFull.definition">
+		<put-attribute name="title" value="Forget Your Password?" />
 		<put-attribute name="body" value="/WEB-INF/halaman/forget.jsp" />
 	</definition>
 	
@@ -105,7 +124,7 @@
 		<put-attribute name="body" value="/WEB-INF/halaman/admin/ModalEditCP.jsp" />
 	</definition>
 
-	<definition name="custListPage" extends="custFull.definition">
+	<definition name="custListPage" extends="cust.definition">
 		<put-attribute name="title" value="Customer List" />
 		<put-attribute name="body" value="/WEB-INF/halaman/admin/CustomerList.jsp" />
 	</definition>
@@ -115,7 +134,7 @@
 		<put-attribute name="body" value="/WEB-INF/halaman/admin/CustomerCommon.jsp" />
 	</definition>
 	
-	<definition name="registration-successPage" extends="base.definition">
+	<definition name="registration-successPage" extends="custFull.definition">
 		<put-attribute name="title" value="Congratulations" />
 		<put-attribute name="body" value="/WEB-INF/halaman/registration-success.jsp" />
 	</definition>

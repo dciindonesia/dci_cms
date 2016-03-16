@@ -1,46 +1,81 @@
 <%@include file="/WEB-INF/includes/taglibs.jsp" %>
 <html>
-
+<head>
+	<style type="text/css">
+		.modal-dialog {
+		  position:absolute;
+		  top:50% !important;
+		  transform: translate(0, -50%) !important;
+		  -ms-transform: translate(0, -50%) !important;
+		  -webkit-transform: translate(0, -50%) !important;
+		  margin:auto 5%;
+		  width:65%;
+		  height:45%;
+		  font-size: 12px;
+		  
+		}
+		.modal-content {
+		  min-height:100%;
+		  position:absolute;
+		  top:0;
+		  bottom:0;
+		  left: calc(50% - 55px) !important;
+		  right:0; 
+		}
+		.modal-body { 
+		  position:absolute;
+		  top:45px; /* height of header */
+		  bottom:45px;  /* height of footer */
+		  left:0;
+		  right:0;
+		  overflow-y:auto;
+		}
+		.modal-footer {
+		  position:absolute;
+		  bottom:0;
+		  left:0;
+		  right:0;
+		}
+	</style>
+</head>
 <body style="background-color:#F3F3F3;">
 <div class="container" style="margin-top:40px;">
-	<div class="jumbotron" style="height: 500px; background-color:#FFF;">
+	<div class="jumbotron" style="height: 600px; background-color:#FFF;">
 	<h3>Please provide your information in the form below to get an access to DCI Marketplace. Once your request is approved, you will get a confirmation email containing your account details</h3>
 <form:form action="form" method="POST" commandName="registration" style="padding-top:40px;">
 <div class="col-lg-4">
-	<form:label path="title"></form:label>
-    <form:input path="title" name="title" class="input-text-cust form-control" 
-                        	placeholder="Title"  />
-    <form:errors path="title" cssClass="error" />
+	
     
     <form:label path="firstName"></form:label>
     <form:input path="firstName" name="firstName" class="input-text-cust form-control" 
-                        	placeholder="First Name" />
-    <form:errors path="firstName" cssClass="error" />
-    
+                        	placeholder="First Name"/>
+    <form:errors path="firstName" class="label label-danger" />
+    <br>
     <form:label path="lastName"></form:label>
     <form:input path="lastName" name="lastName" class="input-text-cust form-control" 
                         	placeholder="Last Name" />
-    <form:errors path="lastName" cssClass="error" />
-    
+    <form:errors path="lastName" class="label label-danger" />
+    <br>
     <form:label path="email"></form:label>
     <form:input path="email" name="email" class="input-text-cust form-control" 
                         	placeholder="Email" />
-    <form:errors path="email" cssClass="error" />
-    
+    <form:errors path="email" class="label label-danger" />
+    <br>
     <form:label path="phone"></form:label>
     <form:input path="phone" name="phone" class="input-text-cust form-control"
                         	placeholder="Phone" />
-    <form:errors path="phone" cssClass="error" />
-    
+    <form:errors path="phone" class="label label-danger" />
+    <br>
     <form:label path="password"></form:label>
     <form:password path="password" name="password" class="input-text-cust form-control" 
                         	placeholder="Password" />
-    <form:errors path="password" cssClass="error" />
-    
+    <form:errors path="password" class="label label-danger" />
+    <br>
     <form:label path="confirmPassword"></form:label>
     <form:password path="confirmPassword" name="confirmPassword" class="input-text-cust form-control" 
                         	placeholder="Confirm your password" />
-    <form:errors path="confirmPassword" cssClass="error" />
+    <form:errors path="confirmPassword" class="label label-danger" />
+    <br>
 </div>
 
 <div class="col-lg-4">
@@ -51,12 +86,14 @@
 		<form:options items="${countryList}" itemValue="countryId" itemLabel="countryName" />
 	</form:select>
 	
-    <form:errors path="country" cssClass="error" />
+    <form:errors path="country" class="label label-danger"/>
+    <br>
     
     <form:label path="company"></form:label>
     <form:input path="company" name="company" class="input-text-cust form-control" 
                         	placeholder="Company" />
-    <form:errors path="company" cssClass="error" />
+    <form:errors path="company" class="label label-danger" />
+    <br>
     
     <form:label path="industry"></form:label>
     <form:select path="industry" name="industry" class="input-text-cust form-control" 
@@ -64,13 +101,45 @@
 		<form:option value="">Select Industry..</form:option>
 		<form:options items="${industryList}" itemValue="industryId" itemLabel="industryName" />
 	</form:select>	                  
-    <form:errors path="industry" cssClass="error" />
-    
+    <form:errors path="industry"  class="label label-danger"/>
     <br>
+    
+    <form:label path="title"></form:label>
+    <form:input path="title" name="title" class="input-text-cust form-control" 
+                        	placeholder="Title"  />
+    <form:errors path="title" class="label label-danger" />
+    <br><br>
     
     <button type="submit" class="btn btn-primary btn-lg btn-block">JOIN NOW</button>
     <div class="col-lg-12">
-    	<div class="col-lg-offset-8 col-lg-4"><p style="font-size:14px;">or <a href='default'>Cancel</a></p></div>
+    	<div class="col-lg-offset-8 col-lg-4"><p style="font-size:14px;">or <a href="#" data-toggle="modal" data-target="#myModal">Cancel</a></p>
+    	<!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content" style="background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color: #FFFFFF;">&times;</button>
+			        
+			      </div>
+			      <div class="modal-body">
+					<div class="form-group">
+						<div class="col-sm-10">
+							<p style="font-size:14px; color:#FFF;">Are you sure you want to cancel the registration?</p>
+							<p style="font-size:14px;color:#FFF;">Upon clicking 'yes', all fields will be deleted</p>
+						</div>
+					</div>
+					
+			      </div>
+			      <br><br><br><br>
+			      <div class="modal-footer">
+			        <a href="default">Yes</a>
+			        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        <a href="#" data-dismiss="modal">No</a>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+    	</div>
     </div>
     <input type="checkbox" name="terms" value="agree"> I agree to the <a href='#'>Terms & Conditions</a> and <a href='#'>Privacy Policy</a><br>
 </div>

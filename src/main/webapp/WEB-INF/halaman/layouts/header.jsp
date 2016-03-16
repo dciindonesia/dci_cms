@@ -4,6 +4,10 @@
 		background-color: #fff;
 	}
 	
+	.navbar {
+	    font-weight: normal;
+    }
+	
 	.li-cust {
 		padding-top: 14px;
 	}
@@ -41,10 +45,26 @@
     .head-group {
         padding-top: 21px;
     }
+    
+    .input-group-addon {
+    background-color: #ccc;
+    }
+    
     .btn-cust {
     	padding-right: 10px;
     	height: 40px;
     }
+    
+    .btn-search {
+		    background:none!important;
+		    border:none; 
+		    padding:0!important;
+		    /*border is optional*/
+		    /* border-bottom:1px solid #444; */ 
+		    color:#23ADEF;
+		    
+		    
+		}
 </style>
 <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0px; background-color: #FFF;">
             <div class="navbar-header">
@@ -62,11 +82,24 @@
 				            <div class="col-xs-3">
 				                <a href="recent"><img src="<c:url value="/resources/img/DCI_logo_small.png" />" alt="logo" /></a>
 				            </div>
-				            <div class="col-md-5 head-group">                  
-			                    <div class="form-group">
-			                        <input type="text" class="form-control" id="findInput" placeholder="Find a company" style="width:300px;background-color:#CCC;color:#fff;">
-			                    </div>
-			                    </div>
+				            
+	<div class="col-md-5 head-group">
+	<form action="customerSearch" method="POST" role="form" style="width:90%;padding-left:9%">
+		<div class="form-group">
+	  		<div class="input-group">
+	  		
+	  			<input type="text" class="form-control" id="findInput" name="searchInput" 
+	  				style="background-color:#CCC;color:#fff;" placeholder="Find a company" aria-describedby="start-date">
+	        	<span class="input-group-addon" id="start-date">
+	        		<button class="btn-search" type="submit">
+	        			<span class="glyphicon glyphicon-search" style="color:#FFF;"></span>
+	        		</button>
+	        	</span>
+	    		
+	    	</div>
+		</div>
+	</form>
+	</div>
 			                    <div class="col-md-4"> 
 			                    <ul class="nav navbar-nav navbar-right"> 
 			                    <li class="dropdown">
@@ -76,7 +109,7 @@
 						              <li class="divider" role="separator"></li>
 						              <li><a href="setting"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;&nbsp;SETTINGS</a></li>
 						              <li class="divider" role="separator"></li>
-						              <li><a href="#"><span class="glyphicon glyphicon-refresh" aria-hidden="true">&nbsp;CONNECTIONS</a></li>
+						              <li><a href="settingTmp"><span class="glyphicon glyphicon-refresh" aria-hidden="true">&nbsp;CONNECTIONS</a></li>
 						              <li class="divider" role="separator"></li>
 						              <li><a href="#"><span class="glyphicon glyphicon-comment" aria-hidden="true">&nbsp;PING</a></li>
 						              <li class="divider" role="separator"></li>

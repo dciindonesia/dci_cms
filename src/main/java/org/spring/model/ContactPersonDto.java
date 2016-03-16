@@ -15,6 +15,10 @@ public class ContactPersonDto {
 	private String contactEmail;
 	private MultipartFile contactImg;
 	private String contactFoto;
+	private Company company;
+	
+	
+	
 	public int getContactId() {
 		return contactId;
 	}
@@ -62,5 +66,11 @@ public class ContactPersonDto {
 	}
 	public void setContactFoto(String contactFoto) {
 		this.contactFoto = contactFoto;
+	}
+	public Company getCompany() {
+		return company;
+	}
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 }

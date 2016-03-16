@@ -6,7 +6,7 @@ public class UsersDTO {
 
 	private Users users = new Users();
 	private List<Role> roles;
-	
+	private Company company;
 	
 	
 	public UsersDTO(){};
@@ -25,6 +25,14 @@ public class UsersDTO {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 	
 }

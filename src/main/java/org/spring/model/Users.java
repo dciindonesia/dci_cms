@@ -2,6 +2,7 @@ package org.spring.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,12 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import org.spring.model.Role;
 
 import java.util.ArrayList;
@@ -61,6 +63,9 @@ public class Users implements UserDetails, Serializable {
 	    @Column(name = "ACCOUNTNONLOCKED")
 	    private boolean accountNonLocked;
 	    
+	    @ManyToOne(cascade = {CascadeType.ALL})
+		@JoinColumn(name ="companyId")
+		private Company company;
 
 	  //bi-directional many-to-many association to Usergroup
 	    @ManyToMany(fetch=FetchType.EAGER)
@@ -178,6 +183,14 @@ public class Users implements UserDetails, Serializable {
 	    public void setRoles(Set<Role> roles) {
 	        this.roles = roles;
 	    }
+
+		public Company getCompany() {
+			return company;
+		}
+
+		public void setCompany(Company company) {
+			this.company = company;
+		}
 
 
 	}

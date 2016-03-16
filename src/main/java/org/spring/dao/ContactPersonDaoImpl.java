@@ -72,7 +72,7 @@ public class ContactPersonDaoImpl implements ContactPersonDao {
 	public void update(ContactPerson contactPerson) {
 		try {
 			log.debug("update ContactPerson instance " + contactPerson.getContactName());
-			this.sessionFactory.getCurrentSession().merge(contactPerson);
+			this.sessionFactory.getCurrentSession().update(contactPerson);
 			log.debug("update successful");
 		} catch (RuntimeException re) {
 			log.error("update failed", re);
@@ -80,6 +80,7 @@ public class ContactPersonDaoImpl implements ContactPersonDao {
 		}
 	}
 	
+	@Transactional
 	/**
 	 * Retrieves a single Contact Person
 	 */

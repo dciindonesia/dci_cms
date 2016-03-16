@@ -10,7 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -31,17 +33,26 @@ public class Company implements Serializable{
 	private String companySize;
 	private int companyFollower;
 	private String companyHQ;
+	private String companyService;
+	@ManyToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name ="industryId")
 	private Industry industry;
-	//@OneToMany(cascade=CascadeType.ALL)
 	@OneToMany(fetch=FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy="company")
     @JoinColumn(name="companyId") 
 	private Set<ContactPerson> contactPersons;
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="company")
+	@JoinColumn(name ="companyId")
+	private Set<Users> userList;
 	
 	public Company(){}
 	
-	public Company (String companyName,	String companyDesc) {
+	public Company (String companyName,	String companyDesc, String companySize, int companyFollower, String companyHQ, Industry industry) {
 		this.companyName = companyName;
 		this.companyDesc = companyDesc;
+		this.companySize = companySize;
+		this.companyFollower = companyFollower;
+		this.companyHQ = companyHQ;
+		this.industry = industry;
 	}
 	
 	/**
@@ -118,6 +129,14 @@ public class Company implements Serializable{
 	}
 	
 	
+	public String getCompanyService() {
+		return companyService;
+	}
+
+	public void setCompanyService(String companyService) {
+		this.companyService = companyService;
+	}
+
 	public Set<ContactPerson> getContactPersons() {
 		return contactPersons;
 	}
@@ -133,4 +152,14 @@ public class Company implements Serializable{
 	public void setIndustry(Industry industry) {
 		this.industry = industry;
 	}
+
+	public Set<Users> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(Set<Users> userList) {
+		this.userList = userList;
+	}
+
+	
 }

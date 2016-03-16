@@ -18,4 +18,7 @@ public interface CompanyDao {
 
 	List<Company> getAllCompany();
 
+	List<Company> getAllCompSearch(String searching);
+
+	Company findByAdmin(String adminName);
 }

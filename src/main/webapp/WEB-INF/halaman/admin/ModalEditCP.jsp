@@ -25,8 +25,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4><p>Company Logo<span class="glyphicon glyphicon-stats"></span></p></h4>
             </div>
-            
-            <form role="form" action="editCPs?companyId=${companyId}" method="GET">
+<form role="form" action="editCP" method="POST" commandName="companyDto">
 	            <div class="modal-body">
 	                <input type="hidden" name="companyId" class="hidden" value="${companyId}"/>
 	                    <div class="form-group">

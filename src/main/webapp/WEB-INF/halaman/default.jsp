@@ -177,19 +177,21 @@
             <div class="col-md-1">&nbsp;
             </div>
             <!--  <div class="col-md-7 headernya"> -->
-            	<c:if test="${not empty error}">
-					<div class="errorblock">
-						Your login attempt was not successful, try again.<br /> Caused :
-						${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
-					</div>
-				</c:if>
+            	
                 <form class="form-inline" name='f' action="<c:url value='j_spring_security_check' />"
 					method='POST' action="recent">
 					
                     <div class="form-group col-md-3">
                     <input type='username' id='userInputId' name='j_username' value='' class="input-text-cust form-control" 
                     	placeholder="USERNAME" style="width:100%; background-color:#CCC; color:#fff;" required autofocus>
+                    <br>
+                    <c:if test="${not empty error}">
+						<span class="label label-danger">
+							The login information you entered was incorrect
+						</span>
+					</c:if>
                     </div>
+                    
                     <div class="form-group col-md-3">
                         <input type='password' id='passwordInputId' name='j_password' class="input-text-cust form-control" 
                         	placeholder="PASSWORD" style="width:100%; background-color:#CCC; color:#fff;"  required>           
@@ -262,14 +264,12 @@
             </div>
         </div><!-- /.carousel -->
     </div>
-    <div class="col-lg-6"></div>
-    	<div>
-        	<img src="<c:url value="/resources/img/hand.png" />" alt="hand" class="visible-lg" style="position:relative; top:50px; left:232px;width:400px;height:350px;z-index:-1"/>
-        	
-        </div> 
-        	<span><a href="form" style="position:relative; top:50px; left:232px;color:#000;width:100px">JOIN NOW</a></span>
-        	<span><a href="form" style="position:relative; top:50px; left:232px;color:#000;">find out more</a></span>  	
-   
+    <div class="col-lg-6">
+    
+        	<img src="<c:url value="/resources/img/hand.png" />" alt="hand" class="visible-lg" style="position:relative; top:70px; left:232px;width:400px;height:350px;z-index:-1"/>
+        	<a href="form" style="position:absolute; top:290px; left:232px;color:#1072BB;width:500px; font-size:2.5em;">JOIN NOW</a>
+     		<a href="form" style="position:absolute; top:330px; left:232px;color:#5ACBFC; font-size:1.5em;">find out more</a>  	
+   </div>
 		
 	
 </div><!-- ./container -->

@@ -13,9 +13,10 @@ public class CompanyDto {
 	private String companySize;
 	private int companyFollower;
 	private String companyHQ;
-	private Industry industry;
+	private String companyService;
+	private String industry;
 	private List<ContactPersonDto> contactList = new ArrayList<ContactPersonDto>(0);
-	
+	private List<Users> userList = new ArrayList<Users>(0);
 	
 	public CompanyDto(){}
 	
@@ -72,6 +73,14 @@ public class CompanyDto {
 	public void setCompanyHQ(String companyHQ) {
 		this.companyHQ = companyHQ;
 	}
+	public String getCompanyService() {
+		return companyService;
+	}
+
+	public void setCompanyService(String companyService) {
+		this.companyService = companyService;
+	}
+
 	public List<ContactPersonDto> getContactList() {
 		return contactList;
 	}
@@ -79,12 +88,20 @@ public class CompanyDto {
 		this.contactList = contactList;
 	}
 	
-	public Industry getIndustry() {
+	public String getIndustry() {
 		return industry;
 	}
 
-	public void setIndustry(Industry industry) {
+	public void setIndustry(String industry) {
 		this.industry = industry;
+	}
+
+	public List<Users> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(List<Users> userList) {
+		this.userList = userList;
 	}
 	
 }
