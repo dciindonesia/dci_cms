@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class ContactPersonDto {
 	private int contactId;
 	private String contactName;
+	private String contactLastName;
+	private String contactPosition;
 	private String contactEmail;
 	private MultipartFile contactImg;
 	private String contactFoto;
@@ -31,12 +33,30 @@ public class ContactPersonDto {
 	public String getContactName() {
 		return contactName;
 	}
+	
 	/**
 	 * @param contactName the contactName to set
 	 */
 	public void setContactName(String contactName) {
 		this.contactName = contactName;
 	}
+	
+	public String getContactLastName() {
+		return contactLastName;
+	}
+	
+	public void setContactLastName(String contactLastName) {
+		this.contactLastName = contactLastName;
+	}
+	
+	public String getContactPosition() {
+		return contactPosition;
+	}
+	
+	public void setContactPosition(String contactPosition) {
+		this.contactPosition = contactPosition;
+	}
+	
 	/**
 	 * @return the contactEmail
 	 */

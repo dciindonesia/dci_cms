@@ -72,7 +72,7 @@ public class ContactPersonDaoImpl implements ContactPersonDao {
 	public void update(ContactPerson contactPerson) {
 		try {
 			log.debug("update ContactPerson instance " + contactPerson.getContactName());
-			this.sessionFactory.getCurrentSession().update(contactPerson);
+			this.sessionFactory.getCurrentSession().saveOrUpdate(contactPerson);
 			log.debug("update successful");
 		} catch (RuntimeException re) {
 			log.error("update failed", re);

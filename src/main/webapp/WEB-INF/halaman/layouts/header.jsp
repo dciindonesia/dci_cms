@@ -27,6 +27,10 @@
 		color: #fff;
 	}
 	
+	.navbar-default .navbar-nav > li > a {
+    color: #fff;
+}
+	
 	.navbar-nav > li > a {
     	padding-bottom: 19px;
     }
@@ -111,13 +115,13 @@
 						              <li class="divider" role="separator"></li>
 						              <li><a href="settingTmp"><span class="glyphicon glyphicon-refresh" aria-hidden="true">&nbsp;CONNECTIONS</a></li>
 						              <li class="divider" role="separator"></li>
-						              <li><a href="#"><span class="glyphicon glyphicon-comment" aria-hidden="true">&nbsp;PING</a></li>
+						              <li><a href="pingme"><span class="glyphicon glyphicon-comment" aria-hidden="true">&nbsp;PING</a></li>
 						              <li class="divider" role="separator"></li>
 						              <li><a href="<c:url value="/j_spring_security_logout" />" ><span class="glyphicon glyphicon-log-out" aria-hidden="true">&nbsp;LOGOUT</a></li>
 						            </ul>
 					          	</li>
 			                    <li class="li-cust">
-			                    <a class="btn btn-info btn-sm btn-cust" role="button" href="#">Ping Someone</a>
+			                    <a class="btn btn-info btn-sm btn-cust" role="button" href="pingme">Ping Someone</a>
 			                    </li>
 			                    </ul>
 			                	</div>

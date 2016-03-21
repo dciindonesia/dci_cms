@@ -49,6 +49,11 @@
 	</definition>
   	<!--  -->
   	
+  	<definition name="pingmePage" extends="custFull.definition">
+		<put-attribute name="title" value="Ping Me!!" />
+		<put-attribute name="body" value="/WEB-INF/halaman/admin/pingme.jsp" />
+	</definition>
+  	
   	<definition name="settingPage" extends="custFull.definition">
 		<put-attribute name="title" value="Setting Page" />
 		<put-attribute name="body" value="/WEB-INF/halaman/admin/setting.jsp" />

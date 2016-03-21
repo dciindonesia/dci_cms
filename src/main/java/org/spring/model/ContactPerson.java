@@ -31,6 +31,8 @@ public class ContactPerson implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int contactId;
 	private String contactName;
+	private String contactLastName;
+	private String contactPosition; 
 	private String contactEmail;
 	private String contactImg;
 //	@ManyToOne
@@ -42,8 +44,10 @@ public class ContactPerson implements Serializable{
 	
 	public ContactPerson(){}
 	
-	public ContactPerson (String contactName, String contactEmail, String contactImg, Company company) {
+	public ContactPerson (String contactName, String contactLastName, String contactPosition, String contactEmail, String contactImg, Company company) {
 		this.contactName = contactName;
+		this.contactLastName = contactLastName;
+		this.contactPosition = contactPosition;
 		this.contactEmail = contactEmail;
 		this.contactImg = contactImg;
 		this.company = company;
@@ -73,6 +77,23 @@ public class ContactPerson implements Serializable{
 	public void setContactName(String contactName) {
 		this.contactName = contactName;
 	}
+	
+	public String getContactLastName() {
+		return contactLastName;
+	}
+
+	public void setContactLastName(String contactLastName) {
+		this.contactLastName = contactLastName;
+	}
+
+	public String getContactPosition() {
+		return contactPosition;
+	}
+
+	public void setContactPosition(String contactPosition) {
+		this.contactPosition = contactPosition;
+	}
+
 	/**
 	 * @return the contactEmail
 	 */

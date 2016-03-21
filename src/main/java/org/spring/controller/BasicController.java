@@ -92,11 +92,11 @@ public class BasicController
   MailSender mailSender;
   
   @Autowired
-	private BlogService blogService;
+  BlogService blogService;
 
-	
+  @Autowired
+  FilesSave filesSave;
   
-  private FilesSave filesSave;
   private Long compId;
   /*
   @ModelAttribute("countries")
@@ -135,10 +135,9 @@ public class BasicController
   @RequestMapping({"/admin"})
   public String getAdminPage(Locale locale, HttpServletRequest request, Model model, Principal principal)
   {
-    logger.info("Welcome home! the client locale is " + locale.toString());
-
-    model.addAttribute("message", "Spring Security Hello World");
+	model.addAttribute("message", "Spring Security Hello World");
     String name = this.getSessionSecurity(principal);
+    if (name == "") { return "403"; }
     model.addAttribute("username", name);
     model.addAttribute("message", "Spring Security Custom Form example");
 
@@ -148,243 +147,96 @@ public class BasicController
     HttpSession session = request.getSession(true);
     session.setAttribute("userDetails", principals);
     
-    if (name == "") {
-    	return "403";
-    } else {
-    	return "adminpage";
-    }
+    return "adminpage";
   }
 
   @RequestMapping({"/listuser"})
   public String getListUser(Locale locale, Model model, Principal principal) {
     List<Users> users = this.usersDao.getAllUser();
     String name = this.getSessionSecurity(principal);
+    if (name == "") { return "403"; }
     model.addAttribute("username", name);
     model.addAttribute("userinv", new Users());
     model.addAttribute("userret", users);
     
-    if (name == "") {
-    	return "403";
-    } else {
-    	return "listuserpage";
-    }
+    return "listuserpage";
   }
   
   @RequestMapping(value={"/settingPrivacy"}, method={RequestMethod.GET})
   public String getSettingPrivacy(Model model) {
-		  //@RequestParam("companyId") Long companyId, Principal principal, HttpServletRequest request, Model model) {
-    //String name = this.getSessionSecurity(principal);
-    
-//    if (name == "") {
-//    	return "403";
-//    } else {
-    	return "settingPrivacyPage";
-//    }
+//    @RequestParam("companyId") Long companyId, Principal principal, HttpServletRequest request, Model model) {
+//	  String name = this.getSessionSecurity(principal);
+//    if (name == "") { return "403"; }
+    return "settingPrivacyPage";
   }
   
   @RequestMapping(value={"/settingCP"}, method={RequestMethod.GET})
-  public String getSettingCP( Principal principal, HttpServletRequest request, Model model) { //@RequestParam("companyId") Long companyId,
+  public String getSettingCP( Principal principal, HttpServletRequest request, Model model) {
     String name = this.getSessionSecurity(principal);
+    if (name == "") { return "403"; }
     Users users = usersDao.findByName(name);
     model.addAttribute("username", users.getName());
-    
-//    Company company = companyDao.findByName(users.getUsername());
-    Company company = companyDao.findById((long) 1);
-    
-    this.compId = company.getCompanyId();
-//    CompanyDto companyDto = new CompanyDto();
-//	  companyDto.setCompanyId(compId);
-    List<ContactPerson> cp = contactPersonDao.getAllContactPerson(compId);
-	List<ContactPersonDto> contactDtoList = new AutoPopulatingList<ContactPersonDto>(ContactPersonDto.class);
-	for (ContactPerson cpo : cp) {
-		ContactPersonDto cpDto = new ContactPersonDto();
-		cpDto.setContactId(cpo.getContactId());
-		cpDto.setContactName(cpo.getContactName());
-		cpDto.setContactEmail(cpo.getContactEmail());
-		String pathContactFoto = "resources" + File.separator + "img" + File.separator; //File.separator + "DCI" + 
-		cpDto.setContactFoto(pathContactFoto + cpo.getContactImg());
-		cpDto.setCompany(company);
-		contactDtoList.add(cpDto);
-//		  logger.info(cpDto.getContactId() + " " + cpDto.getContactName() + " " + cpDto.getContactEmail() + " " + cpDto.getContactFoto());
-	}
-//	companyDto.setContactList(contactDtoList);
-//    model.addAttribute("filess", this.setCompanyDto(company));
-	model.addAttribute("contactDtoList", contactDtoList);
+    Company company = users.getCompany();
+    this.compId = company.getCompanyId(); // --> set to getter-setter (Long) compId
+    model.addAttribute("contactDtoList", filesSave.setContactPersonDto(compId));
 	
+	// this method for button add new contact person (set null to default value) ...
 	ContactPersonDto newContact = new ContactPersonDto();
-	String pathContactFoto = "resources" + File.separator + "img" + File.separator; //File.separator + "DCI" + 
+	String pathContactFoto = "resources" + File.separator + "img" + File.separator; 
 	newContact.setContactFoto(pathContactFoto + "find_user.png");
 	model.addAttribute("newContact", newContact);
-    
-    if (name == "") {
-    	return "403";
-    } else {
-    	return "settingCPPage";
-    }
+	//..
+    return "settingCPPage";
   }
   
   @RequestMapping(value={"/settingCP"}, method={RequestMethod.POST})
   public String setSettingCP(@ModelAttribute("contactDtoList") List<ContactPersonDto> contactDtoList, Principal principal, HttpServletRequest request, Model model) {
     String name = this.getSessionSecurity(principal);
+    if (name == "") { return "403"; }
     Users users = usersDao.findByName(name);
     model.addAttribute("username", users.getName());
+    /* to save Image, use different method: setEditContact & setNewContact (see settingCP.jsp form action="")*/
     
-    
-    Company company = companyDao.findById(compId);
-    List<ContactPerson> cpList = contactPersonDao.getAllContactPerson(company.getCompanyId());
-    /*
-    for (ContactPerson cp : cpList) {
-    	if (cp.equals(companyDto.))
-    
-    String cpImageName = null;
-    if (companyDto.getCompanyLogo() != null) {
-  	  File fileSave = new File( request.getRealPath("/") + File.separator + "resources" + File.separator + "img" );
-        MultipartFile parts = companyDto.getCompanyLogo();
-        try {
-      	  byte[] bytes = parts.getBytes();
-      	  String cpImage = parts.getOriginalFilename();
-      	  String cpExtFile = cpImage.substring(cpImage.lastIndexOf("."), cpImage.length());
-      	  cpImageName = "Company-" + companyDto.getCompanyId() + cpExtFile;
-      	  File serverFile = new File( fileSave.getAbsoluteFile()
-  	    	+ File.separator + cpImageName);
-      	  if (serverFile.exists()) {serverFile.delete();}
-      	  	BufferedOutputStream stream = new BufferedOutputStream(
-  	    		new FileOutputStream(serverFile));
-      	  stream.write(bytes);
-      	  stream.close();
-        } catch (IOException e) {
-      	  e.printStackTrace();
-  	  }
-  	}
-    
-    } // for
-    */
-//    company.set
-    
-    if (name == "") {
-    	return "403";
-    } else {
-    	return "redirect:/settingCPPage";
-    }
+    return "redirect:/settingCPPage";
   }
   
-  public CompanyDto setCompanyDto(Company company) {
-	CompanyDto companyDto = new CompanyDto();
-	companyDto.setCompanyId(company.getCompanyId());
-	companyDto.setCompanyName(company.getCompanyName());
-	companyDto.setCompanyDesc(company.getCompanyDesc());
-	companyDto.setCompanySize(company.getCompanySize());
-	companyDto.setCompanyFollower(company.getCompanyFollower());
-	companyDto.setCompanyHQ(company.getCompanyHQ());
-	File logoPath = new File( File.separator + "DCI" + File.separator + "resources" + File.separator + "img" + File.separator);
-	companyDto.setCompanyImage(logoPath + company.getCompanyLogo());
-	
-	List<ContactPerson> cp = contactPersonDao.getAllContactPerson(company.getCompanyId());
-	List<ContactPersonDto> contactDtoList = new AutoPopulatingList<ContactPersonDto>(ContactPersonDto.class);
-//	List<ContactPersonDto> contactDtoList = new ArrayList<ContactPersonDto>();
-	for (ContactPerson cpo : cp) {
-		ContactPersonDto cpDto = new ContactPersonDto();
-		cpDto.setContactId(cpo.getContactId());
-		cpDto.setContactName(cpo.getContactName());
-		cpDto.setContactEmail(cpo.getContactEmail());
-		String pathContactFoto = File.separator + "resources" + File.separator + "img" + File.separator; //File.separator + "DCI" + 
-		cpDto.setContactFoto(pathContactFoto + cpo.getContactImg());
-		contactDtoList.add(cpDto);
-//		  logger.info(cpDto.getContactId() + " " + cpDto.getContactName() + " " + cpDto.getContactEmail() + " " + cpDto.getContactFoto());
-	}
-	companyDto.setContactList(contactDtoList);
-	
-	return companyDto;
-  }
-  
+  @SuppressWarnings("deprecation")
   @RequestMapping(value={"/editContact"}, method={RequestMethod.POST})
   public String setEditContact(@ModelAttribute("contactPersonDto") ContactPersonDto contactPersonDto, HttpServletRequest request,  Principal principal, Model model) { //  MultipartHttpServletRequest request, 
 	String name = this.getSessionSecurity(principal);
+	if (name == "") { return "403"; }
 	Users users = usersDao.findByName(name);
     model.addAttribute("username", users.getName());
-    
-    String nameImage = contactPersonDto.getContactImg().getOriginalFilename();
-	String extFile = nameImage.substring(nameImage.lastIndexOf("."), nameImage.length());
-	String imageName = "Contact-" + compId + contactPersonDto.getContactId() + extFile;
-    
-    ContactPerson contactPerson = contactPersonDao.findById(contactPersonDto.getContactId());
-    contactPerson.setContactName(contactPersonDto.getContactName() == null ? contactPerson.getContactName() : contactPersonDto.getContactName());
-    contactPerson.setContactEmail(contactPersonDto.getContactEmail() == null ? contactPerson.getContactEmail() : contactPersonDto.getContactEmail());
-    contactPerson.setCompany(companyDao.findById(compId));
-	
-    File fileSave = new File( request.getRealPath("/") + File.separator + "resources" + File.separator + "img" );
-    try {
-		byte[] bytes = contactPersonDto.getContactImg().getBytes();
-	    String rootPath = fileSave.getAbsolutePath();
-		File dir = new File(rootPath);
-	    File serverFile = new File( dir.getAbsoluteFile()
-	    		+ File.separator + imageName);
-	    if (serverFile.exists()) {serverFile.delete();}
-	    BufferedOutputStream stream = new BufferedOutputStream(
-	    		new FileOutputStream(serverFile));
-	    stream.write(bytes);
-		stream.close();
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
-    
-    contactPerson.setContactImg(imageName);
-    contactPersonDao.update(contactPerson);
-    
-    if (name == "") {
-    	return "403";
-    } else {
-    	return "redirect:/recent";
-    }
+    contactPersonDao.update(filesSave.saveContactPerson(contactPersonDto, this.compId, request.getRealPath("/") + File.separator + "resources" + File.separator + "img"));
+    return "redirect:/settingCPPage";
   }
   
+  @SuppressWarnings("deprecation")
   @RequestMapping(value={"/newContact"}, method={RequestMethod.POST})
   public String setNewContact(@ModelAttribute("contactPersonDto") ContactPersonDto contactPersonDto, HttpServletRequest request,  Principal principal, Model model) { //  MultipartHttpServletRequest request, 
 	String name = this.getSessionSecurity(principal);
+	if (name == "") { return "403"; }
 	Users users = usersDao.findByName(name);
     model.addAttribute("username", users.getName());
     
-    String nameImage = contactPersonDto.getContactImg().getOriginalFilename();
-	String extFile = nameImage.substring(nameImage.lastIndexOf("."), nameImage.length());
-	
+    /****
+     * JUST FOR NOTE.
+     * IF USING AUTOWIRED, DO NOT USE "New Class" AGAIN!!
+     * THIS WILL IMPACT THE TARGET CLASS CAN NOT USE '@'AUTOWIRED AGAIN...
+     * 
+     * 
+     *  filesSave = new FilesSave(request.getRealPath("/") + File.separator + "resources" + File.separator + "img");
+     *  
+     */
     
-    ContactPerson contactPerson = new ContactPerson();
-    contactPerson.setContactName(contactPersonDto.getContactName() == null ? contactPerson.getContactName() : contactPersonDto.getContactName());
-    contactPerson.setContactEmail(contactPersonDto.getContactEmail() == null ? contactPerson.getContactEmail() : contactPersonDto.getContactEmail());
-    contactPerson.setCompany(companyDao.findById(compId));
-	contactPersonDao.persist(contactPerson, compId);
-	int contactIds = contactPerson.getContactId(); 
-    String imageName = "Contact-" + compId + contactIds + extFile;
-    
-    File fileSave = new File( request.getRealPath("/") + File.separator + "resources" + File.separator + "img" );
-    try {
-		byte[] bytes = contactPersonDto.getContactImg().getBytes();
-	    String rootPath = fileSave.getAbsolutePath();
-		File dir = new File(rootPath);
-	    File serverFile = new File( dir.getAbsoluteFile()
-	    		+ File.separator + imageName);
-	    if (serverFile.exists()) {serverFile.delete();}
-	    BufferedOutputStream stream = new BufferedOutputStream(
-	    		new FileOutputStream(serverFile));
-	    stream.write(bytes);
-		stream.close();
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
-    
-    contactPerson.setContactImg(imageName);
-    contactPersonDao.update(contactPerson);
-    
-    if (name == "") {
-    	return "403";
-    } else {
-    	return "redirect:/recent";
-    }
+    contactPersonDao.update(filesSave.saveContactPerson(contactPersonDto, this.compId, request.getRealPath("/") + File.separator + "resources" + File.separator + "img"));
+    return "redirect:/settingCPPage";
   }
   
   @RequestMapping(value={"/editCP"}, method={RequestMethod.POST})
   public String setEditCP(@ModelAttribute("companyDtos") CompanyDto companyDto, HttpServletRequest request,  Principal principal, Model model) { //  MultipartHttpServletRequest request, 
 	String name = this.getSessionSecurity(principal);
+	if (name == "") { return "403"; }
     Users users = usersDao.findByName(name);
     model.addAttribute("username", users.getName());
     Company companies = companyDao.findById(companyDto.getCompanyId());
@@ -416,38 +268,36 @@ public class BasicController
 	} catch (IOException e) {
 		e.printStackTrace();
 	}
-    if (name == "") {
-    	return "403";
-    } else {
-    	return "redirect:/custCommon";
-    }
+    return "redirect:/custCommon";
+  }
+  
+  @RequestMapping(value={"/pingme"}, method={RequestMethod.GET})
+  public String getPingme(@ModelAttribute("companyModel") Company company, HttpServletRequest request,  Principal principal, Model model) { //  MultipartHttpServletRequest request, 
+	String name = this.getSessionSecurity(principal);
+	if (name == "") { return "403"; }
+	Users users = usersDao.findByName(name);
+    model.addAttribute("username", users.getName());
     
+    return "pingmePage";
   }
   
   @RequestMapping(value={"/setting"}, method={RequestMethod.GET})
   public String getSettingPage(Principal principal, Model model) {
 	  String name = this.getSessionSecurity(principal);
+	  if (name == "") { return "403"; }
 	  Users users = usersDao.findByName(name);
 	  model.addAttribute("username", users.getName());
-	  
-	  if (name == "") {
-	    	return "403";
-	    } else {
-	    	return "settingPage";
-	    }
+	  model.addAttribute("users", users);
+	  return "settingPage";
   }
   
   @RequestMapping(value={"/setting"}, method={RequestMethod.POST})
   public String setSettingPage(Principal principal, Model model) {
 	  String name = this.getSessionSecurity(principal);
+	  if (name == "") { return "403"; }
 	  Users users = usersDao.findByName(name);
 	  model.addAttribute("username", users.getName());
-	  
-	  if (name == "") {
-	    	return "403";
-	    } else {
-	    	return "redirect:/customerList";
-	    }
+	  return "redirect:/customerList";
   }
   
   
@@ -455,46 +305,36 @@ public class BasicController
   @RequestMapping(value={"/settingTmp"}, method={RequestMethod.GET})
   public String getSettingTmpPage(Principal principal, Model model) {
 	  String name = this.getSessionSecurity(principal);
-    Users users = usersDao.findByName(name);
-    model.addAttribute("username", users.getName());
-    CompanyDto companyDto = new CompanyDto();
-    List<ContactPersonDto> contactsList = new AutoPopulatingList<ContactPersonDto>(ContactPersonDto.class);
-    companyDto.setContactList(contactsList);
-    model.addAttribute("filess",companyDto);
-    
-    if (name == "") {
-    	return "403";
-    } else {
-    	return "settingTmpPage";
-    }
+	  if (name == "") { return "403"; }
+	  Users users = usersDao.findByName(name);
+	  model.addAttribute("username", users.getName());
+	  CompanyDto companyDto = new CompanyDto();
+	  List<ContactPersonDto> contactsList = new AutoPopulatingList<ContactPersonDto>(ContactPersonDto.class);
+	  companyDto.setContactList(contactsList);
+	  model.addAttribute("filess",companyDto);
+	  return "settingTmpPage";
   }
   
   @SuppressWarnings("deprecation")
   @RequestMapping(value={"/settingTmp"}, method={RequestMethod.POST})
   public String setSettingTmpPage(@ModelAttribute("filess") CompanyDto filesDto, BindingResult result, HttpServletRequest request, SessionStatus status, Principal principal, Model model) {
-	  for (ContactPersonDto	cp : filesDto.getContactList()) {
-		  System.out.println(cp.getContactName());
-	  }
-		  
 	  String name = this.getSessionSecurity(principal);
-	    Users users = usersDao.findByName(name);
-	    model.addAttribute("username", users.getName());
-	    Industry industry = industryDao.findById(Integer.parseInt(filesDto.getIndustry()));
-	    Company companies = new Company(filesDto.getCompanyName(), filesDto.getCompanyDesc(), filesDto.getCompanySize(), filesDto.getCompanyFollower(), filesDto.getCompanyHQ(), industry);
-	    String nameImage = filesDto.getCompanyLogo().getOriginalFilename();
-    	String extFile = nameImage.substring(nameImage.lastIndexOf("."), nameImage.length());
-    	Long companyIds = companyDao.persist(companies);
-    	String imageName = "Company-" + companyIds + extFile;
-	    File fileSave = new File( request.getRealPath("/") + File.separator + "resources" + File.separator + "img" );
-    	filesSave = new FilesSave(imageName, filesDto, fileSave.getAbsolutePath() , companies);
-    	filesSave.saveFile();
-    	
-    	int counter = 1;
-    	for (ContactPersonDto cpDto : filesDto.getContactList()) {
-			
-			MultipartFile parts = cpDto.getContactImg();
-			
-			try {
+	  if (name == "") { return "403"; }
+	  Users users = usersDao.findByName(name);
+	  model.addAttribute("username", users.getName());
+	  Industry industry = industryDao.findById(Integer.parseInt(filesDto.getIndustry()));
+	  Company companies = new Company(filesDto.getCompanyName(), filesDto.getCompanyDesc(), filesDto.getCompanySize(), filesDto.getCompanyFollower(), filesDto.getCompanyHQ(), industry);
+	  String nameImage = filesDto.getCompanyLogo().getOriginalFilename();
+	  String extFile = nameImage.substring(nameImage.lastIndexOf("."), nameImage.length());
+	  Long companyIds = companyDao.persist(companies);
+	  String imageName = "Company-" + companyIds + extFile;
+	  File fileSave = new File( request.getRealPath("/") + File.separator + "resources" + File.separator + "img" );
+	  filesSave = new FilesSave(imageName, filesDto, fileSave.getAbsolutePath() , companies);
+	  filesSave.saveFile();
+	  int counter = 1;
+	  for (ContactPersonDto cpDto : filesDto.getContactList()) {
+		MultipartFile parts = cpDto.getContactImg();
+		try {
 				byte[] bytes = parts.getBytes();
 				String cpImage = parts.getOriginalFilename();
 				String cpExtFile = cpImage.substring(cpImage.lastIndexOf("."), cpImage.length());
@@ -507,25 +347,17 @@ public class BasicController
 			    stream.write(bytes);
 				stream.close();
 				
-				ContactPerson contactPerson = new ContactPerson(cpDto.getContactName(), cpDto.getContactEmail(), cpImageName, companies);
+				ContactPerson contactPerson = new ContactPerson(cpDto.getContactName(), cpDto.getContactLastName(), cpDto.getContactPosition(), cpDto.getContactEmail(), cpImageName, companies);
 				contactPersonDao.persist(contactPerson, companies.getCompanyId());
 				counter++;
-			} catch (IOException e) {
+		} catch (IOException e) {
 				System.out.println(e.getMessage());
 				e.printStackTrace();
-			}
 		}
-    	
-    	
-    	companies.setCompanyLogo(imageName);
-		companyDao.update(companies);
-		
-	  
-	  if (name == "") {
-	    	return "403";
-	    } else {
-	    	return "redirect:/customerList";
-	    }
+	}
+    companies.setCompanyLogo(imageName);
+	companyDao.update(companies);
+	return "redirect:/customerList";
   }
   
   @RequestMapping(value={"/forget"}, method={RequestMethod.GET})
@@ -586,62 +418,48 @@ public class BasicController
   @RequestMapping(value={"/edit"}, method={RequestMethod.GET})
   public String getEditPage(@RequestParam("id") String uid, HttpServletRequest request, HttpServletResponse response, ModelMap model, Principal principal)
   {
-	  String name = this.getSessionSecurity(principal);
-    model.addAttribute("username", name);
-
-    Users users = this.usersDao.findById(uid);
-    List<Role> groupList = this.roleDao.findByUsers(users.getUsername());
-
-    UsersDTO usersDTO = new UsersDTO();
-    usersDTO.setUsers(users);
-    usersDTO.setRoles(groupList);
-
-    model.addAttribute("usersDTO", usersDTO);
-
-    
-    if (name == "") {
-    	return "403";
-    } else {
-    	return "editpage";
-    }
+	 String name = this.getSessionSecurity(principal);
+	 if (name == "") { return "403"; }
+//    Users users = this.usersDao.findById(uid);
+	 Users users = usersDao.findByName(name);
+	 model.addAttribute("username", users.getName());
+	 List<Role> groupList = this.roleDao.findByUsers(users.getUsername());
+	 UsersDTO usersDTO = new UsersDTO();
+	 usersDTO.setUsers(users);
+	 usersDTO.setRoles(groupList);
+	 model.addAttribute("usersDTO", usersDTO);
+	 return "editpage";
   }
 
   @SuppressWarnings({ "rawtypes", "unchecked" })
 @RequestMapping(value={"/edit"}, method={RequestMethod.POST})
   public String setEdit(@ModelAttribute("usersDTO") UsersDTO usersDTO, BindingResult result, HttpServletRequest request, SessionStatus status, Principal principal, Model model)
   {
-	  String name = this.getSessionSecurity(principal);
-    model.addAttribute("username", name);
-    String[] userGrpArray = request.getParameterValues("usergroups");
-    List<Role> grpList = new ArrayList();
-    for (String str : userGrpArray) {
-      Role usrGroup = this.roleDao.findById(str);
-      grpList.add(usrGroup);
-    }
-    Users user = usersDTO.getUsers();
-    user.setRoles(new HashSet(grpList));
-    this.usersDao.update(user);
-    status.setComplete();
-
-    
-    if (name == "") {
-    	return "403";
-    } else {
-    	return "redirect:/listuser";
-    }
+	 String name = this.getSessionSecurity(principal);
+	 if (name == "") { return "403"; } 
+	 Users users = usersDao.findByName(name);
+	 model.addAttribute("username", users.getName());
+	 String[] userGrpArray = request.getParameterValues("usergroups");
+	 List<Role> grpList = new ArrayList();
+	 for (String str : userGrpArray) {
+		 Role usrGroup = this.roleDao.findById(str);
+		 grpList.add(usrGroup);
+	 }
+	 Users user = usersDTO.getUsers();
+	 user.setRoles(new HashSet(grpList));
+	 this.usersDao.update(user);
+//	 status.setComplete();
+	 return "redirect:/listuser";
   }
 
   @RequestMapping(value={"/recent"}, method={RequestMethod.GET})
   public String getUser(ModelMap model, Principal principal)
   {
 	String name = this.getSessionSecurity(principal);
+	if (name == "") { return "403"; }
     Users users = this.usersDao.findByName(name);
     model.addAttribute("username", users.getName().toUpperCase());
-    if (name == "") {
-    	return "403";
-    } else {
-    	return "recentPage";
-    }
+    return "recentPage";
   }
 
   @RequestMapping(value={"/login"}, method={RequestMethod.GET})
@@ -673,6 +491,7 @@ public class BasicController
   public String getCustomerCommon(@RequestParam("companyId") Long custId, HttpServletRequest request, ModelMap model, Principal principal)
   {
 	  String name = this.getSessionSecurity(principal);
+	  if (name == "") { return "403"; }
 	  Users users = this.usersDao.findByName(name);
 	  model.addAttribute("username", users.getName().toUpperCase());
 	  this.compId = custId;
@@ -704,41 +523,37 @@ public class BasicController
 	  companyDto.setContactList(contactDtoList);
 	  model.addAttribute("companyDto", companyDto);
 	  model.addAttribute("companyDtos", companyDto);
-	  
-	  if (name == "") {
-	    	return "403";
-	    } else {
-	    	return "custCommonPage";
-	    }
+	  return "custCommonPage";
   }
   
   @RequestMapping(value={"/custCommon"}, method={RequestMethod.POST})
   public String setCustomerCommon(@ModelAttribute("companyDtos") CompanyDto companyDto,  HttpServletRequest request, ModelMap model, Principal principal)
   {
-//	  logger.info(companyDto.getCompanyName()); // + " " + companyDto.getCompanyId() + " " + companyDto.getCompanyLogo().getOriginalFilename());
 	  String name = this.getSessionSecurity(principal);
+	  if (name == "") { return "403"; }
+	  Users users = this.usersDao.findByName(name);
+	  model.addAttribute("username", users.getName());
 	  Company company = companyDao.findById(companyDto.getCompanyId());
 	  Company companyBuffer = new Company();
 	  String cpImageName = null;
-	  
 	  if (companyDto.getCompanyLogo() != null) {
-	  File fileSave = new File( request.getRealPath("/") + File.separator + "resources" + File.separator + "img" );
-      MultipartFile parts = companyDto.getCompanyLogo();
-      try {
-    	  byte[] bytes = parts.getBytes();
-    	  String cpImage = parts.getOriginalFilename();
-    	  String cpExtFile = cpImage.substring(cpImage.lastIndexOf("."), cpImage.length());
-    	  cpImageName = "Company-" + companyDto.getCompanyId() + cpExtFile;
-    	  File serverFile = new File( fileSave.getAbsoluteFile()
-	    	+ File.separator + cpImageName);
-    	  if (serverFile.exists()) {serverFile.delete();}
-    	  	BufferedOutputStream stream = new BufferedOutputStream(
-	    		new FileOutputStream(serverFile));
-    	  stream.write(bytes);
-    	  stream.close();
-      } catch (IOException e) {
-    	  e.printStackTrace();
-	  }
+		  File fileSave = new File( request.getRealPath("/") + File.separator + "resources" + File.separator + "img" );
+	      MultipartFile parts = companyDto.getCompanyLogo();
+	      try {
+	    	  byte[] bytes = parts.getBytes();
+	    	  String cpImage = parts.getOriginalFilename();
+	    	  String cpExtFile = cpImage.substring(cpImage.lastIndexOf("."), cpImage.length());
+	    	  cpImageName = "Company-" + companyDto.getCompanyId() + cpExtFile;
+	    	  File serverFile = new File( fileSave.getAbsoluteFile()
+		    	+ File.separator + cpImageName);
+	    	  if (serverFile.exists()) {serverFile.delete();}
+	    	  	BufferedOutputStream stream = new BufferedOutputStream(
+		    		new FileOutputStream(serverFile));
+	    	  stream.write(bytes);
+	    	  stream.close();
+	      } catch (IOException e) {
+	    	  e.printStackTrace();
+		  }
 	  }
 	  companyBuffer.setCompanyId(company.getCompanyId());
 	  companyBuffer.setCompanyName(companyDto.getCompanyName() == null ? company.getCompanyName() : companyDto.getCompanyName());
@@ -751,20 +566,15 @@ public class BasicController
 	  Industry industry = industryDao.findById(1);
 	  companyBuffer.setIndustry(companyDto.getIndustry() == null ? industry : industryDao.findById(Integer.parseInt(companyDto.getIndustry())));
 	  companyDao.update(companyBuffer);
-	  
-	  if (name == "") {
-	    	return "403";
-	    } else {
-	    	return "redirect:/custCommon?companyId=" + companyDto.getCompanyId();
-	    }
+	  return "redirect:/custCommon?companyId=" + companyDto.getCompanyId();
   }
   
   @RequestMapping(value={"/customerSearch"}, method={RequestMethod.POST})
   public String getCustomerSearch(ModelMap model, HttpServletRequest request, Principal principal)
   {
 	  String name = this.getSessionSecurity(principal);
+	  if (name == "") { return "403"; }
 	  String searchTxt = request.getParameter("searchInput");
-	  
 	  Users users = this.usersDao.findByName(name);
 	  model.addAttribute("username", users.getName().toUpperCase());
 //	  companyDao.getAllCompSearch(searchTxt);
@@ -782,31 +592,23 @@ public class BasicController
 		  companies.add(comp);
 	  }
 	  model.addAttribute("companyList", companies);
-	  
-	  if (name == "") {
-	    	return "403";
-	    } else {
-	    	return "custListPage";
-	    }
+	  return "custListPage";
   }
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
   @RequestMapping(value={"/customerList"}, method={RequestMethod.GET})
   public String getCustomerList(ModelMap model, HttpServletRequest request, Principal principal)
   {
-	  
 	  String name = this.getSessionSecurity(principal);
+	  if (name == "") { return "403"; }
 	  Users users = this.usersDao.findByName(name);
 	  model.addAttribute("username", users.getName().toUpperCase());
-	  
 	  List companies = new ArrayList();
 	  /*
 	  String rootPath = System.getProperty("catalina.home");
 	  String rpath=request.getRealPath("/");
 	  File dir = new File(rpath);
-	  
 	  */
-	  
 	  for (Company comp : companyDao.getAllCompany()) {
 		 // File serverFile = new File( dir.getAbsoluteFile()
 		  //  		+ File.separator + "resources" + File.separator + "img" + File.separator + comp.getCompanyLogo());
@@ -815,17 +617,11 @@ public class BasicController
 		  
 		  comp.setCompanyLogo(path);
 		  companies.add(comp);
-	  }
-			  
+	  }	  
 	  //Registration companies = registrationDao.findById((long) 1);
 	  //System.out.println(companies.getCompany());
 	  model.addAttribute("companyList", companies);
-	  
-	  if (name == "") {
-	    	return "403";
-	    } else {
-	    	return "custListPage";
-	    }
+	  return "custListPage";
   }
 
   @RequestMapping(value={"/form"}, method={RequestMethod.GET})
@@ -859,41 +655,69 @@ public class BasicController
     return "deniedpage";
   }
   
-  @RequestMapping(value ="/account", method = RequestMethod.GET)
+  /*
+   * 
+    public CompanyDto setCompanyDto(Company company) {
+	CompanyDto companyDto = new CompanyDto();
+	companyDto.setCompanyId(company.getCompanyId());
+	companyDto.setCompanyName(company.getCompanyName());
+	companyDto.setCompanyDesc(company.getCompanyDesc());
+	companyDto.setCompanySize(company.getCompanySize());
+	companyDto.setCompanyFollower(company.getCompanyFollower());
+	companyDto.setCompanyHQ(company.getCompanyHQ());
+	File logoPath = new File( File.separator + "DCI" + File.separator + "resources" + File.separator + "img" + File.separator);
+	companyDto.setCompanyImage(logoPath + company.getCompanyLogo());
+	
+	List<ContactPerson> cp = contactPersonDao.getAllContactPerson(company.getCompanyId());
+	List<ContactPersonDto> contactDtoList = new AutoPopulatingList<ContactPersonDto>(ContactPersonDto.class);
+//	List<ContactPersonDto> contactDtoList = new ArrayList<ContactPersonDto>();
+	for (ContactPerson cpo : cp) {
+		ContactPersonDto cpDto = new ContactPersonDto();
+		cpDto.setContactId(cpo.getContactId());
+		cpDto.setContactName(cpo.getContactName());
+		cpDto.setContactEmail(cpo.getContactEmail());
+		String pathContactFoto = File.separator + "resources" + File.separator + "img" + File.separator; //File.separator + "DCI" + 
+		cpDto.setContactFoto(pathContactFoto + cpo.getContactImg());
+		contactDtoList.add(cpDto);
+//		  logger.info(cpDto.getContactId() + " " + cpDto.getContactName() + " " + cpDto.getContactEmail() + " " + cpDto.getContactFoto());
+	}
+	companyDto.setContactList(contactDtoList);
+	
+	return companyDto;
+  }
+   */
+  
+  	@RequestMapping(value ="/account", method = RequestMethod.GET)
 	public String account(Model model, Principal principal) {
 	  String name = this.getSessionSecurity(principal);
+	  if (name == "") { return "403"; }
+	  Users users = this.usersDao.findByName(name);
+	  model.addAttribute("username", users.getName().toUpperCase());
 //		model.addAttribute("user", userService.findOneWithBlogs(name));
-		
-		if (name == "") {
-	    	return "403";
-	    } else {
-	    	return "account";
-	    }
+	  return "account";
 	}
 
 	@RequestMapping(value = "/account", method = RequestMethod.POST)
 	public String doAddBlog(Model model,
 			@Valid @ModelAttribute("blog") Blog blog, BindingResult result,
 			Principal principal) {
-		String name = this.getSessionSecurity(principal);
-		if (result.hasErrors()) {
-			return account(model, principal);
-		}
-		blogService.save(blog, name);
-		
-		if (name == "") {
-	    	return "403";
-	    } else {
-	    	return "redirect:/account.html";
-	    }
+	   String name = this.getSessionSecurity(principal);
+	   if (name == "") { return "403"; }
+	   Users users = this.usersDao.findByName(name);
+	   model.addAttribute("username", users.getName().toUpperCase());
+	   if (result.hasErrors()) {
+		   return account(model, principal);
+	   }
+	   blogService.save(blog, name);
+	   return "redirect:/account.html";
 	}
   
 
-public Long getCompId() {
-	return compId;
-}
-
-public void setCompId(Long compId) {
-	this.compId = compId;
-}
+	public Long getCompId() {
+		return compId;
+	}
+	
+	public void setCompId(Long compId) {
+		this.compId = compId;
+	}
 }

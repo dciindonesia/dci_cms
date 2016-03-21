@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
@@ -50,6 +51,10 @@ public class Users implements UserDetails, Serializable {
 
 	    @Column(name = "EMAIL")
 	    private String email;
+	    
+	    @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$",
+	             message="{invalid.phonenumber}")
+	    private String phone;
 
 	    @Column(name = "ENABLED")
 	    private boolean enabled;
@@ -144,7 +149,15 @@ public class Users implements UserDetails, Serializable {
 	        this.email = email;
 	    }
 
-	    public boolean isEnabled() {
+	    public String getPhone() {
+			return phone;
+		}
+
+		public void setPhone(String phone) {
+			this.phone = phone;
+		}
+
+		public boolean isEnabled() {
 	        return enabled;
 	    }
 	    

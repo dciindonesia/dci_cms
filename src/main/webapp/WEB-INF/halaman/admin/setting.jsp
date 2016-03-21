@@ -42,7 +42,7 @@
 <body style="background-color:#FFF">
 <div class="container" style="margin-top:40px;">
 
-	<div class="panel panel-primary" style="height: 450px; width:95%; background-color:#FFF;">
+	<div class="panel panel-primary" style="height: 510px; width:95%; background-color:#FFF;">
 	
 	<div class="panel-heading">
     	<p style="font-size:16px;"class="panel-title"><i class="glyphicon glyphicon-cog"></i>&nbsp;&nbsp;Settings</p>
@@ -50,7 +50,7 @@
     
     <div class="panel-body">
     	<div class="row">
-			<div class="col-sm-4">        
+			<div class="col-lg-3">        
 		    	<ul>
 		    		<li style="color:#1F8CD2;font-size:16px; padding-top:50px;"><a href="#"><i class="glyphicon glyphicon-cog" ></i>&nbsp;&nbsp;General</a></li>
 		    		<li style="color:#1F8CD2;font-size:16px; padding-top:20px;"><a href="settingCP"><i class="glyphicon glyphicon-user" ></i>&nbsp;&nbsp;Account</a></li>
@@ -61,128 +61,37 @@
 		    
 		    
 		    
-		    <div class="col-sm-8" style="padding-top:10%;color:#1F8CD2;">
-		    	<div>
-			    	<div class='hoverCustomLogo' style='width:330px;height:30px;'>
-							<p style="position:relative; top:4px;font-size:20px;color:#FFF;left:300px;">
-								<a href="#" data-toggle="modal" data-target="#modalAccount"><i style='color:#FFFFFF;' class="glyphicon glyphicon-pencil" aria-hidden="true"></i></a>
-							</p>
-					</div>
-					<p><i style="font-size:22px;" class="glyphicon glyphicon-user" ></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Administrator</p>
+		    <div class="col-lg-6 col-lg-3-offset" style="padding-top:10%;color:#1F8CD2;">
+		    <form action="setting" method="POST" commandName="users">
+		    	<input type="hidden" name="userId" value="${users.userId }" class="hidden">
+		    	<div class="input-group">
+					  <span class="input-group-addon" id="basic-addon1" style="background-color:#FFF">
+					  	<i style="font-size:22px;color:#1F8CD2;" class="glyphicon glyphicon-user" ></i>
+					  </span>
+					  <input type="text" name="name" value="${users.name }"class="form-control" placeholder="Username" aria-describedby="basic-addon1">
 				</div>
-		   
-		        
-			<form:form cssClass="form-horizontal blogForm" >
-			<!-- Modal -->
-			<div class="modal fade" id="modalAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  <div class="modal-dialog">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			        <h4 class="modal-title" id="myModalLabel">Edit Account Name</h4>
-			      </div>
-			      <div class="modal-body">
-					<div class="form-group">
-						<label class="col-sm-2 control-label">Insert Full Name</label>
-						<div class="col-sm-10">
-							Administrator
-						</div>
-					</div>
-			
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			        <input type="submit" class="btn btn-primary" value="Save" />
-			      </div>
-			    </div>
-			  </div>
-			</div>
-			</form:form>
-			
+				<br>
+				<div class="input-group">
+					  <span class="input-group-addon" id="basic-addon2" style="background-color:#FFF">
+					  	<i style="font-size:22px;color:#1F8CD2;" class="glyphicon glyphicon-envelope" ></i>
+					  </span>
+					  <input type="text" name="email" value="${users.email }"class="form-control" placeholder="Email" aria-describedby="basic-addon2" disabled="true">
+				</div>
+				<br>
+		    	<div class="input-group">
+					  <span class="input-group-addon" id="basic-addon3" style="background-color:#FFF">
+					  	<i style="font-size:22px;color:#1F8CD2;" class="glyphicon glyphicon-phone-alt" ></i>
+					  </span>
+					  <input type="text" value="08111111111" class="form-control" placeholder="Phone" aria-describedby="basic-addon3">
+				</div>
+		    	<br>
 			<div>
-		    	<div class='hoverCustomLogo' style='width:330px;height:30px;'>
-						<p style="position:relative; top:4px;font-size:20px;color:#FFF;left:300px;">
-							<a href="#" data-toggle="modal" data-target="#modalEmail"><i style='color:#FFFFFF;' class="glyphicon glyphicon-pencil" aria-hidden="true"></i></a>
-						</p>
-				</div>
-				<p><i style="font-size:22px;" class="glyphicon glyphicon-envelope" ></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;admin@dci-indonesia.com</p>
-			</div>
-		   
-		        
-			<form:form cssClass="form-horizontal blogForm" >
-			<!-- Modal -->
-			<div class="modal fade" id="modalEmail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  <div class="modal-dialog">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			        <h4 class="modal-title" id="myModalLabel">Edit Email Address</h4>
-			      </div>
-			      <div class="modal-body">
-					<div class="form-group">
-						<label class="col-sm-2 control-label">Insert your Email address</label>
-						<div class="col-sm-10">
-							admin@dci-indonesia.com
-						</div>
-					</div>
-			
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			        <input type="submit" class="btn btn-primary" value="Save" />
-			      </div>
-			    </div>
-			  </div>
-			</div>
-			</form:form>
-			
-		    
-		    
-		    <div>
-		    	<div class='hoverCustomLogo' style='width:330px;height:30px;'>
-						<p style="position:relative; top:4px;font-size:20px;color:#FFF;left:300px;">
-							<a href="#" data-toggle="modal" data-target="#modalPhone"><i style='color:#FFFFFF;' class="glyphicon glyphicon-pencil" aria-hidden="true"></i></a>
-						</p>
-				</div>
-				<p><i style="font-size:22px;" class="glyphicon glyphicon-phone-alt" ></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;08111111111</p>
-			</div>
-		   
-		        
-			<form:form cssClass="form-horizontal blogForm" >
-			<!-- Modal -->
-			<div class="modal fade" id="modalPhone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  <div class="modal-dialog">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			        <h4 class="modal-title" id="myModalLabel">Edit Phone Number</h4>
-			      </div>
-			      <div class="modal-body">
-					<div class="form-group">
-						<label class="col-sm-2 control-label">Phone Number</label>
-						<div class="col-sm-10">
-							08111111111
-						</div>
-					</div>
-			
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			        <input type="submit" class="btn btn-primary" value="Save" />
-			      </div>
-			    </div>
-			  </div>
-			</div>
-			</form:form>
-			
-			
-			<div>
-		    	<div class='hoverCustomLogo' style='width:330px;height:30px;'>
-						<p style="position:relative; top:4px;font-size:20px;color:#FFF;left:300px;">
+		    	<div class='hoverCustomLogo' style='width:240px;height:30px;'>
+						<p style="position:relative; top:4px;font-size:20px;color:#FFF;left:215px;">
 							<a href="#" data-toggle="modal" data-target="#modalPassword"><i style='color:#FFFFFF;' class="glyphicon glyphicon-pencil" aria-hidden="true"></i></a>
 						</p>
 				</div>
-				<p><i style="font-size:22px;" class="glyphicon glyphicon-lock" ></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Change password</p>
+				<p style="padding-left:12px;"><i style="font-size:22px;" class="glyphicon glyphicon-lock" ></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Change password</p>
 			</div>
 		   
 		        
@@ -195,11 +104,15 @@
 			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			        <h4 class="modal-title" id="myModalLabel">Change Password</h4>
 			      </div>
-			      <div class="modal-body">
+			      <div class="modal-body" style="height:195px;">
 					<div class="form-group">
-						<label class="col-sm-2 control-label">Insert your new Password</label>
+						
 						<div class="col-sm-10">
-							Password
+							<input type="text" class="input-text-cust form-control" placeholder="old password" />
+							<hr>
+							<input type="text" class="input-text-cust form-control" placeholder="new password" />
+							<br>
+							<input type="text" class="input-text-cust form-control" placeholder="confirm new password" />
 						</div>
 					</div>
 			
@@ -219,7 +132,10 @@
 			
 			<br><br><br><br><br>
 			<a href="recent" class="pull-right" style="padding-right:110px;font-size:20px;">Confirm Changes</a>	
+			
+			</form>
 			</div>
+			
 		</div>
     </div>
 	
